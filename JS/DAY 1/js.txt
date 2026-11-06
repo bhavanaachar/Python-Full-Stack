@@ -1,0 +1,99 @@
+1. Introduction to JavaScript
+
+- JavaScript (JS) is a scripting and programming language used to make webpages interactive and dynamic.
+- It is used to add functionality to HTML webpages.
+- JavaScript can handle events, validate forms, perform calculations and manipulate webpage content.
+- JavaScript is commonly used for both frontend and backend development.
+- JavaScript files are saved with the .js extension.
+- HTML defines the structure, CSS handles styling, and JavaScript handles functionality.
+
+2. History of JavaScript
+- JavaScript was created by Brendan Eich in 1995.
+- Initially, it was named Mocha.
+- Later, it was renamed LiveScript.
+- Finally, it became JavaScript.
+- JavaScript is standardized under ECMAScript (ES).
+- ES6 (ECMAScript 2015) introduced many important features.
+
+3. Features of JavaScript
+- Lightweight and interpreted/JIT-compiled.
+- Dynamically typed language.
+- Object-based and supports object-oriented programming.
+- Case-sensitive language.
+- Supports event handling.
+- Platform-independent in modern JavaScript environments.
+- client side scripting language
+- synchronous in nature
+- weakly typed language
+
+4. Ways to Implement JavaScript
+There are three ways to add JavaScript to HTML.
+
+1. Inline JavaScript
+- JavaScript is written directly inside an HTML element.
+- It uses event attributes such as onclick.
+Example:
+<button onclick="alert('Hello World')">
+    Click Me
+</button>
+
+
+2. Internal JavaScript
+- JavaScript is written inside the <script> tag.
+- The script tag can be placed inside the HTML document.
+Example:
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Internal JS</title>
+</head>
+<body>
+
+    <script>
+        console.log("Hello World");
+    </script>
+
+</body>
+</html>
+
+
+3. External JavaScript
+- JavaScript is written in a separate .js file.
+- It is connected to HTML using the <script> tag with the src attribute.
+Example:
+
+HTML (index.html):
+<!DOCTYPE html>
+<html>
+<head>
+    <title>External JS</title>
+</head>
+<body>
+
+    <h1>Hello JavaScript</h1>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+JavaScript (script.js):
+console.log("Hello World");
+
+
+5. Difference Between Three Types
+Inline JS	Internal JS	External JS
+Inside HTML element	Inside <script> tag	Separate .js file
+Uses event attributes	Uses script tag	Uses src attribute
+Suitable for simple events	Suitable for single pages	Suitable for multiple pages
+
+6. Output Methods in JavaScript
+JavaScript provides different methods to display output.
+
+1. console.log():Displays output in the browser console.
+console.log("Hello World");
+
+
+2. alert() Displays a popup message.
+alert("Welcome to JavaScript");
+

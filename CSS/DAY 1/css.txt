@@ -1,0 +1,84 @@
+1. Introduction to CSS
+- CSS stands for Cascading Style Sheets.
+- CSS is used to style and design HTML webpages.
+- It is used to add colours, backgrounds, fonts, spacing and layouts.
+- CSS is not a programming language; it is a style sheet language.
+- CSS files are saved with the .css extension.
+- HTML creates the structure, whereas CSS adds styling to the webpage.
+
+2. History of CSS
+- CSS was proposed by Hackon Wium Lie in 1994.
+- CSS1 was released in 1996.
+- CSS2 was released in 1998.
+- CSS3 introduced several advanced styling features.
+3. CSS Syntax
+
+CSS follows a predefined syntax.
+
+Syntax:
+selector {
+    property: value;
+}
+
+
+Example:
+h1 {
+    color: red;
+    font-size: 30px;
+}
+
+
+Explanation:
+- Selector :Selects the HTML element.
+- Property :Specifies what to style.
+- Value :Specifies how to style it.
+
+4. Ways to Implement CSS
+There are three ways to add CSS to an HTML document.
+
+1. Inline CSS
+
+- CSS is written directly inside the HTML opening tag using the style attribute.
+
+Example:
+<h1 style="color: red;">Hello World</h1>
+
+
+2. Internal CSS
+- CSS is written inside the <style> tag.
+- The style tag is placed inside the <head> section.
+Example:
+<head>
+    <style>
+        h1 {
+            color: blue;
+        }
+    </style>
+</head>
+
+
+3. External CSS
+- CSS is written in a separate .css file.
+- The external CSS file is connected to HTML using the <link> tag.
+Example:
+
+HTML (index.html):
+<head>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Hello World</h1>
+</body>
+
+
+CSS (style.css):
+h1 {
+    color: green;
+}
+
+
+5. Difference Between Three Types of CSS
+Inline CSS	                Internal CSS	             External CSS
+Inside HTML element	        Inside <style> tag	         Separate CSS file
+Uses style attribute	    Uses <style> tag	         Uses <link> tag
+Styles a specific element	Styles one webpage	         Can style multiple webpages
