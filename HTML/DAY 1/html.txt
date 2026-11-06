@@ -5,6 +5,7 @@
 - HTML is not case-sensitive, but generally lowercase letters are preferred.
 - HTML describes the structure and content of a webpage using tags and elements.
 - HTML was developed by Tim Berners-Lee.
+
 2. History of HTML
 - HTML was invented by Tim Berners-Lee in 1991.
 - HTML 1.0 was the first version.
@@ -13,6 +14,7 @@
 - HTML 4.01 was released in 1999.
 - HTML5 became a major web standard in 2014.
 - HTML is maintained as a Living Standard by WHATWG.
+
 3. Structure of HTML
 Every HTML document follows a basic structure.
 
@@ -34,6 +36,7 @@ Example:
 
 
 Explanation of each tag:
+
 Tag	Description
 <!DOCTYPE html>	Defines the document as HTML5.
 <html>	Root element of an HTML document.
@@ -43,12 +46,15 @@ Tag	Description
 <body>	Contains the visible content of the webpage.
 
 Important meta tags:
-- <meta charset="UTF-8"> – Supports different characters and symbols.
-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> – Helps make the webpage responsive on different screen sizes.
+
+- <meta charset="UTF-8"> Supports different characters and symbols.
+- <meta name="viewport" content="width=device-width, initial-scale=1.0"> Helps make the webpage responsive on different screen sizes.
+
 4. Tags in HTML
 - Tags are predefined keywords enclosed within angular brackets (< >).
 - Each tag has a predefined purpose.
 - Tags are used to define different elements on a webpage.
+
 Example:
 <h1>Welcome</h1>
 <p>This is my first webpage.</p>
@@ -58,12 +64,14 @@ Here:
 - <h1> is the opening tag.
 - Welcome is the content.
 - </h1> is the closing tag.
+
 5. Types of Tags
 There are two main types of tags:
 
 1. Paired Tags (Container Tags)
 - Tags that consist of both opening and closing tags are called paired tags.
 - They contain content between the opening and closing tags.
+
 Examples:
 <p>This is a paragraph.</p>
 <h1>This is a heading.</h1>
@@ -73,6 +81,7 @@ Examples:
 2. Unpaired Tags (Empty Tags)
 - Tags that do not require a closing tag are called unpaired or empty tags.
 - They do not wrap content.
+
 Examples:
 <br>
 <hr>
@@ -82,6 +91,7 @@ Examples:
 6. HTML Elements
 - An HTML element consists of an opening tag, content and a closing tag.
 - An element represents a particular part of a webpage.
+
 Example:
 <p>Hello HTML</p>
 
@@ -89,19 +99,19 @@ Example:
 Here, the complete structure is called an HTML element.
 
 Difference between Tag and Element:
-Tag	Element
+Tag	                            Element
 Defined using angular brackets.	Complete structure of HTML.
-Example: <p>	Example: <p>Hello</p>
-Represents markup.	Includes tags and content.
+Example: <p>	                Example: <p>Hello</p>
+Represents markup.	            Includes tags and content.
 
 7. HTML Attributes
 - Attributes provide additional information about HTML elements.
 - Attributes are always specified in the opening tag.
 - Attributes usually consist of a name and a value.
 - They help modify the behaviour or appearance of elements.
+
 Syntax:
 <tagname attribute="value">Content</tagname>
-
 
 Examples:
 <p style="color:red;">Hello World</p>
@@ -112,20 +122,21 @@ Examples:
 
 
 Common attributes:
-Attribute	Purpose
-id	Gives a unique identity to an element.
-class	Groups elements for styling.
-style	Applies inline CSS.
-title	Provides additional information.
-src	Specifies the source of an image or media.
-href	Specifies a hyperlink destination.
-alt	Provides alternative text for an image.
+Attribute	                 Purpose
+id	                         Gives a unique identity to an element.
+class	                     Groups elements for styling.
+style	                     Applies inline CSS.
+title	                     Provides additional information.
+src	                         Specifies the source of an image or media.
+href	                     Specifies a hyperlink destination.
+alt	                         Provides alternative text for an image.
 
 8. HTML Headings
 - HTML provides six levels of headings.
 - Headings are used to define titles and subtitles.
 - <h1> represents the most important heading.
 - <h6> represents the least important heading.
+
 Example:
 <h1>Heading 1</h1>
 <h2>Heading 2</h2>
@@ -135,29 +146,23 @@ Example:
 <h6>Heading 6</h6>
 
 
-Output preview
-Heading 1
-Heading 2
-Heading 3
-Heading 4
-
-Heading 5
-
-Heading 6
-
 9. HTML Paragraph Tag
+
 - The <p> tag is used to define a paragraph.
 - It is a paired tag.
 - Browsers automatically add some space before and after paragraphs.
+
 Example:
 <p>HTML is used to create webpages.</p>
 <p>CSS is used to style webpages.</p>
 
 
 10. HTML Line Break and Horizontal Rule
+
 Line Break (<br>)
 - It is used to break a line and move the content to the next line.
 - It is an unpaired tag.
+
 Example:
 <p>Hello<br>Welcome to HTML</p>
 
@@ -166,6 +171,7 @@ Horizontal Rule (<hr>)
 - It is used to create a horizontal line.
 - It is generally used to separate content.
 - It is an unpaired tag.
+
 Example:
 <h2>HTML</h2>
 <hr>
@@ -176,6 +182,7 @@ Example:
 - Comments are used to write notes inside HTML code.
 - Comments are not displayed in the browser.
 - They help developers understand the code.
+
 Syntax:
 <!-- This is an HTML comment -->
 
@@ -183,19 +190,20 @@ Syntax:
 
 
 12. HTML Text Formatting Tags
+
 These tags are used to format text.
-Tag	Purpose
-<b>	Makes text bold.
-<strong>	Indicates important text (usually bold).
-<i>	Makes text italic.
-<em>	Emphasizes text (usually italic).
-<u>	Underlines text.
-<mark>	Highlights text.
-<small>	Displays smaller text.
-<del>	Displays deleted text with a strike-through.
-<ins>	Indicates inserted text (usually underlined).
-<sub>	Displays subscript text.
-<sup>	Displays superscript text.
+Tag	                                  Purpose
+<b>	                                  Makes text bold.
+<strong>	                          Indicates important text (usually bold).
+<i>	                                  Makes text italic.
+<em>	                              Emphasizes text (usually italic).
+<u>	                                  Underlines text.
+<mark>	                              Highlights text.
+<small>	                              Displays smaller text.
+<del>	                              Displays deleted text with a strike-through.
+<ins>	                              Indicates inserted text (usually underlined).
+<sub>	                              Displays subscript text.
+<sup>	                              Displays superscript text.
 
 Example:
 <p><b>Bold Text</b></p>

@@ -82,10 +82,10 @@ console.log("Hello World");
 
 
 5. Difference Between Three Types
-Inline JS	Internal JS	External JS
-Inside HTML element	Inside <script> tag	Separate .js file
-Uses event attributes	Uses script tag	Uses src attribute
-Suitable for simple events	Suitable for single pages	Suitable for multiple pages
+Inline JS	                  Internal JS	                 External JS
+Inside HTML element	          Inside <script> tag	         Separate .js file
+Uses event attributes	      Uses script tag	             Uses src attribute
+Suitable for simple events	  Suitable for single pages	     Suitable for multiple pages
 
 6. Output Methods in JavaScript
 JavaScript provides different methods to display output.

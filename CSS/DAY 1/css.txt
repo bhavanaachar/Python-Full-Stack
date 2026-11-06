@@ -1,4 +1,5 @@
 1. Introduction to CSS
+
 - CSS stands for Cascading Style Sheets.
 - CSS is used to style and design HTML webpages.
 - It is used to add colours, backgrounds, fonts, spacing and layouts.
@@ -7,6 +8,7 @@
 - HTML creates the structure, whereas CSS adds styling to the webpage.
 
 2. History of CSS
+
 - CSS was proposed by Hackon Wium Lie in 1994.
 - CSS1 was released in 1996.
 - CSS2 was released in 1998.
@@ -14,7 +16,6 @@
 3. CSS Syntax
 
 CSS follows a predefined syntax.
-
 Syntax:
 selector {
     property: value;
