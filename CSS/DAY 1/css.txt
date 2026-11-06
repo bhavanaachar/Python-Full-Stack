@@ -60,6 +60,7 @@ Example:
 3. External CSS
 - CSS is written in a separate .css file.
 - The external CSS file is connected to HTML using the <link> tag.
+
 Example:
 
 HTML (index.html):
