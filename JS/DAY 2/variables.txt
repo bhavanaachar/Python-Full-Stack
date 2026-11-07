@@ -1,0 +1,210 @@
+1. Variables in JavaScript
+--------------------------
+- A variable is a named container used to store data.
+- Variables are declared using: var, let, const.
+
+Syntax:
+keyword variableName = value;
+
+Example:
+let age = 20;
+const country = "India";
+var city = "Bengaluru";
+
+
+1.1 var
+- Oldest way of declaring variables (before ES6).
+- Function scoped.
+- Can be re-declared and updated.
+- Hoisted and initialized with undefined.
+Example:
+var x = 10;
+var x = 20;      // re-declaration allowed
+x = 30;          // update allowed
+
+
+1.2 let
+- Introduced in ES6 (2015).
+- Block scoped.
+- Cannot be re-declared in the same scope, but can be updated.
+- Hoisted but NOT initialized (Temporal Dead Zone).
+Example:
+let y = 10;
+y = 20;          // update allowed
+// let y = 30;   // Error: already declared
+
+
+1.3 const
+- Introduced in ES6 (2015).
+- Block scoped.
+- Cannot be re-declared or reassigned.
+- Must be initialized at the time of declaration.
+Example:
+const pi = 3.14;
+// pi = 3.15;    // Error: assignment to constant variable
+// const z;      // Error: missing initializer
+
+Note: For objects and arrays declared with const, the contents can be
+changed, but the variable cannot be reassigned.
+const arr = [1, 2, 3];
+arr.push(4);     // allowed
+// arr = [5, 6]; // Error
+
+
+Difference between var, let and const
+var                        let                         const
+Function scoped            Block scoped                Block scoped
+Re-declare allowed         Re-declare not allowed      Re-declare not allowed
+Update allowed             Update allowed              Update not allowed
+Initialize optional        Initialize optional         Initialize required
+Hoisted (undefined)        Hoisted (TDZ)               Hoisted (TDZ)
+
+
+1.4 Scope Example
+{
+    var a = 1;
+    let b = 2;
+    const c = 3;
+}
+console.log(a);   // 1  (var ignores block scope)
+// console.log(b); // Error: b is not defined
+// console.log(c); // Error: c is not defined
+
+
+1.5 Hoisting
+- JavaScript moves declarations to the top of their scope before execution.
+console.log(x);   // undefined
+var x = 5;
+
+// console.log(y); // ReferenceError (Temporal Dead Zone)
+let y = 5;
+
+
+1.6 Rules for Naming Variables (Identifiers)
+- Names can contain letters, digits, underscore (_) and dollar sign ($).
+- Names must begin with a letter, underscore or dollar sign.
+- Names cannot start with a digit.
+- Names are case-sensitive (age and Age are different).
+- Reserved keywords cannot be used (let, var, if, for, class, etc.).
+- Spaces are not allowed.
+Valid:    name, _count, $price, userName, age1
+Invalid:  1name, my name, let, user-name
+
+
+1.7 Naming Conventions
+- camelCase is recommended: firstName, totalMarks
+- Constants are often written in UPPERCASE: MAX_SIZE
+- Use meaningful names.
+
+
+2. Data Types in JavaScript
+---------------------------
+JavaScript is dynamically typed: the type is decided at runtime and a
+variable can hold different types at different times.
+
+let x = 10;       // number
+x = "Hello";      // now string
+
+Data types are divided into two groups:
+1. Primitive data types
+2. Non-primitive (reference) data types
+
+
+6.1 Primitive Data Types
+Primitive types store a single value and are immutable.
+There are 7 primitive types:
+
+1. Number
+- Stores integers and decimals.
+let a = 25;
+let b = 3.14;
+Special values: Infinity, -Infinity, NaN (Not a Number)
+console.log(10 / 0);      // Infinity
+console.log("abc" * 2);   // NaN
+
+2. String
+- Text enclosed in single quotes, double quotes or backticks.
+let s1 = 'Hello';
+let s2 = "World";
+let s3 = `Hello ${s2}`;   // template literal
+console.log(s3);          // Hello World
+
+3. Boolean
+- Only two values: true or false.
+let isLogged = true;
+let isAdmin = false;
+
+4. Undefined
+- A variable declared but not given a value.
+let a;
+console.log(a);   // undefined
+
+5. Null
+- Represents an intentional empty or "no value".
+let b = null;
+
+6. BigInt
+- Used for very large integers (add n at the end).
+let big = 123456789012345678901234567890n;
+
+7. Symbol
+- Creates a unique and immutable identifier.
+let id = Symbol("id");
+
+
+6.2 Non-Primitive (Reference) Data Types
+These store collections of values or complex data.
+
+1. Object:An object is a collection of related data stored as key-value pairs (properties). 
+Each key is a name, and each value can be any data type, including another object or a function.
+
+let student = {
+    name: "Ravi",
+    age: 20,
+    course: "BCA"
+};
+console.log(student.name);    // Ravi
+
+2. Array:An array is an ordered list of values stored under a single variable name. 
+Each value is called an element and is accessed by its index, which starts at 0. An array can hold mixed types.
+
+let colors = ["red", "green", "blue"];
+console.log(colors[0]);       // red
+
+3. Function:A function is a reusable block of code that performs a specific task
+
+function greet() {
+    return "Hello";
+}
+
+
+6.3 typeof Operator
+- Returns the data type of a value.
+Example:
+console.log(typeof 10);          // number
+console.log(typeof "Hi");        // string
+console.log(typeof true);        // boolean
+console.log(typeof undefined);   // undefined
+console.log(typeof null);        // object  (known JS quirk/bug)
+console.log(typeof 10n);         // bigint
+console.log(typeof Symbol());    // symbol
+console.log(typeof [1, 2]);      // object
+console.log(typeof {});          // object
+console.log(typeof function(){}); // function
+
+
+6.4 Difference between null and undefined
+undefined                          null
+Variable declared, no value        Intentionally set to "no value"
+Assigned automatically by JS       Assigned by the programmer
+typeof gives undefined             typeof gives object
+
+
+6.5 Difference between Primitive and Non-Primitive
+Primitive                          Non-Primitive
+Stores a single value              Stores multiple/complex values
+Stored by value                    Stored by reference
+Immutable                          Mutable
+Number, String, Boolean etc.       Object, Array, Function
+
+
