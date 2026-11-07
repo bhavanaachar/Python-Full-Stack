@@ -95,6 +95,17 @@ Examples:
 Example:
 <p>Hello HTML</p>
 
+Types of elements:
+1. Block level elements:
+->Always starts on a new line
+->occupies the full available width of its parent container/ or it occupies entire width of the viewport.
+ex: all heading tags, <div>
+
+2. Inline level elements:
+-> It doesnt always starts on same line
+->occupies only content level width
+Ex:<span>
+
 
 Here, the complete structure is called an HTML element.
 
@@ -191,7 +202,11 @@ Syntax:
 
 12. HTML Text Formatting Tags
 
-These tags are used to format text.
+These tags are used to format text based content for better look and feel.
+Types of formatting tags:
+1. Physical formatting tags: It focuses only on physical apperaence of text.
+2. Logical tags: These tags are used to give some logical or semantic meaning to the text.
+
 Tag	                                  Purpose
 <b>	                                  Makes text bold.
 <strong>	                          Indicates important text (usually bold).

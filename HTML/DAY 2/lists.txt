@@ -1,0 +1,253 @@
+HTML SEMANTIC TAGS AND LISTS
+
+1. SEMANTIC TAGS
+
+Semantic tags: The tags themselves define the meaning and purpose of the content to the browser.
+
+Examples:
+<header>, <article>, <main>, <nav>, <section>, <footer>
+
+Uses of Semantic Tags:
+- Helps browsers understand the structure of a webpage.
+- Improves SEO (Search Engine Optimization).
+- Improves accessibility.
+- Makes code easier to read and maintain.
+
+Common Semantic Tags:
+
+<header> - Defines the header of a webpage or section.
+<nav> - Defines navigation links.
+<main> - Defines the main content of a webpage.
+<section> - Defines a section of related content.
+<article> - Defines independent and self-contained content.
+<aside> - Defines additional or sidebar content.
+<footer> - Defines the footer of a webpage.
+
+2. NON-SEMANTIC TAGS
+
+Non-semantic tags: The tags do not define the meaning or purpose of the content to the browser.
+
+Examples:
+<div>, <span>
+
+Uses:
+- Used as containers to group HTML elements.
+- Mainly used for styling and layout.
+- Do not provide specific meaning to the content.
+
+3. HTML LISTS
+
+HTML lists are used to specify a collection of related information or items.
+
+TYPES OF LISTS:
+
+1. Ordered List
+2. Unordered List
+3. Descriptive List
+4. Nested List
+
+1. ORDERED LIST (<ol>)
+
+- The list which follows a particular order is called an ordered list.
+- In an ordered list, all the elements are marked with numbers by default.
+- Hence, it is also referred to as a numbered list.
+- We can change the numbering style using the type attribute.
+- To create an ordered list, we use <ol>.
+- To provide items inside a list, we use <li>.
+
+Syntax:
+
+<ol>
+    <li>HTML</li>
+    <li>CSS</li>
+    <li>JS</li>
+</ol>
+
+ATTRIBUTES OF ORDERED LIST:
+
+A. TYPE ATTRIBUTE
+
+- By default, the list is displayed with numbers.
+- We can change the numbering style using the type attribute.
+
+Values:
+1 - Numbers (Default)
+A - Uppercase letters
+a - Lowercase letters
+I - Uppercase Roman numerals
+i - Lowercase Roman numerals
+
+Example:
+
+<ol type="A">
+    <li>HTML</li>
+    <li>CSS</li>
+    <li>JavaScript</li>
+</ol>
+
+B. REVERSED ATTRIBUTE
+
+- Used to reverse the order of list numbering.
+- It displays the list in descending order.
+
+Example:
+
+<ol reversed>
+    <li>HTML</li>
+    <li>CSS</li>
+    <li>JavaScript</li>
+</ol>
+
+Output:
+3. HTML
+2. CSS
+1. JavaScript
+
+C. START ATTRIBUTE
+
+- Used to specify the starting number of an ordered list.
+- The start attribute accepts numerical values.
+
+Example:
+
+<ol start="5">
+    <li>HTML</li>
+    <li>CSS</li>
+    <li>JavaScript</li>
+</ol>
+
+Output:
+5. HTML
+6. CSS
+7. JavaScript
+
+2. UNORDERED LIST (<ul>)
+
+- The list which does not follow a particular sequence is called an unordered list.
+- In an unordered list, all elements are marked with disc bullets by default.
+- Hence, it is also referred to as a bulleted list.
+- To create an unordered list, we use <ul>.
+- To provide items inside a list, we use <li>.
+
+Syntax:
+
+<ul>
+    <li>APPLE</li>
+    <li>MANGO</li>
+    <li>GUAVA</li>
+</ul>
+
+TYPES OF BULLETS:
+
+1. disc - Filled circle (Default).
+2. circle - Empty circle.
+3. square - Square bullet.
+4. none - No bullet.
+
+Example:
+
+<ul style="list-style-type: square;">
+    <li>Apple</li>
+    <li>Mango</li>
+    <li>Guava</li>
+</ul>
+
+NOTE:
+In modern HTML, the type attribute of <ul> is obsolete.
+We use the CSS property list-style-type to change bullet styles.
+
+3. DESCRIPTIVE LIST (<dl>)
+
+- This list is used to display items along with their descriptions.
+- It is also called a description list.
+- It is less commonly used compared to ordered and unordered lists.
+- To create a descriptive list, we use <dl>.
+- To provide the title or term, we use <dt>.
+- To provide the description, we use <dd>.
+
+Syntax:
+
+<dl>
+    <dt>JAVA</dt>
+    <dd>High-level programming language</dd>
+
+    <dt>HTML</dt>
+    <dd>HyperText Markup Language</dd>
+</dl>
+
+Explanation:
+
+<dl> - Description list.
+<dt> - Description term/title.
+<dd> - Description data.
+
+4. NESTED LIST
+
+- A list which is present inside another list is called a nested list.
+- We can create nested ordered and unordered lists.
+- The nested list should be placed inside the parent <li> element.
+
+Example:
+
+<ol>
+    <li>Frontend Skills
+        <ul>
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JavaScript</li>
+            <li>React</li>
+        </ul>
+    </li>
+
+    <li>Backend Skills
+        <ul>
+            <li>Java</li>
+            <li>Python</li>
+            <li>MongoDB</li>
+        </ul>
+    </li>
+
+    <li>Database
+        <ul>
+            <li>SQL</li>
+        </ul>
+    </li>
+</ol>
+
+5. CSS PROPERTIES USED WITH LISTS
+
+CSS provides properties to customize the appearance of lists.
+
+1. list-style-type:
+   Used to change the bullet or numbering style.
+
+2. list-style-position:
+   Used to specify the position of bullets.
+   Values: inside, outside.
+
+3. list-style-image:
+   Used to display an image instead of a bullet.
+
+4. list-style:
+   Shorthand property used to specify multiple list styles.
+
+Example:
+
+ul {
+    list-style-type: square;
+    list-style-position: inside;
+}
+
+6. DIFFERENCE BETWEEN ORDERED AND UNORDERED LISTS
+
+Ordered List:
+- Uses <ol> tag.
+- Follows a particular sequence.
+- Displays numbers or letters.
+- Used for steps and rankings.
+
+Unordered List:
+- Uses <ul> tag.
+- Does not require a particular sequence.
+- Displays bullet points.
+- Used for general collections of items.
