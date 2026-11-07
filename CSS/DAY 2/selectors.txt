@@ -1,0 +1,839 @@
+CSS SELECTORS - COMPLETE IN-DEPTH NOTES
+=======================================
+
+WHAT IS A CSS SELECTOR?
+-----------------------
+A CSS selector is the part of a CSS rule that tells the browser WHICH HTML
+elements the style should be applied to.
+
+Anatomy of a CSS rule:
+
+    selector {                 <-- selector: what to style
+        property: value;       <-- declaration 1
+        property: value;       <-- declaration 2
+    }
+
+Example:
+
+    h1 {
+        color: blue;
+        font-size: 30px;
+    }
+
+    h1            = selector
+    color         = property
+    blue          = value
+    color: blue;  = declaration
+
+TYPES OF SELECTORS
+------------------
+1. Simple selectors
+2. Combinator selectors
+3. Pseudo-class selectors
+4. Pseudo-element selectors
+5. Attribute selectors
+
+
+##########################################################################
+1. SIMPLE SELECTORS
+##########################################################################
+Select elements based on name, id or class.
+
+    -> id selector (#)
+    -> class selector (.)
+    -> grouping selector (,)
+    -> universal selector (*)
+    -> tag name selector
+
+
+==========================================================================
+1.1 ID SELECTOR (#)
+==========================================================================
+DEFINITION
+  - Uses the "id" attribute of an HTML element to select ONE specific element.
+  - The id of an element must be UNIQUE within a page.
+  - To select an element with a specific id, write a hash (#) character
+    followed by the id name.
+
+SYNTAX
+    #idname {
+        property: value;
+    }
+
+EXAMPLE
+  HTML:
+    <h1 id="main-title">Welcome</h1>
+    <p id="intro">This is the intro.</p>
+    <p>This is a normal paragraph.</p>
+
+  CSS:
+    #main-title {
+        color: darkblue;
+        text-align: center;
+    }
+
+    #intro {
+        font-size: 20px;
+        background-color: yellow;
+    }
+
+  RESULT: Only the elements with those exact ids are styled.
+
+RULES / POINTS TO REMEMBER
+  - An id name cannot start with a number (e.g. #1box is invalid in CSS
+    without escaping).
+  - id names are case-sensitive: #Intro and #intro are different.
+  - One element can have only ONE id.
+  - The same id should not be repeated on a page.
+  - id has HIGH specificity (100), stronger than class and tag.
+  - Also used for page anchors:  <a href="#intro">Go to intro</a>
+
+
+==========================================================================
+1.2 CLASS SELECTOR (.)
+==========================================================================
+DEFINITION
+  - Selects HTML elements with a specific "class" attribute.
+  - A class can be used by MANY elements on the same page.
+  - To select elements with a specific class, write a period (.) character
+    followed by the class name.
+
+SYNTAX
+    .classname {
+        property: value;
+    }
+
+EXAMPLE
+  HTML:
+    <h2 class="highlight">Heading</h2>
+    <p class="highlight">Paragraph one</p>
+    <p>Paragraph two</p>
+
+  CSS:
+    .highlight {
+        color: white;
+        background-color: black;
+        padding: 10px;
+    }
+
+  RESULT: Both the <h2> and the first <p> are styled.
+
+ELEMENT-SPECIFIC CLASS
+    p.highlight {
+        color: red;
+    }
+  RESULT: Only <p> elements with class="highlight" are styled
+          (the <h2> is NOT affected).
+
+MULTIPLE CLASSES ON ONE ELEMENT
+  HTML:
+    <p class="big bold">Hello</p>
+
+  CSS:
+    .big  { font-size: 30px; }
+    .bold { font-weight: bold; }
+
+  RESULT: The element gets BOTH styles.
+
+SELECTING AN ELEMENT THAT HAS TWO CLASSES AT ONCE (no space)
+    .big.bold {
+        color: red;
+    }
+  RESULT: Only elements having BOTH classes "big" and "bold".
+
+RULES / POINTS TO REMEMBER
+  - Class names are case-sensitive.
+  - A class name cannot start with a digit.
+  - An element can have many classes separated by a space.
+  - Class specificity = 10 (more than tag, less than id).
+  - Classes are reusable - this is why they are the most used selector.
+
+
+==========================================================================
+1.3 GROUPING SELECTOR (,)
+==========================================================================
+DEFINITION
+  - Selects ALL the listed elements that share the same style.
+  - Selectors are separated by a COMMA.
+  - It reduces code and avoids repetition.
+
+SYNTAX
+    selector1, selector2, selector3 {
+        property: value;
+    }
+
+EXAMPLE (without grouping - repeated code)
+    h1 { color: navy; text-align: center; }
+    h2 { color: navy; text-align: center; }
+    p  { color: navy; text-align: center; }
+
+EXAMPLE (with grouping - short code)
+    h1, h2, p {
+        color: navy;
+        text-align: center;
+    }
+
+MIXING DIFFERENT SELECTOR TYPES
+    h1, .note, #footer, p.intro {
+        font-family: Arial, sans-serif;
+    }
+
+IMPORTANT NOTE
+  - If one selector in the group is invalid, the WHOLE rule may be ignored
+    by the browser (in older browsers). Check each selector carefully.
+
+
+==========================================================================
+1.4 UNIVERSAL SELECTOR (*)
+==========================================================================
+DEFINITION
+  - Selects ALL elements on the page.
+  - Written with an asterisk (*).
+
+SYNTAX
+    * {
+        property: value;
+    }
+
+EXAMPLE 1 - Reset margin and padding
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+EXAMPLE 2 - Select all elements inside a specific element
+  HTML:
+    <div class="box">
+        <p>Para</p>
+        <span>Span</span>
+    </div>
+
+  CSS:
+    .box * {
+        color: red;
+    }
+  RESULT: Every element inside .box becomes red.
+
+POINTS TO REMEMBER
+  - Specificity of * is 0 (lowest).
+  - Using it on huge pages may slightly affect performance.
+  - Mostly used for CSS resets.
+
+
+==========================================================================
+1.5 TAG NAME (ELEMENT / TYPE) SELECTOR
+==========================================================================
+DEFINITION
+  - Selects ALL HTML elements with the given tag name.
+  - Written as the plain element name, with no symbol.
+
+SYNTAX
+    tagname {
+        property: value;
+    }
+
+EXAMPLE
+    p {
+        color: gray;
+        line-height: 1.6;
+    }
+
+    h1 {
+        font-size: 36px;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+  RESULT: Every <p>, <h1> and <a> in the page is styled.
+
+POINTS TO REMEMBER
+  - Tag names are not case-sensitive in HTML (P and p both work),
+    but lowercase is the standard.
+  - Specificity = 1 (very low), so class and id override it.
+
+
+##########################################################################
+2. COMBINATOR SELECTORS
+##########################################################################
+DEFINITION
+  A combinator explains the RELATIONSHIP between two selectors.
+  A combinator selector is made of two or more simple selectors joined
+  by a combinator.
+
+There are 4 combinators:
+    1) Descendant combinator        (space)
+    2) Child combinator             (>)
+    3) Adjacent sibling combinator  (+)
+    4) General sibling combinator   (~)
+
+SAMPLE HTML USED FOR ALL EXAMPLES BELOW
+    <div>
+        <p>Paragraph 1 (child of div)</p>
+        <section>
+            <p>Paragraph 2 (grandchild of div)</p>
+        </section>
+    </div>
+    <p>Paragraph 3 (sibling after div)</p>
+    <p>Paragraph 4 (sibling after div)</p>
+
+
+==========================================================================
+2.1 DESCENDANT SELECTOR (space)
+==========================================================================
+DEFINITION
+  Selects ALL elements that are descendants (children, grandchildren, and
+  so on, at ANY depth) of a specified element.
+
+SYNTAX
+    ancestor descendant {
+        property: value;
+    }
+
+EXAMPLE
+    div p {
+        color: red;
+    }
+
+  RESULT: Paragraph 1 AND Paragraph 2 turn red (both are inside the div,
+          at any level). Paragraphs 3 and 4 are NOT affected.
+
+
+==========================================================================
+2.2 CHILD SELECTOR (>)
+==========================================================================
+DEFINITION
+  Selects only the DIRECT children of a specified element
+  (one level only, not grandchildren).
+
+SYNTAX
+    parent > child {
+        property: value;
+    }
+
+EXAMPLE
+    div > p {
+        color: blue;
+    }
+
+  RESULT: ONLY Paragraph 1 turns blue. Paragraph 2 is inside <section>,
+          so it is not a direct child of div.
+
+DIFFERENCE: "div p" vs "div > p"
+    div p   -> all p at any depth inside div
+    div > p -> only p that are direct children of div
+
+
+==========================================================================
+2.3 ADJACENT SIBLING SELECTOR (+)
+==========================================================================
+DEFINITION
+  Selects the element that comes IMMEDIATELY AFTER another element, where
+  both share the same parent. Only ONE element (the very next sibling)
+  is selected.
+
+SYNTAX
+    element1 + element2 {
+        property: value;
+    }
+
+EXAMPLE
+    div + p {
+        background-color: yellow;
+    }
+
+  RESULT: Only Paragraph 3 (the p immediately after the div) is styled.
+          Paragraph 4 is NOT styled.
+
+COMMON USE
+    h2 + p { font-weight: bold; }    /* first paragraph after every h2 */
+
+
+==========================================================================
+2.4 GENERAL SIBLING SELECTOR (~)
+==========================================================================
+DEFINITION
+  Selects ALL siblings of a specified element that come AFTER it, sharing
+  the same parent (they need not be immediately next to it).
+
+SYNTAX
+    element1 ~ element2 {
+        property: value;
+    }
+
+EXAMPLE
+    div ~ p {
+        color: green;
+    }
+
+  RESULT: Paragraph 3 AND Paragraph 4 turn green (all p siblings after div).
+
+DIFFERENCE: "+" vs "~"
+    div + p  -> only the first p right after div
+    div ~ p  -> every p sibling after div
+
+
+##########################################################################
+3. PSEUDO-CLASS SELECTORS
+##########################################################################
+DEFINITION
+  A pseudo-class is used to define a SPECIAL STATE of an element
+  (for example when the mouse is over it, when it is focused, or when it
+  is the first child).
+
+SYNTAX
+    selector:pseudo-class {
+        property: value;
+    }
+  (single colon ":")
+
+
+--------------------------------------------------------------------------
+3.1 LINK / USER-ACTION PSEUDO-CLASSES
+--------------------------------------------------------------------------
+:link     -> unvisited link
+:visited  -> visited link
+:hover    -> mouse pointer is over the element
+:active   -> element is being clicked (mouse button pressed)
+:focus    -> element has keyboard/input focus
+
+EXAMPLE
+    a:link    { color: blue; }
+    a:visited { color: purple; }
+    a:hover   { color: red; text-decoration: underline; }
+    a:active  { color: orange; }
+
+    input:focus {
+        border: 2px solid green;
+        outline: none;
+    }
+
+IMPORTANT ORDER RULE (LoVe HAte):
+    a:link  ->  a:visited  ->  a:hover  ->  a:active
+  (must be written in this order for all to work properly)
+
+OTHER FOCUS-RELATED
+:focus-within   -> parent that contains a focused element
+:focus-visible  -> focus shown only when keyboard navigation is used
+
+    form:focus-within { background: #eef; }
+
+
+--------------------------------------------------------------------------
+3.2 STRUCTURAL PSEUDO-CLASSES (position in the document tree)
+--------------------------------------------------------------------------
+:first-child          -> first child of its parent
+:last-child           -> last child of its parent
+:only-child           -> element that is the only child
+:nth-child(n)         -> nth child (counted among ALL siblings)
+:nth-last-child(n)    -> nth child counted from the END
+:first-of-type        -> first element of its type among siblings
+:last-of-type         -> last element of its type among siblings
+:only-of-type         -> the only element of its type
+:nth-of-type(n)       -> nth element of its type
+:nth-last-of-type(n)  -> nth element of its type counted from the end
+:empty                -> element with no children and no text
+:root                 -> the root element of the document (<html>)
+
+EXAMPLES
+    li:first-child { color: red; }
+    li:last-child  { color: blue; }
+    li:nth-child(2) { font-weight: bold; }
+
+nth-child FORMULAS (an + b)
+    :nth-child(odd)     -> 1st, 3rd, 5th ...
+    :nth-child(even)    -> 2nd, 4th, 6th ...
+    :nth-child(3)       -> exactly 3rd
+    :nth-child(3n)      -> 3rd, 6th, 9th ...
+    :nth-child(3n + 1)  -> 1st, 4th, 7th ...
+    :nth-child(n + 3)   -> 3rd onward
+    :nth-child(-n + 3)  -> first three only
+
+    tr:nth-child(even) { background-color: #f2f2f2; }  /* zebra table */
+
+DIFFERENCE: nth-child vs nth-of-type
+    p:nth-child(2)    -> element must be a <p> AND be the 2nd child overall
+    p:nth-of-type(2)  -> the 2nd <p> among its siblings (ignores other tags)
+
+:root EXAMPLE (CSS variables)
+    :root {
+        --main-color: teal;
+    }
+    h1 { color: var(--main-color); }
+
+:empty EXAMPLE
+    p:empty { display: none; }
+
+
+--------------------------------------------------------------------------
+3.3 FORM / INPUT-STATE PSEUDO-CLASSES
+--------------------------------------------------------------------------
+:enabled          -> enabled form element
+:disabled         -> disabled form element
+:checked          -> checked checkbox / radio / selected option
+:required         -> input with "required" attribute
+:optional         -> input without "required"
+:valid            -> input whose value is valid
+:invalid          -> input whose value is invalid
+:read-only        -> read-only element
+:read-write       -> editable element
+:placeholder-shown -> input currently showing its placeholder
+:in-range         -> value within min/max range
+:out-of-range     -> value outside min/max range
+:indeterminate    -> checkbox in an indeterminate state
+:default          -> default form element
+
+EXAMPLES
+    input:disabled { background: #ddd; cursor: not-allowed; }
+    input:checked + label { color: green; }
+    input:required { border: 1px solid red; }
+    input:valid   { border-color: green; }
+    input:invalid { border-color: red; }
+    input[type="number"]:out-of-range { background: pink; }
+
+
+--------------------------------------------------------------------------
+3.4 LOGICAL / FUNCTIONAL PSEUDO-CLASSES
+--------------------------------------------------------------------------
+:not(selector)   -> selects elements that do NOT match the selector
+:is(list)        -> matches any selector in the list (shortens code)
+:where(list)     -> like :is() but with ZERO specificity
+:has(selector)   -> parent selector: element that CONTAINS a match
+
+EXAMPLES
+    p:not(.special) { color: gray; }
+        /* every p except those with class "special" */
+
+    :is(h1, h2, h3) span { color: red; }
+        /* same as: h1 span, h2 span, h3 span */
+
+    div:has(img) { border: 1px solid black; }
+        /* div that contains an image */
+
+    li:not(:last-child) { border-bottom: 1px solid #ccc; }
+
+
+--------------------------------------------------------------------------
+3.5 OTHER PSEUDO-CLASSES
+--------------------------------------------------------------------------
+:target       -> element targeted by the URL fragment (#id)
+:lang(code)   -> element with a given language
+:fullscreen   -> element shown in fullscreen mode
+
+EXAMPLES
+    :target { background-color: yellow; }
+        /* highlights element whose id matches URL e.g. page.html#section2 */
+
+    p:lang(fr) { quotes: "« " " »"; }
+
+
+##########################################################################
+4. PSEUDO-ELEMENT SELECTORS
+##########################################################################
+DEFINITION
+  A pseudo-element styles a SPECIFIC PART of an element (such as the first
+  line, first letter, or content inserted before/after it).
+
+SYNTAX
+    selector::pseudo-element {
+        property: value;
+    }
+  (double colon "::")
+
+NOTE
+  Pseudo-class (:)  = styles a STATE of an element.
+  Pseudo-element (::) = styles a PART of an element.
+
+
+--------------------------------------------------------------------------
+4.1 ::first-line
+--------------------------------------------------------------------------
+Styles the first line of text in a block element.
+Only a few properties work (font, color, background, text-decoration, etc.)
+
+    p::first-line {
+        color: blue;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+
+--------------------------------------------------------------------------
+4.2 ::first-letter
+--------------------------------------------------------------------------
+Styles the first letter of text in a block element (drop-cap effect).
+
+    p::first-letter {
+        font-size: 40px;
+        color: red;
+        float: left;
+        margin-right: 8px;
+    }
+
+
+--------------------------------------------------------------------------
+4.3 ::before
+--------------------------------------------------------------------------
+Inserts generated content BEFORE the content of an element.
+Needs the "content" property.
+
+    h2::before {
+        content: "★ ";
+        color: gold;
+    }
+
+
+--------------------------------------------------------------------------
+4.4 ::after
+--------------------------------------------------------------------------
+Inserts generated content AFTER the content of an element.
+
+    a[href^="http"]::after {
+        content: " ↗";
+    }
+
+    .clearfix::after {
+        content: "";
+        display: block;
+        clear: both;
+    }
+
+  Note: ::before and ::after create content that is NOT in the HTML and is
+  not selectable/readable by search engines. Do not use for important text.
+
+
+--------------------------------------------------------------------------
+4.5 ::marker
+--------------------------------------------------------------------------
+Styles the bullet or number of list items.
+
+    li::marker {
+        color: red;
+        font-size: 20px;
+    }
+
+
+--------------------------------------------------------------------------
+4.6 ::selection
+--------------------------------------------------------------------------
+Styles the portion of text selected by the user (highlighted with mouse).
+
+    ::selection {
+        background-color: yellow;
+        color: black;
+    }
+
+
+--------------------------------------------------------------------------
+4.7 ::placeholder
+--------------------------------------------------------------------------
+Styles the placeholder text of an input.
+
+    input::placeholder {
+        color: gray;
+        font-style: italic;
+    }
+
+
+--------------------------------------------------------------------------
+4.8 OTHERS
+--------------------------------------------------------------------------
+::backdrop        -> backdrop behind a fullscreen element or <dialog>
+::file-selector-button -> the button of <input type="file">
+
+    input[type="file"]::file-selector-button {
+        background: teal;
+        color: white;
+        border: none;
+        padding: 8px 14px;
+    }
+
+
+##########################################################################
+5. ATTRIBUTE SELECTORS
+##########################################################################
+DEFINITION
+  Attribute selectors select elements based on the PRESENCE or VALUE of an
+  attribute. They are written inside square brackets [ ].
+
+SAMPLE HTML
+    <a href="https://google.com" target="_blank" class="link-ext">Google</a>
+    <a href="docs/report.pdf" title="Annual report">Report</a>
+    <input type="text" name="user">
+    <input type="password" name="pass">
+    <p lang="en-US">Hello</p>
+    <div class="card featured">Card</div>
+
+
+--------------------------------------------------------------------------
+5.1 [attribute]  - has the attribute
+--------------------------------------------------------------------------
+Selects all elements that HAVE the attribute (value does not matter).
+
+    a[target] {
+        color: red;
+    }
+  RESULT: Links having a target attribute are red.
+
+
+--------------------------------------------------------------------------
+5.2 [attribute="value"]  - exact match
+--------------------------------------------------------------------------
+Selects elements whose attribute value is EXACTLY the given value.
+
+    input[type="text"] {
+        border: 2px solid blue;
+    }
+    a[target="_blank"] {
+        color: green;
+    }
+
+
+--------------------------------------------------------------------------
+5.3 [attribute~="value"]  - contains a WORD
+--------------------------------------------------------------------------
+Selects elements whose attribute contains the given value as a whole WORD
+in a space-separated list.
+
+    div[class~="featured"] {
+        border: 2px solid gold;
+    }
+  RESULT: Matches class="card featured" (word "featured" exists).
+          Would NOT match class="featuredcard".
+
+
+--------------------------------------------------------------------------
+5.4 [attribute|="value"]  - exact value OR value followed by hyphen
+--------------------------------------------------------------------------
+Selects elements whose attribute value is exactly "value" or starts with
+"value-" (commonly used with language codes).
+
+    p[lang|="en"] {
+        color: darkblue;
+    }
+  RESULT: Matches lang="en" and lang="en-US", lang="en-GB".
+
+
+--------------------------------------------------------------------------
+5.5 [attribute^="value"]  - STARTS with
+--------------------------------------------------------------------------
+Selects elements whose attribute value BEGINS with the given value.
+
+    a[href^="https"] {
+        color: green;      /* secure links */
+    }
+    [class^="icon-"] {
+        display: inline-block;
+    }
+
+
+--------------------------------------------------------------------------
+5.6 [attribute$="value"]  - ENDS with
+--------------------------------------------------------------------------
+Selects elements whose attribute value ENDS with the given value.
+
+    a[href$=".pdf"] {
+        color: red;        /* PDF links */
+    }
+    img[src$=".png"] {
+        border: 1px solid gray;
+    }
+
+
+--------------------------------------------------------------------------
+5.7 [attribute*="value"]  - CONTAINS (substring anywhere)
+--------------------------------------------------------------------------
+Selects elements whose attribute value CONTAINS the given text anywhere.
+
+    a[href*="google"] {
+        color: blue;
+    }
+    [class*="col-"] {
+        float: left;
+    }
+
+
+--------------------------------------------------------------------------
+5.8 CASE-INSENSITIVE FLAG  [attribute="value" i]
+--------------------------------------------------------------------------
+Adds "i" to ignore the case of the value.
+
+    a[href$=".PDF" i] {
+        color: red;
+    }
+  RESULT: Matches .pdf, .PDF, .Pdf.
+
+
+--------------------------------------------------------------------------
+5.9 COMBINING ATTRIBUTE SELECTORS
+--------------------------------------------------------------------------
+    input[type="text"][required] {
+        border: 2px solid red;
+    }
+
+
+--------------------------------------------------------------------------
+ATTRIBUTE SELECTOR SUMMARY TABLE
+--------------------------------------------------------------------------
+Selector              Meaning
+--------------------  ------------------------------------------------
+[attr]                has the attribute
+[attr="v"]            value is exactly v
+[attr~="v"]           value contains the word v (space separated)
+[attr|="v"]           value is v or starts with "v-"
+[attr^="v"]           value starts with v
+[attr$="v"]           value ends with v
+[attr*="v"]           value contains v anywhere
+[attr="v" i]          exact value, case-insensitive
+
+
+##########################################################################
+BONUS: SPECIFICITY (WHICH RULE WINS?)
+##########################################################################
+When two rules target the same element, the browser uses SPECIFICITY.
+
+Order from weakest to strongest:
+    1. Universal selector (*)                      -> 0
+    2. Tag name / pseudo-element (p, ::before)     -> 1
+    3. Class / attribute / pseudo-class (.a, [x], :hover) -> 10
+    4. ID selector (#id)                           -> 100
+    5. Inline style (style="...")                  -> 1000
+    6. !important                                  -> overrides everything
+
+EXAMPLE
+    p          { color: red; }      /* specificity 1   */
+    .note      { color: green; }    /* specificity 10  */
+    #msg       { color: blue; }     /* specificity 100 */
+
+    <p class="note" id="msg">Text</p>
+    RESULT: blue (id wins).
+
+If specificity is equal, the rule written LAST in the CSS wins.
+
+
+##########################################################################
+FINAL QUICK REFERENCE TABLE
+##########################################################################
+Category        Selector            Example            Selects
+--------------  ------------------  -----------------  ------------------------
+Simple          Tag name            p                  all <p>
+Simple          Class (.)           .box               elements with class box
+Simple          ID (#)              #header            element with id header
+Simple          Universal (*)       *                  all elements
+Simple          Grouping (,)        h1, h2, p          all listed elements
+Combinator      Descendant (space)  div p              p anywhere inside div
+Combinator      Child (>)           div > p            p directly inside div
+Combinator      Adjacent (+)        div + p            first p right after div
+Combinator      General (~)         div ~ p            all p siblings after div
+Pseudo-class    :hover              a:hover            link on mouse over
+Pseudo-class    :first-child        li:first-child     first li in a list
+Pseudo-class    :nth-child(n)       tr:nth-child(2n)   every even row
+Pseudo-class    :not()              p:not(.x)          p without class x
+Pseudo-element  ::first-line        p::first-line      first line of p
+Pseudo-element  ::before / ::after  h1::before         inserted content
+Attribute       [attr]              a[target]          links with target
+Attribute       [attr^="v"]         a[href^="https"]   links starting with https
+
+==========================  END OF NOTES  ==========================
