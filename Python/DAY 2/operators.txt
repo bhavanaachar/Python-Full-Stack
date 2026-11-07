@@ -1,0 +1,268 @@
+1. TYPE CASTING: Type casting is the process of converting a value from one data type to another data type.
+
+TYPES
+  - Implicit conversion: done automatically by Python.
+  - Explicit conversion: done manually by the programmer.
+
+SYNTAX
+  int(value)        float(value)       str(value)
+  bool(value)       list(value)        tuple(value)       set(value)
+
+EXAMPLES
+  # Implicit
+  a = 10
+  b = 2.5
+  print(a + b)             # 12.5  (int converted to float automatically)
+
+  # Explicit
+  print(int("25"))         # 25
+  print(float("3.5"))      # 3.5
+  print(str(100))          # "100"
+  print(bool(0))           # False
+  print(list("abc"))       # ['a', 'b', 'c']
+  print(int(3.9))          # 3  (decimal part is removed)
+
+  # With input()
+  age = int(input("Enter age: "))
+  print(age + 5)
+
+NOTE
+  input() always returns a string, so convert it using int() or float().
+
+2. OPERATORS :Operators are special symbols used to perform operations on values or variables. The values on which the operator works are called operands.
+
+SYNTAX
+  operand1  operator  operand2
+
+  Example:  10 + 5     (+ is the operator; 10 and 5 are operands)
+
+2.1 ARITHMETIC OPERATORS : Used to perform mathematical calculations.
+
+SYNTAX
+  a + b    a - b    a * b    a / b    a // b    a % b    a ** b
+
+EXAMPLE
+  a = 10
+  b = 3
+  print(a + b)      # 13   Addition
+  print(a - b)      # 7    Subtraction
+  print(a * b)      # 30   Multiplication
+  print(a / b)      # 3.3333333333333335   Division (always float)
+  print(a // b)     # 3    Floor division
+  print(a % b)      # 1    Modulus (remainder)
+  print(a ** b)     # 1000 Exponent (power)
+
+2.2 ASSIGNMENT OPERATORS : Used to assign values to variables.
+
+SYNTAX
+  variable = value
+  variable operator= value
+
+EXAMPLE
+  x = 5
+  x += 3        # x = x + 3   -> 8
+  x -= 2        # x = x - 2   -> 6
+  x *= 2        # x = x * 2   -> 12
+  x /= 4        # x = x / 4   -> 3.0
+  x //= 2       # x = x // 2  -> 1.0
+  x %= 1        # x = x % 1   -> 0.0
+  print(x)
+
+2.3 COMPARISON (RELATIONAL) OPERATORS : Used to compare two values. The result is always True or False.
+
+SYNTAX
+  a == b    a != b    a > b    a < b    a >= b    a <= b
+
+EXAMPLE
+  a = 10
+  b = 20
+  print(a == b)     # False
+  print(a != b)     # True
+  print(a > b)      # False
+  print(a < b)      # True
+  print(a >= 10)    # True
+  print(b <= 15)    # False
+
+2.4 LOGICAL OPERATORS : Used to combine two or more conditions.
+
+SYNTAX
+  condition1 and condition2     True only if BOTH are True
+  condition1 or condition2      True if AT LEAST ONE is True
+  not condition                 Reverses the result
+
+EXAMPLE
+  age = 22
+  print(age > 18 and age < 60)    # True
+  print(age < 18 or age > 60)     # False
+  print(not(age > 18))            # False
+
+2.5 MEMBERSHIP OPERATORS : Used to check whether a value is present in a sequence
+
+SYNTAX
+  value in sequence
+  value not in sequence
+
+EXAMPLE
+  print("a" in "apple")           # True
+  print(5 in [1, 2, 3])           # False
+  print(5 not in [1, 2, 3])       # True
+
+2.6 IDENTITY OPERATORS: Used to check whether two variables refer to the SAME object in memory.
+
+SYNTAX
+  a is b
+  a is not b
+
+EXAMPLE
+  a = [1, 2]
+  b = a
+  c = [1, 2]
+  print(a is b)      # True   (same object)
+  print(a is c)      # False  (different objects)
+  print(a == c)      # True   (values are equal)
+
+DIFFERENCE
+  ==  compares VALUES
+  is  compares MEMORY IDENTITY
+
+3. CONDITIONAL STATEMENTS
+  Conditional statements are used to make decisions in a program. A block of
+  code runs only when a given condition is True. Python uses a colon (:) and
+  indentation to define the block.
+
+3.1 if STATEMENT
+SYNTAX
+  if condition:
+      statement(s)
+
+EXAMPLE
+  age = 20
+  if age >= 18:
+      print("Eligible to vote")
+
+3.2 if-else STATEMENT
+SYNTAX
+  if condition:
+      statement(s)
+  else:
+      statement(s)
+
+EXAMPLE
+  num = 7
+  if num % 2 == 0:
+      print("Even")
+  else:
+      print("Odd")
+
+3.3 if-elif-else STATEMENT : Used to check multiple conditions. The first True block runs and the rest are skipped.
+
+SYNTAX
+  if condition1:
+      statement(s)
+  elif condition2:
+      statement(s)
+  else:
+      statement(s)
+
+EXAMPLE
+  marks = 72
+  if marks >= 90:
+      print("Grade A")
+  elif marks >= 75:
+      print("Grade B")
+  elif marks >= 60:
+      print("Grade C")
+  else:
+      print("Fail")
+  # Output: Grade C
+
+3.4 NESTED if : An if statement written inside another if statement.
+
+SYNTAX
+  if condition1:
+      if condition2:
+          statement(s)
+
+EXAMPLE
+  age = 25
+  has_id = True
+  if age >= 18:
+      if has_id:
+          print("Entry allowed")
+      else:
+          print("ID required")
+
+3.5 TERNARY OPERATOR (SHORT-HAND if-else): A single-line form of if-else.
+
+SYNTAX
+  value_if_true  if  condition  else  value_if_false
+
+EXAMPLE
+  age = 20
+  result = "Adult" if age >= 18 else "Minor"
+  print(result)       # Adult
+
+4. LOOPS (INTRODUCTION):  loop is used to execute a block of code repeatedly. Python has two
+loops: for loop and while loop.
+
+4.1 for LOOP: The for loop is used to iterate over a sequence (string, list, tuple, set, dictionary or range).
+
+SYNTAX
+  for variable in sequence:
+      statement(s)
+
+EXAMPLE
+  fruits = ["apple", "banana", "mango"]
+  for f in fruits:
+      print(f)
+
+  for ch in "Hi":
+      print(ch)
+
+4.2 range() FUNCTION: range() generates a sequence of numbers. The stop value is NOT included.
+
+SYNTAX
+  range(stop)
+  range(start, stop)
+  range(start, stop, step)
+
+EXAMPLE
+  for i in range(5):            # 0 1 2 3 4
+      print(i)
+  for i in range(2, 6):         # 2 3 4 5
+      print(i)
+  for i in range(1, 10, 2):     # 1 3 5 7 9
+      print(i)
+  for i in range(5, 0, -1):     # 5 4 3 2 1
+      print(i)
+
+4.3 while LOOP: The while loop repeats a block of code as long as the condition is True.The loop variable must be updated inside the loop, otherwise the loopruns forever (infinite loop).
+
+SYNTAX
+  while condition:
+      statement(s)
+
+EXAMPLE
+  i = 1
+  while i <= 5:
+      print(i)
+      i += 1
+
+4.4 LOOP CONTROL STATEMENTS:Loop control statements change the normal flow of a loop.
+
+SYNTAX AND EXAMPLES
+  break - terminates the loop immediately
+      for i in range(1, 10):
+          if i == 5:
+              break
+          print(i)              # 1 2 3 4
+
+  continue - skips the current iteration and moves to the next one
+      for i in range(1, 6):
+          if i == 3:
+              continue
+          print(i)              # 1 2 4 5
+
+  pass - does nothing; used as a placeholder
+      for i in range(3):
+          pass
