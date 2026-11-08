@@ -1,0 +1,323 @@
+1. CSS COLORS : CSS colors are used to give color to text, backgrounds, borders and other parts of an element.
+SYNTAX
+  property: color-value;
+
+1.1 COLOR NAMES - CSS supports 140+ predefined names.
+  color: red;  
+Example:
+  h1 { color: crimson; }
+  p  { background-color: lightyellow; }
+
+1.2 HEX COLORS
+SYNTAX
+  #RRGGBB          (each pair is 00 to ff, in hexadecimal)
+  #RGB             (short form: #f00 = #ff0000)
+  #RRGGBBAA        (with alpha/transparency)
+
+  #000000 = black      #ffffff = white
+  #ff0000 = red        #00ff00 = green      #0000ff = blue
+  #ffff00 = yellow     #00ffff = cyan       #ff00ff = magenta
+
+Example:
+  h1 { color: #ff5733; }
+  p  { color: #333; }                     /* same as #333333 */
+  div { background-color: #00000080; }    /* black at 50% opacity */
+
+1.3 RGB COLORS
+SYNTAX
+  rgb(red, green, blue)       each value from 0 to 255
+
+  rgb(255, 0, 0)       red
+  rgb(0, 0, 0)         black
+  rgb(255, 255, 255)   white
+  rgb(128, 128, 128)   gray
+
+Example:
+  h1 { color: rgb(0, 128, 128); }
+
+1.4 RGBA COLORS
+
+SYNTAX
+  rgba(red, green, blue, alpha)       alpha: 0 (transparent) to 1 (solid)
+
+Example:
+  div { background-color: rgba(255, 0, 0, 0.3); }    /* light transparent red */
+
+
+1.5 HSL AND HSLA COLORS
+
+SYNTAX
+  hsl(hue, saturation, lightness)
+  hsla(hue, saturation, lightness, alpha)
+
+  hue         0 to 360 (color wheel: 0=red, 120=green, 240=blue)
+  saturation  0% (gray) to 100% (full color)
+  lightness   0% (black) to 100% (white), 50% is normal
+
+Example:
+  h1 { color: hsl(240, 100%, 50%); }              /* blue */
+  p  { color: hsl(120, 60%, 30%); }               /* dark green */
+  div { background-color: hsla(0, 100%, 50%, 0.4); }
+
+Tip: HSL is easy for making shades. Keep hue the same and change lightness.
+  hsl(200, 80%, 30%)   dark shade
+  hsl(200, 80%, 50%)   normal
+  hsl(200, 80%, 80%)   light shade
+
+1.6 OPACITY
+SYNTAX
+  opacity: value;      /* 0 to 1 */
+
+  div { opacity: 0.5; }
+
+Difference: opacity vs rgba()
+  opacity  -> makes the WHOLE element (text, border, children) transparent
+  rgba()   -> makes only that one color transparent
+
+2. CSS TEXT PROPERTIES : Text properties control the appearance and layout of text: its color, alignment, decoration, spacing, case and shadow.
+
+2.1 color: set sthe colour for text
+  p { color: #333; }
+
+2.2 text-align: Sets the horizontal alignment of text.
+SYNTAX
+  text-align: left | right | center | justify;
+
+  h1 { text-align: center; }
+  p  { text-align: justify; }        /* both edges are straight */
+
+Note: it applies to block-level elements (not inline elements).
+
+2.3 text-decoration : Adds or removes lines on text.
+SYNTAX
+  text-decoration: none | underline | overline | line-through;
+
+  a { text-decoration: none; }              /* remove link underline */
+  h1 { text-decoration: underline; }
+  del { text-decoration: line-through; }
+
+Longhand properties:
+  text-decoration-line:  underline;
+  text-decoration-color: red;
+  text-decoration-style: solid | double | dotted | dashed | wavy;
+  text-decoration-thickness: 3px;
+
+Shorthand:
+  p { text-decoration: underline wavy red; }
+
+
+2.3.1 text-transform: Changes the case of text.
+SYNTAX
+  text-transform: none | uppercase | lowercase | capitalize;
+
+  h1 { text-transform: uppercase; }       /* HELLO WORLD */
+  p  { text-transform: capitalize; }      /* Hello World */
+
+
+2.4 text-indent: Indents the first line of a paragraph.
+  p { text-indent: 40px; }
+
+2.5 letter-spacing: Space between characters.
+  h1 { letter-spacing: 3px; }
+  p  { letter-spacing: -1px; }
+
+2.6 word-spacing: Space between words.
+  p { word-spacing: 10px; }
+
+2.7 line-height: Height of each line (space between lines).
+  p { line-height: 1.6; }       /* unitless: 1.6 x font size (recommended) */
+  p { line-height: 24px; }
+  p { line-height: 150%; }
+
+2.8 text-shadow: Shadow effect to text.
+SYNTAX
+  text-shadow: horizontal  vertical  blur  color;
+
+  h1 { text-shadow: 2px 2px 5px gray; }
+  h1 { text-shadow: 0 0 10px yellow; }               /* glow */
+  h1 { text-shadow: 1px 1px 2px red, 3px 3px 5px blue; }   /* multiple */
+
+2.9 white-space: Controls how spaces and line breaks are handled.
+SYNTAX
+  white-space: normal | nowrap | pre | pre-wrap | pre-line;
+
+  p { white-space: nowrap; }     /* text stays on one line */
+
+2.10 text-overflow, overflow
+Show "..." when the text does not fit.
+  .title {
+      width: 200px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+  }
+
+2.11 word-wrap / overflow-wrap and word-break
+  p { overflow-wrap: break-word; }    /* breaks long words to fit */
+  p { word-break: break-all; }        /* breaks anywhere */
+
+2.12 direction and vertical alignment
+  direction: ltr | rtl;               /* text direction */
+  vertical-align: baseline | top | middle | bottom | sub | super;
+      /* used for inline elements and table cells */
+  img { vertical-align: middle; }
+
+==========================================================================
+2.13 Text properties summary
+==========================================================================
+ Property          Values                               Purpose
+ ----------------  -----------------------------------  ---------------------
+ color             any color                            Text color
+ text-align        left, right, center, justify         Horizontal alignment
+ text-decoration   none, underline, overline,           Lines on text
+                   line-through
+ text-transform    uppercase, lowercase, capitalize     Change case
+ text-indent       length (e.g. 40px)                   Indent first line
+ letter-spacing    length                               Space between letters
+ word-spacing      length                               Space between words
+ line-height       number / length / %                  Space between lines
+ text-shadow       x y blur color                       Shadow on text
+ white-space       normal, nowrap, pre                  Handle spaces/wrap
+ text-overflow     clip, ellipsis                       Overflowing text
+
+3. CSS FONT PROPERTIES: Font properties control the typeface, size, weight and style of text.
+
+3.1 font-family: Sets the font. Always give a list of fonts (fallback fonts), ending with a generic family.
+SYNTAX
+  font-family: "Font 1", "Font 2", generic-family;
+
+  body { font-family: Arial, Helvetica, sans-serif; }
+  h1   { font-family: "Times New Roman", Times, serif; }
+  code { font-family: "Courier New", monospace; }
+
+Generic families:
+  serif        fonts with small strokes at the ends (Times New Roman)
+  sans-serif   clean fonts without strokes (Arial, Verdana)
+  monospace    every character has equal width (Courier New)
+  cursive      handwriting style
+  fantasy      decorative style
+
+Rule: font names with spaces must be inside quotes ("Times New Roman").
+
+3.2 font-size
+SYNTAX
+  font-size: value;
+
+Units:
+  px     fixed size                      font-size: 16px;
+  em     relative to parent font size    font-size: 1.5em;
+  rem    relative to root (html) size    font-size: 1.2rem;
+  %      percentage of parent            font-size: 120%;
+  vw     percentage of viewport width    font-size: 4vw;
+  Keywords: xx-small, x-small, small, medium, large, x-large, xx-large
+
+  h1 { font-size: 32px; }
+  p  { font-size: 1rem; }               /* 1rem = 16px by default */
+
+3.3 font-weight: Sets how thick or thin the text is.
+SYNTAX
+  font-weight: normal | bold | bolder | lighter | 100-900;
+
+  normal = 400       bold = 700
+  h1 { font-weight: 300; }              /* light */
+  p  { font-weight: 600; }              /* semi-bold */
+
+3.4 font-style
+SYNTAX
+  font-style: normal | italic | oblique;
+
+  em { font-style: italic; }
+  a  { font-style: normal; }
+
+3.5 font-variant
+  font-variant: normal | small-caps;
+  h2 { font-variant: small-caps; }      /* lowercase shown as small capitals */
+
+3.6 font shorthand
+SYNTAX
+  font: style variant weight size/line-height family;
+
+  - font-size and font-family are REQUIRED. The rest are optional.
+
+  p { font: italic small-caps bold 16px/1.5 Arial, sans-serif; }
+  h1 { font: 700 32px "Times New Roman", serif; }
+
+==========================================================================
+3.10 Font properties summary
+==========================================================================
+ Property        Values                              Purpose
+ --------------  ----------------------------------  ---------------------
+ font-family     Arial, serif, "Times New Roman"     Typeface
+ font-size       px, em, rem, %, keywords            Size of text
+ font-weight     normal, bold, 100-900               Thickness
+ font-style      normal, italic, oblique             Slanted text
+ font-variant    normal, small-caps                  Small capitals
+ font            shorthand                           All in one line
+
+Difference between Text properties and Font properties
+  Font properties  -> change the LOOK of the characters (family, size,
+                      weight, style)
+  Text properties  -> change the LAYOUT and decoration of text (alignment,
+                      spacing, underline, case, shadow)
+
+4. CSS BACKGROUND PROPERTIES : Background properties are used to set the background of an element: acolor, an image, or a gradient, and to control how it is displayed.
+
+4.1 background-color:sets the colour for background
+  body { background-color: #f4f6f8; }
+  div  { background-color: rgba(0, 0, 0, 0.5); }
+
+4.2 background-image: sets an image for background
+SYNTAX
+  background-image: url("path/to/image");
+  background-image: none;
+
+  body { background-image: url("pattern.png"); }
+
+4.3 background-repeat: specifies whether and how the image should repeat 
+  background-repeat: repeat;        /* default: repeats both ways */
+  background-repeat: repeat-x;      /* horizontal only */
+  background-repeat: repeat-y;      /* vertical only */
+  background-repeat: no-repeat;     /* single image */
+  background-repeat: space;         /* repeats without clipping */
+  background-repeat: round;         /* repeats and stretches to fit */
+
+4.4 background-position: specifies starting position of background iamge
+  background-position: left top;
+  background-position: center center;
+  background-position: right bottom;
+  background-position: 50% 50%;
+  background-position: 20px 40px;      /* x-axis y-axis */
+
+4.5 background-size: specifies the size for background image
+  background-size: auto;               /* default */
+  background-size: cover;              /* fills the whole element; may crop */
+  background-size: contain;            /* entire image shows; may leave gaps */
+  background-size: 200px 100px;        /* width height */
+  background-size: 100% 100%;          /* stretches to fit */
+
+cover vs contain:
+  cover   -> no empty space, but parts of the image may be cut
+  contain -> whole image visible, but empty space may remain
+
+4.6 background shorthand
+SYNTAX
+  background: color image repeat attachment position / size origin clip;
+
+  div {
+      background: lightblue url("img.jpg") no-repeat fixed center / cover;
+  }
+
+All values are optional. Order is flexible, but position must come before
+size and they are separated by a slash (/).
+
+==========================================================================
+4.11 Background properties summary
+==========================================================================
+ Property               Values
+ ---------------------  -------------------------------------------------
+ background-color       color
+ background-image       url(), gradient, none
+ background-repeat      repeat, repeat-x, repeat-y, no-repeat
+ background-position    left/center/right, top/center/bottom, %, px
+ background-size        auto, cover, contain, px, %
+ background             shorthand
