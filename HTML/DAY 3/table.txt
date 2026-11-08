@@ -18,9 +18,6 @@ Tag          Description
 <thead>      Groups the header rows
 <tbody>      Groups the body rows
 <tfoot>      Groups the footer rows
-<colgroup>   Groups columns for formatting
-<col>        Defines properties for a column inside <colgroup>
-
 
 3. Basic Table Syntax
 <table>
@@ -239,6 +236,4 @@ Attribute    Used with        Description
 border       <table>          Adds a border (old method; use CSS instead)
 colspan      <th>, <td>       Merges cells across columns
 rowspan      <th>, <td>       Merges cells across rows
-scope        <th>             Defines whether the heading is for a row or column
-span         <col>            Number of columns the style applies to
-headers      <td>             Links a cell to its heading cell(s)
+
