@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Student Table</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 70%;
+            margin: auto;
+        }
+
+        caption {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        th,
+        td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #04AA6D;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+
+<body>
+
+    <table>
+        <caption>Student Marks</caption>
+        <thead>
+            <tr>
+                <th>Roll No</th>
+                <th>Name</th>
+                <th>Subject</th>
+                <th>Marks</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Ravi</td>
+                <td>HTML</td>
+                <td>85</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Anu</td>
+                <td>CSS</td>
+                <td>92</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Kiran</td>
+                <td>JavaScript</td>
+                <td>78</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3">Total</td>
+                <td>255</td>
+            </tr>
+        </tfoot>
+    </table>
+
+</body>
+
+</html>

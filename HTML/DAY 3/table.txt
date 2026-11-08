@@ -1,0 +1,244 @@
+HTML - DAY 3: HTML TABLES
+
+1. Introduction to HTML Tables
+- An HTML table is used to display data in rows and columns.
+- Tables are created using the <table> tag.
+- Table data is arranged in rows (<tr>), and each row contains cells
+  (<th> or <td>).
+- Tables should be used for data, not for page layout (use CSS for layout).
+
+
+2. Basic Table Tags
+Tag          Description
+<table>      Defines the table
+<tr>         Defines a table row
+<th>         Defines a table heading cell (bold and centered by default)
+<td>         Defines a table data cell
+<caption>    Defines the title of the table
+<thead>      Groups the header rows
+<tbody>      Groups the body rows
+<tfoot>      Groups the footer rows
+<colgroup>   Groups columns for formatting
+<col>        Defines properties for a column inside <colgroup>
+
+
+3. Basic Table Syntax
+<table>
+    <tr>
+        <th>Heading 1</th>
+        <th>Heading 2</th>
+    </tr>
+    <tr>
+        <td>Data 1</td>
+        <td>Data 2</td>
+    </tr>
+</table>
+
+
+4. Simple Table Example
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Table</title>
+</head>
+<body>
+
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Course</th>
+        </tr>
+        <tr>
+            <td>Ravi</td>
+            <td>20</td>
+            <td>BCA</td>
+        </tr>
+        <tr>
+            <td>Anu</td>
+            <td>21</td>
+            <td>BSc</td>
+        </tr>
+    </table>
+
+</body>
+</html>
+
+Output:
++-------+-----+--------+
+| Name  | Age | Course |
++-------+-----+--------+
+| Ravi  | 20  | BCA    |
+| Anu   | 21  | BSc    |
++-------+-----+--------+
+
+5. Table Heading <th>
+- <th> defines a header cell.
+- Text inside <th> is bold and centered by default.
+- Headers can be placed in the first row (column headings) or in the first
+  column (row headings).
+
+Example (row headings):
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <td>Ravi</td>
+    </tr>
+    <tr>
+        <th>Age</th>
+        <td>20</td>
+    </tr>
+</table>
+
+
+6. Table Caption <caption>
+- Defines a title for the table.
+- Must be placed immediately after the <table> opening tag.
+Example:
+<table border="1">
+    <caption>Student Details</caption>
+    <tr>
+        <th>Name</th>
+        <th>Marks</th>
+    </tr>
+    <tr>
+        <td>Ravi</td>
+        <td>85</td>
+    </tr>
+</table>
+
+
+7. Table Borders
+There are two ways to add borders.
+
+1. Using the border attribute (old method, not recommended)
+<table border="1">
+
+2. Using CSS (recommended)
+<style>
+    table, th, td {
+        border: 1px solid black;
+    }
+</style>
+
+Collapsed borders (removes the double border):
+<style>
+    table {
+        border-collapse: collapse;
+    }
+    table, th, td {
+        border: 1px solid black;
+    }
+</style>
+
+Without border-collapse:    With border-collapse: collapse
++--+  +--+                  +--+--+
+|  |  |  |   (double line)  |  |  |   (single line)
++--+  +--+                  +--+--+
+
+8. Colspan - Merging Columns
+- The colspan attribute makes a cell span across multiple columns.
+
+Syntax:
+<td colspan="number">
+
+Example:
+<table border="1">
+    <tr>
+        <th colspan="2">Student Details</th>
+    </tr>
+    <tr>
+        <td>Name</td>
+        <td>Ravi</td>
+    </tr>
+</table>
+
+Output:
++----------------------+
+|   Student Details    |
++----------+-----------+
+| Name     | Ravi      |
++----------+-----------+
+
+
+9. Rowspan - Merging Rows
+- The rowspan attribute makes a cell span across multiple rows.
+
+Syntax:
+<td rowspan="number">
+
+Example:
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <td>Ravi</td>
+    </tr>
+    <tr>
+        <th rowspan="2">Phone</th>
+        <td>98765 43210</td>
+    </tr>
+    <tr>
+        <td>91234 56789</td>
+    </tr>
+</table>
+
+Output:
++-------+-------------+
+| Name  | Ravi        |
++-------+-------------+
+| Phone | 98765 43210 |
+|       +-------------+
+|       | 91234 56789 |
++-------+-------------+
+
+
+10. Table Sections: thead, tbody, tfoot
+- Used to divide a table into header, body and footer.
+- Makes the table easier to style and understand.
+
+Example:
+<table border="1">
+    <caption>Monthly Sales</caption>
+
+    <thead>
+        <tr>
+            <th>Item</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td>Pen</td>
+            <td>10</td>
+        </tr>
+        <tr>
+            <td>Book</td>
+            <td>50</td>
+        </tr>
+    </tbody>
+
+    <tfoot>
+        <tr>
+            <td>Total</td>
+            <td>60</td>
+        </tr>
+    </tfoot>
+</table>
+
+
+11. Difference between <th> and <td>
+<th>                               <td>
+Table heading cell                 Table data cell
+Bold and centered by default       Normal text, left-aligned by default
+Used for headings                  Used for actual data
+
+
+12. Important Table Attributes
+Attribute    Used with        Description
+border       <table>          Adds a border (old method; use CSS instead)
+colspan      <th>, <td>       Merges cells across columns
+rowspan      <th>, <td>       Merges cells across rows
+scope        <th>             Defines whether the heading is for a row or column
+span         <col>            Number of columns the style applies to
+headers      <td>             Links a cell to its heading cell(s)
