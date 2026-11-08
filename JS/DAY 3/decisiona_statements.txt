@@ -1,0 +1,250 @@
+PART A: DECISION-MAKING (CONDITIONAL) STATEMENTS: Decision-making statements allow a program to choose which block of code to run, depending on whether a condition is true or false.
+
+TYPES
+  1. if statement
+  2. if-else statement
+  3. else-if ladder
+  4. nested if
+  5. switch statement
+  (+ ternary operator as a short form)
+
+A condition is any expression that gives true or false.
+Conditions are written inside parentheses ( ) and blocks inside braces { }.
+
+1. if STATEMENT : The if statement runs a block of code only when the condition is true. If the condition is false, the block is skipped.
+
+SYNTAX
+  if (condition) {
+      // code to run if condition is true
+  }
+FLOW
+  condition true  -> block runs
+  condition false -> block skipped
+
+EXAMPLE 1
+  let age = 20;
+  if (age >= 18) {
+      console.log("Eligible to vote");
+  }
+  // Output: Eligible to vote
+
+EXAMPLE 2 (check positive number)
+  let num = 5;
+  if (num > 0) {
+      console.log("Positive number");
+  }
+
+2. if-else STATEMENT : The if-else statement runs one block if the condition is true and another block if it is false. Exactly one of the two blocks always runs.
+
+SYNTAX
+  if (condition) {
+      // runs if condition is true
+  } else {
+      // runs if condition is false
+  }
+
+EXAMPLE 1 (even or odd)
+  let num = 7;
+  if (num % 2 === 0) {
+      console.log("Even");
+  } else {
+      console.log("Odd");
+  }
+  // Output: Odd
+
+EXAMPLE 2 (pass or fail)
+  let marks = 40;
+  if (marks >= 35) {
+      console.log("Pass");
+  } else {
+      console.log("Fail");
+  }
+
+3. else-if LADDER: The else-if ladder is used to check MULTIPLE conditions one by one from top to bottom. As soon as one condition is true, its block runs and the rest ofthe ladder is skipped. 
+    The final else is optional and runs when no condition is true.
+
+SYNTAX
+  if (condition1) {
+      // runs if condition1 is true
+  } else if (condition2) {
+      // runs if condition2 is true
+  } else if (condition3) {
+      // runs if condition3 is true
+  } else {
+      // runs if none of the above is true
+  }
+
+EXAMPLE 1 (grade calculator)
+  let marks = 72;
+  if (marks >= 90) {
+      console.log("Grade A");
+  } else if (marks >= 75) {
+      console.log("Grade B");
+  } else if (marks >= 60) {
+      console.log("Grade C");
+  } else if (marks >= 35) {
+      console.log("Grade D");
+  } else {
+      console.log("Fail");
+  }
+  // Output: Grade C
+
+EXAMPLE 2 (positive, negative or zero)
+  let n = 0;
+  if (n > 0) {
+      console.log("Positive");
+  } else if (n < 0) {
+      console.log("Negative");
+  } else {
+      console.log("Zero");
+  }
+
+4. NESTED if : A nested if is an if statement written inside another if (or else)
+  statement. The inner condition is checked only when the outer condition
+  is true.
+
+SYNTAX
+  if (condition1) {
+      if (condition2) {
+          // runs if condition1 AND condition2 are true
+      } else {
+          // runs if condition1 is true but condition2 is false
+      }
+  } else {
+      // runs if condition1 is false
+  }
+
+EXAMPLE 1 (login check)
+  let username = "admin";
+  let password = "1234";
+
+  if (username === "admin") {
+      if (password === "1234") {
+          console.log("Login successful");
+      } else {
+          console.log("Wrong password");
+      }
+  } else {
+      console.log("User not found");
+  }
+
+EXAMPLE 2 (largest of three numbers)
+  let a = 10, b = 25, c = 15;
+  if (a > b) {
+      if (a > c) {
+          console.log("Largest: " + a);
+      } else {
+          console.log("Largest: " + c);
+      }
+  } else {
+      if (b > c) {
+          console.log("Largest: " + b);
+      } else {
+          console.log("Largest: " + c);
+      }
+  }
+  // Output: Largest: 25
+
+5. switch STATEMENT: The switch statement compares one value (expression) with many possiblevalues (cases) and runs the block of the matching case. 
+    It is a cleaner alternative to a long else-if ladder when you compare ONE value against fixed choices.
+
+SYNTAX
+  switch (expression) {
+      case value1:
+          // code
+          break;
+      case value2:
+          // code
+          break;
+      case value3:
+          // code
+          break;
+      default:
+          // code if no case matches
+  }
+
+HOW IT WORKS
+  1. The expression is evaluated once.
+  2. Its value is compared with each case using strict equality (===).
+  3. When a match is found, that case block runs.
+  4. break stops execution and exits the switch.
+  5. default runs when no case matches (optional, usually written last).
+
+EXAMPLE 1 (day of the week)
+  let day = 3;
+  switch (day) {
+      case 1:
+          console.log("Monday");
+          break;
+      case 2:
+          console.log("Tuesday");
+          break;
+      case 3:
+          console.log("Wednesday");
+          break;
+      case 4:
+          console.log("Thursday");
+          break;
+      default:
+          console.log("Invalid day");
+  }
+  // Output: Wednesday
+
+EXAMPLE 2 (simple calculator)
+  let a = 10, b = 5, op = "*";
+  switch (op) {
+      case "+": console.log(a + b); break;
+      case "-": console.log(a - b); break;
+      case "*": console.log(a * b); break;
+      case "/": console.log(a / b); break;
+      default:  console.log("Invalid operator");
+  }
+
+POINTS TO REMEMBER
+  - switch uses strict comparison (===): "5" does NOT match case 5.
+  - break is needed to stop fall-through.
+  - default is optional and can be placed anywhere (usually last).
+  - Case values must be constants/literals or expressions with fixed values.
+  - Duplicate case values are not useful; only the first match runs.
+
+6. TERNARY OPERATOR (SHORT FORM OF if-else)
+SYNTAX
+  condition ? valueIfTrue : valueIfFalse;
+
+EXAMPLE
+  let age = 20;
+  let result = age >= 18 ? "Adult" : "Minor";
+  console.log(result);       // Adult
+
+NESTED TERNARY
+  let n = 0;
+  let type = n > 0 ? "Positive" : n < 0 ? "Negative" : "Zero";
+
+
+==========================================================================
+7. DIFFERENCE BETWEEN if-else AND switch
+==========================================================================
+ if-else                              switch
+ -----------------------------------  ----------------------------------
+ Can test any condition or range      Tests only equality with fixed values
+ (age > 18, marks >= 60)              (case 1, case "red")
+ Uses relational/logical operators    Uses strict equality (===)
+ Good for few or complex conditions   Good for many fixed choices
+ No break needed                      break is needed to avoid fall-through
+ Can compare different variables      Compares one expression only
+
+8. TRUTHY AND FALSY VALUES: Any value can be used in a condition. JavaScript converts it to true/false.
+
+FALSY VALUES (act as false):
+  false, 0, -0, "" (empty string), null, undefined, NaN, 0n
+
+EVERYTHING ELSE IS TRUTHY:
+  "hello", " ", "0", "false", 5, -1, [], {}, function(){}
+
+EXAMPLE
+  let name = "";
+  if (name) {
+      console.log("Name entered");
+  } else {
+      console.log("Name is empty");     // runs
+  }
