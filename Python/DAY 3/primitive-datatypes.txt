@@ -1,0 +1,213 @@
+PYTHON - DAY 3: PRIMITIVE DATA TYPES
+1. INTRODUCTION TO DATA TYPES: A data type defines the kind of value a variable can store and the operations that can be done on it.
+- Python is dynamically typed: you do not declare the type. The type is decided from the value at runtime.
+- Python is strongly typed: it will not silently mix incompatible types ("5" + 5 gives an error).
+- In Python, everything is an object and every value belongs to a class.
+
+2. PRIMITIVE DATA TYPES IN PYTHON 
+PRIMITIVE (BASIC) DATA TYPES
+ Type        Description                    Example
+ ----------  -----------------------------  ----------------------
+ int         Whole numbers                  10, -5, 0
+ float       Decimal numbers                10.5, -3.14, 2.0
+ complex     Complex numbers                2+3j
+ bool        Truth values                   True, False
+ str         Text (sequence of characters)  "Hello", 'Python'
+ NoneType    Absence of a value             None
+
+NON-PRIMITIVE (COLLECTION) TYPES
+ list, tuple, set, dict  (also range, bytes, frozenset)
+
+HIERARCHY
+  Data types
+    |-- Numeric : int, float, complex
+    |-- Boolean : bool
+    |-- Text    : str
+    |-- Collections : list, tuple, set, dict
+
+3. int (INTEGER):int stores whole numbers (positive, negative or zero) without a decimal point. 
+
+SYNTAX
+  variable = whole_number
+
+EXAMPLES
+  a = 10
+  b = -25
+  c = 0
+ 
+  print(a, b, c)
+  print(type(a))              # <class 'int'>
+
+OPERATIONS
+  print(10 + 3)       # 13
+  print(10 - 3)       # 7
+  print(10 * 3)       # 30
+  print(10 / 3)       # 3.3333333333333335  (division gives float)
+  print(10 // 3)      # 3   (floor division)
+  print(10 % 3)       # 1   (remainder)
+  print(2 ** 10)      # 1024  (power)
+
+USEFUL FUNCTIONS
+  abs(-7)             # 7
+  pow(2, 3)           # 8
+  divmod(17, 5)       # (3, 2)
+  max(4, 9, 2)        # 9
+  min(4, 9, 2)        # 2
+  round(7)            # 7
+  (255).bit_length()  # 8
+
+INPUT AS int
+  age = int(input("Enter age: "))
+  print(age + 1)
+
+4. float (FLOATING-POINT NUMBER):float stores numbers with a decimal point. Python floats use 64-bitdouble precision 
+SYNTAX
+  variable = decimal_number
+
+EXAMPLES
+  pi = 3.14159
+  temp = -12.5
+  price = 99.0
+  print(type(pi))             # <class 'float'>
+
+POINTS TO REMEMBER
+  - Division / always returns a float.
+  - Do not compare floats with == ; use math.isclose().
+  - float is immutable.
+
+5. complex (COMPLEX NUMBER):complex stores a number with a real part and an imaginary part, written as a + bj 
+
+SYNTAX
+  variable = real + imaginary j
+  variable = complex(real, imaginary)
+
+EXAMPLES
+  z1 = 2 + 3j
+  z2 = complex(4, -1)
+  print(z1)                   # (2+3j)
+  print(type(z1))             # <class 'complex'>
+
+NOTE
+  - Python uses j (not i) for the imaginary part.
+  - Comparison operators like < and > do not work on complex numbers
+    (== and != do).
+  - Used in engineering, signal processing and scientific computing.
+
+6. bool (BOOLEAN):bool has only two values: True and False. The first letter must be capital. It is used in conditions and comparisons.
+
+SYNTAX
+  variable = True
+  variable = False
+
+EXAMPLES
+  is_student = True
+  is_logged_in = False
+  print(type(is_student))     # <class 'bool'>
+
+TRUTH TABLE
+   A      B     A and B   A or B   not A
+  True   True    True      True     False
+  True   False   False     True     False
+  False  True    False     True     True
+  False  False   False     False    True
+
+USE IN CONDITIONS
+  name = ""
+  if name:
+      print("Name entered")
+  else:
+      print("Name is empty")       # this runs
+
+POINTS TO REMEMBER
+  - Write True / False, not true / false (that gives NameError).
+  - and / or return one of the operands, not always a bool:
+        print(5 and 10)      # 10
+        print(0 or "Hi")     # Hi
+
+7. TYPE CHECKING
+type()
+  Returns the data type of a value.
+    print(type(10))           # <class 'int'>
+    print(type(3.5))          # <class 'float'>
+    print(type(2+3j))         # <class 'complex'>
+    print(type(True))         # <class 'bool'>
+    print(type("Hi"))         # <class 'str'>
+    print(type(None))         # <class 'NoneType'>
+
+id()
+  Returns the memory identity of an object.
+    a = 10
+    print(id(a))
+
+8. TYPE CONVERSION (TYPE CASTING)
+A: IMPLICIT CONVERSION (done automatically by Python)
+   Order of promotion:   bool -> int -> float -> complex
+     print(5 + 2.5)         # 7.5      (int -> float)
+     print(True + 1)        # 2
+     print(2 + 3j + 1)      # (3+3j)
+
+   Python does NOT convert str to numbers automatically:
+     print("5" + 2)         # TypeError
+
+B: EXPLICIT CONVERSION (done using functions)
+   int()
+     print(int(3.99))       # 3       (truncates)
+     print(int("25"))       # 25
+     print(int(True))       # 1
+     # int("3.5")           # ValueError
+     print(int(float("3.5")))   # 3
+
+   float()
+     print(float(5))        # 5.0
+     print(float("3.14"))   # 3.14
+
+   complex()
+     print(complex(3))      # (3+0j)
+     print(complex(2, 5))   # (2+5j)
+
+   bool()
+     print(bool(0))         # False
+     print(bool("Hi"))      # True
+
+   str()
+     print(str(100))        # "100"
+     print(str(3.5))        # "3.5"
+     print(str(True))       # "True"
+     print(str(None))       # "None"
+
+CONVERSION TABLE
+ From \ To   int            float           bool         str
+ ----------  -------------  --------------  -----------  -----------------
+ int         -              float(5)=5.0    bool(0)=F    str(5)="5"
+ float       int(3.9)=3     -               bool(0.0)=F  str(3.9)="3.9"
+ str         int("5")=5     float("5")=5.0  bool("")=F   -
+ bool        int(True)=1    float(True)=1.0 -            str(True)="True"
+
+COMMON ERRORS
+  int("abc")       -> ValueError: invalid literal for int()
+  int("3.5")       -> ValueError
+  int(None)        -> TypeError
+  "5" + 5          -> TypeError: can only concatenate str (not "int") to str
+
+9. MUTABLE vs IMMUTABLE
+IMMUTABLE: value cannot be changed after creation.
+  int, float, complex, bool, str, None, tuple
+
+MUTABLE: value can be changed after creation.
+  list, set, dict
+
+PRIMITIVE TYPES ARE IMMUTABLE
+  x = 10
+  print(id(x))
+  x = x + 1                   # a NEW object is created
+  print(id(x))                # different id
+
+  s = "abc"
+  # s[0] = "z"                # TypeError
+
+COMPARISON WITH A MUTABLE TYPE
+  lst = [1, 2, 3]
+  print(id(lst))
+  lst.append(4)               # same object is modified
+  print(id(lst))              # same id
+
