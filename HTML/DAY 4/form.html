@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Registration Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #eef2f7;
+        }
+
+        form {
+            width: 400px;
+            margin: 30px auto;
+            padding: 22px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-top: 12px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="tel"],
+        input[type="date"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 9px;
+            margin-top: 5px;
+            border: 1px solid #aaa;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 18px;
+            padding: 11px;
+            background: #0b5ed7;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        fieldset {
+            margin-top: 14px;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <form action="/register" method="post">
+        <h2>Student Registration</h2>
+
+        <label for="name">Full Name</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="phone">Mobile</label>
+        <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" title="10 digit number" required>
+
+        <label for="dob">Date of Birth</label>
+        <input type="date" id="dob" name="dob">
+
+        <label for="pass">Password</label>
+        <input type="password" id="pass" name="password" minlength="8" required>
+
+        <fieldset>
+            <legend>Gender</legend>
+            <input type="radio" id="m" name="gender" value="male" required>
+            <label for="m" style="display:inline">Male</label>
+            <input type="radio" id="f" name="gender" value="female">
+            <label for="f" style="display:inline">Female</label>
+        </fieldset>
+
+        <fieldset>
+            <legend>Skills</legend>
+            <input type="checkbox" id="s1" name="skills" value="html">
+            <label for="s1" style="display:inline">HTML</label>
+            <input type="checkbox" id="s2" name="skills" value="css">
+            <label for="s2" style="display:inline">CSS</label>
+            <input type="checkbox" id="s3" name="skills" value="js">
+            <label for="s3" style="display:inline">JS</label>
+        </fieldset>
+
+        <label for="course">Course</label>
+        <select id="course" name="course" required>
+            <option value="">-- Select Course --</option>
+            <option value="bca">BCA</option>
+            <option value="bsc">BSc</option>
+            <option value="bcom">BCom</option>
+        </select>
+
+        <label for="msg">About You</label>
+        <textarea id="msg" name="about" rows="3"></textarea>
+
+        <label for="photo">Photo</label>
+        <input type="file" id="photo" name="photo" accept="image/*">
+
+        <br>
+        <br>
+        <input type="checkbox" id="agree" name="agree" required>
+        <label for="agree" style="display:inline">I agree to the terms</label>
+
+        <button type="submit">Register</button>
+    </form>
+
+</body>
+
+</html>

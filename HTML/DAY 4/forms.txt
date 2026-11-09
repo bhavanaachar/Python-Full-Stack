@@ -1,0 +1,337 @@
+HTML - DAY 4: HTML FORMS
+
+1. Introduction to HTML Forms
+DEFINITION
+  An HTML form is used to collect input from the user (such as name, email,password, choices or files) and send it to a server for processing.
+- A form is created using the <form> tag.
+- A form contains form elements such as <input>, <textarea>, <select>,<button> and <label>.
+- Common uses: login, registration, search, contact, feedback and payment forms.
+
+2. The <form> Tag
+SYNTAX
+  <form action="url" method="get|post">
+      <!-- form elements -->
+  </form>
+
+ATTRIBUTES
+ Attribute      Description
+ -------------  ------------------------------------------------------------
+ action         URL of the page/script that processes the form data
+ method         HTTP method used to send data: get or post
+ target         Where to show the response: _self (default), _blank, etc.
+
+EXAMPLE
+  <form action="/submit" method="post">
+      <input type="text" name="username">
+      <button type="submit">Submit</button>
+  </form>
+
+GET vs POST
+ GET                                  POST
+ -----------------------------------  ------------------------------------
+ Data is added to the URL             Data is sent inside the request body
+ (visible: page.php?name=Ravi)        (not visible in the URL)
+ Limited length                       No size limit
+ Can be bookmarked                    Cannot be bookmarked
+ Used for search and filters          Used for login, passwords, uploads
+ Not secure for sensitive data        Better for sensitive data
+
+3. The <input> Tag
+DEFINITION
+  <input> is the most important form element. Its behavior depends on the
+  type attribute. It is an empty (self-closing) tag.
+
+SYNTAX
+  <input type="text" name="username" id="username">
+
+COMMON ATTRIBUTES
+ Attribute      Description
+ -------------  ------------------------------------------------------------
+ type           Type of input (text, password, email, ...)
+ name           Name of the field (sent to the server with its value)
+ id             Unique id (used to connect with <label>)
+ value          Default or initial value
+ placeholder    Hint text shown inside an empty field
+ required       Field must be filled before submitting
+ readonly       Value can be seen but not changed
+ disabled       Field is inactive and its value is not submitted
+ maxlength      Maximum number of characters
+ minlength      Minimum number of characters
+ min / max      Minimum / maximum value (numbers, dates)
+ step           Step size for numbers
+ pattern        Regular expression the value must match
+ autofocus      Field is focused when the page loads
+ autocomplete   on / off
+ size           Visible width of the field (in characters)
+ multiple       Allows multiple values (email, file)
+
+4. Input Types
+4.1 text
+  Single-line text.
+  <input type="text" name="fullname" placeholder="Enter your name">
+
+4.2 password
+  Characters are hidden (shown as dots).
+  <input type="password" name="pass" placeholder="Enter password">
+
+4.3 email
+  Validates that the value looks like an email address.
+  <input type="email" name="email" placeholder="you@example.com" required>
+
+4.4 number
+  Accepts only numbers; shows up/down arrows.
+  <input type="number" name="age" min="1" max="100" step="1">
+
+4.5 tel
+  Telephone number (shows a numeric keypad on mobiles).
+  <input type="tel" name="phone" pattern="[0-9]{10}" placeholder="10 digit number">
+
+4.6 url
+  Validates a web address.
+  <input type="url" name="website" placeholder="https://example.com">
+
+4.7 search
+  A search field (may show a clear button).
+  <input type="search" name="q" placeholder="Search...">
+
+4.8 date, time, datetime-local, month, week
+  <input type="date" name="dob">
+  <input type="time" name="meeting">
+  <input type="datetime-local" name="appointment">
+  <input type="month" name="month">
+  <input type="week" name="week">
+
+4.9 radio
+  Lets the user choose ONLY ONE option from a group.
+  Radio buttons with the SAME name belong to one group.
+  <input type="radio" id="male" name="gender" value="male">
+  <label for="male">Male</label>
+
+  <input type="radio" id="female" name="gender" value="female">
+  <label for="female">Female</label>
+
+  <input type="radio" id="other" name="gender" value="other" checked>
+  <label for="other">Other</label>
+
+4.10 checkbox
+  Lets the user choose ZERO or MORE options.
+  <input type="checkbox" id="html" name="skills" value="html">
+  <label for="html">HTML</label>
+
+  <input type="checkbox" id="css" name="skills" value="css" checked>
+  <label for="css">CSS</label>
+
+  <input type="checkbox" id="js" name="skills" value="js">
+  <label for="js">JavaScript</label>
+
+4.11 file
+  Lets the user upload files. The form needs method="post" and
+  enctype="multipart/form-data".
+  <input type="file" name="photo" accept="image/*">
+  <input type="file" name="docs" multiple>
+
+4.12 color
+  Opens a color picker.
+  <input type="color" name="favcolor" value="#ff0000">
+
+4.13 range
+  A slider for choosing a value in a range.
+  <input type="range" name="volume" min="0" max="100" value="50">
+
+4.14 hidden
+  Not shown to the user, but sent with the form.
+  <input type="hidden" name="userid" value="1024">
+
+4.15 Buttons
+  <input type="submit" value="Submit">      sends the form
+  <input type="reset" value="Reset">        clears all fields to default
+  <input type="button" value="Click Me">    plain button (needs JavaScript)
+  <input type="image" src="btn.png" alt="Submit">   image as submit button
+
+Input types summary
+ Type            Purpose
+ --------------  -------------------------------------------
+ text            Single-line text
+ password        Hidden text
+ email           Email address (validated)
+ number          Numbers only
+ tel             Phone number
+ url             Web address
+ search          Search box
+ date/time       Date and time pickers
+ radio           Choose one option
+ checkbox        Choose many options
+ file            Upload files
+ color           Color picker
+ range           Slider
+ hidden          Invisible data
+ submit/reset    Send / clear the form
+
+5. The <label> Tag
+  <label> gives a caption to a form element. Clicking the label focuses or
+  selects the connected input. It also helps screen readers.
+
+TWO WAYS TO CONNECT
+
+1. Using for and id
+  <label for="username">Username:</label>
+  <input type="text" id="username" name="username">
+
+2. Wrapping the input inside the label
+  <label>
+      Username:
+      <input type="text" name="username">
+  </label>
+
+RULE: the value of "for" must match the "id" of the input.
+
+6. The <textarea> Tag:  <textarea> creates a multi-line text input box.
+SYNTAX
+  <textarea name="message" rows="4" cols="40" placeholder="Enter message"></textarea>
+
+ATTRIBUTES
+  rows         number of visible lines
+  cols         visible width in characters
+  maxlength    maximum characters
+  placeholder  hint text
+  required, readonly, disabled, wrap
+
+CSS control:
+  textarea {
+      width: 100%;
+      height: 120px;
+      resize: none;         /* none | both | horizontal | vertical */
+  }
+
+NOTE: The default text is written between the opening and closing tags.
+  <textarea name="bio">Default text here</textarea>
+
+7. The <select> Tag (Dropdown List): <select> creates a drop-down list. Each choice is an <option>.
+
+SYNTAX
+  <select name="course" id="course">
+      <option value="html">HTML</option>
+      <option value="css">CSS</option>
+      <option value="js" selected>JavaScript</option>
+  </select>
+
+ATTRIBUTES
+  selected    (on option) makes an option the default
+  disabled    (on option) option cannot be chosen
+  multiple    (on select) allows selecting more than one option
+  size        number of visible options
+
+EXAMPLE - multiple selection
+  <select name="languages" multiple size="3">
+      <option value="en">English</option>
+      <option value="hi">Hindi</option>
+      <option value="kn">Kannada</option>
+  </select>
+  (Hold Ctrl to select multiple options.)
+
+GROUPING OPTIONS - <optgroup>
+  <select name="car">
+      <optgroup label="Indian">
+          <option value="tata">Tata</option>
+          <option value="mahindra">Mahindra</option>
+      </optgroup>
+      <optgroup label="Foreign">
+          <option value="toyota">Toyota</option>
+          <option value="ford">Ford</option>
+      </optgroup>
+  </select>
+
+PLACEHOLDER-STYLE FIRST OPTION
+  <select name="city" required>
+      <option value="">-- Select City --</option>
+      <option value="blr">Bengaluru</option>
+      <option value="mys">Mysuru</option>
+  </select>
+
+8. The <datalist> Tag
+DEFINITION :<datalist> provides a list of suggestions for an <input>. The user can pick a suggestion OR type their own value.
+
+SYNTAX
+  <input list="browsers" name="browser">
+  <datalist id="browsers">
+      <option value="Chrome">
+      <option value="Firefox">
+      <option value="Edge">
+      <option value="Safari">
+  </datalist>
+
+RULE: the input's "list" attribute must match the datalist's "id".
+
+9. The <button> Tag: <button> creates a clickable button. Unlike <input>, it can contain text, images and other HTML.
+
+SYNTAX
+  <button type="submit">Submit</button>
+  <button type="reset">Reset</button>
+  <button type="button" onclick="alert('Hello')">Click Me</button>
+
+TYPES
+  submit   sends the form (default type inside a form)
+  reset    resets the form
+  button   does nothing by default; used with JavaScript
+
+Difference between <input type="submit"> and <button>
+ <input type="submit">                <button type="submit">
+ -----------------------------------  ------------------------------------
+ Self-closing, text via value         Has opening and closing tags
+ Cannot contain HTML or images        Can contain text, images, icons
+ Less flexible styling                More flexible styling
+
+10. The <fieldset> and <legend> Tags
+  <fieldset> groups related form elements and draws a box around them.
+  <legend> gives a title to the group.
+
+EXAMPLE
+  <fieldset>
+      <legend>Personal Details</legend>
+      <label for="fname">Name:</label>
+      <input type="text" id="fname" name="fname"><br><br>
+      <label for="mail">Email:</label>
+      <input type="email" id="mail" name="mail">
+  </fieldset>
+
+Attribute: disabled on <fieldset> disables all fields inside it.
+
+11. Form Validation:
+  Validation checks that the user has entered correct data before the form
+  is submitted. HTML5 provides built-in validation using attributes.
+
+ Attribute     Example                              Checks
+ ------------  -----------------------------------  ---------------------------
+ required      <input required>                     Must not be empty
+ minlength     <input minlength="3">                Minimum characters
+ maxlength     <input maxlength="10">               Maximum characters
+ min / max     <input type="number" min="1" max="10">  Number/date range
+ pattern       <input pattern="[A-Za-z]{3,}">       Must match a regex
+ type          <input type="email">                 Correct format
+ step          <input type="number" step="5">       Allowed step
+
+EXAMPLES
+  Mobile number (10 digits):
+    <input type="tel" pattern="[0-9]{10}" title="Enter a 10 digit number" required>
+
+  Password (minimum 8 characters):
+    <input type="password" minlength="8" required>
+
+  Username (letters and numbers, 4 to 12 characters):
+    <input type="text" pattern="[A-Za-z0-9]{4,12}" required>
+
+NOTE: title gives the message shown when pattern does not match. Client-side validation can be bypassed, so ALWAYS validate on the server too.
+
+CSS for validation states:
+  input:valid    { border: 2px solid green; }
+  input:invalid  { border: 2px solid red; }
+  input:required { border-left: 4px solid orange; }
+  input:focus    { outline: 2px solid blue; }
+
+17. Difference between id, name and for
+ Attribute   Used for
+ ----------  -------------------------------------------------------------
+ name        Key sent to the server with the value. Radio buttons in one
+             group share the same name.
+ id          Unique identifier for CSS, JavaScript and connecting a label.
+ for         Used on <label>; must equal the id of the input.
