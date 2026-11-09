@@ -1,101 +1,914 @@
+PYTHON - NON-PRIMITIVE DATA TYPES AND THEIR OPERATIONS
+1. INTRODUCTION: Non-primitive data types can store MULTIPLE values in a single variable.
+PRIMITIVE vs NON-PRIMITIVE
+ Primitive                           Non-primitive
+ ----------------------------------  ------------------------------------
+ Store a single value                Store a collection of values
+ int, float, complex, bool, str,     list, tuple, set, dict
+ None
+ Immutable                           list, set, dict are mutable;
+                                     tuple is immutable
+ Stored by value (conceptually)      Stored by reference
 
-##########################################################################
-7. str (STRING)
-##########################################################################
-DEFINITION
-  A string is a sequence of characters (letters, digits, symbols, spaces)
-  enclosed in quotes. Strings are immutable.
+MAIN COLLECTION TYPES
+ Type    Symbol   Ordered?   Mutable?   Duplicates?   Indexed?   Example
+ ------  -------  ---------  ---------  ------------  ---------  ----------------
+ list    [ ]      Yes        Yes        Allowed       Yes        [1, 2, 3]
+ tuple   ( )      Yes        No         Allowed       Yes        (1, 2, 3)
+ set     { }      No         Yes        Not allowed   No         {1, 2, 3}
+ dict    {k: v}   Yes (3.7+) Yes        Keys unique   By key     {"a": 1}
 
-CREATING STRINGS
-  s1 = 'Hello'                # single quotes
-  s2 = "World"                # double quotes
-  s3 = """This is a
-  multi-line string"""        # triple quotes
-  empty = ""
-  print(type(s1))             # <class 'str'>
+2. LIST: A list is an ORDERED, MUTABLE collection of items written inside square brackets [ ]. It can hold items of different types and allows duplicates.
 
-QUOTES INSIDE STRINGS
-  print("It's a nice day")
-  print('He said "Hi"')
-  print("He said \"Hi\"")     # escape character
+SYNTAX
+  list_name = [item1, item2, item3]
+
+CREATING LISTS
+  a = [10, 20, 30]                    # integers
+  b = ["apple", "banana", "mango"]    # strings
+  c = [1, "Hi", 3.5, True, None]      # mixed types
+  d = []                              # empty list
+  e = list()                          # empty list using constructor
+  f = list("abc")                     # ['a', 'b', 'c']
+  g = list(range(1, 6))               # [1, 2, 3, 4, 5]
+  h = [[1, 2], [3, 4]]                # nested list (2D)
+  print(type(a))                      # <class 'list'>
+
+2.1 INDEXING (ACCESSING ELEMENTS)
+  fruits = ["apple", "banana", "mango", "orange"]
+  Index:      0         1        2         3
+  Negative:  -4        -3       -2        -1
+
+  print(fruits[0])        # apple
+  print(fruits[2])        # mango
+  print(fruits[-1])       # orange
+  # print(fruits[10])     # IndexError: list index out of range
+
+Nested list:
+  m = [[1, 2, 3], [4, 5, 6]]
+  print(m[1][2])          # 6
+
+2.2 SLICING     list[start : stop : step]   (stop is NOT included)
+  nums = [10, 20, 30, 40, 50, 60]
+  print(nums[1:4])        # [20, 30, 40]
+  print(nums[:3])         # [10, 20, 30]
+  print(nums[3:])         # [40, 50, 60]
+  print(nums[::2])        # [10, 30, 50]
+  print(nums[::-1])       # [60, 50, 40, 30, 20, 10]   (reverse)
+  print(nums[-3:])        # [40, 50, 60]
+  print(nums[:])          # full copy
+
+2.3 CHANGING ELEMENTS (LISTS ARE MUTABLE)
+  nums = [10, 20, 30]
+  nums[1] = 99
+  print(nums)             # [10, 99, 30]
+
+  nums[0:2] = [1, 2, 3]   # replace a slice
+  print(nums)             # [1, 2, 3, 30]
+
+2.4 ADDING ELEMENTS
+  append(x)    adds ONE item at the end
+  insert(i,x)  adds an item at index i
+  extend(it)   adds ALL items of another iterable at the end
+
+  a = [1, 2, 3]
+  a.append(4)             # [1, 2, 3, 4]
+  a.insert(1, 99)         # [1, 99, 2, 3, 4]
+  a.extend([5, 6])        # [1, 99, 2, 3, 4, 5, 6]
+
+  a = [1, 2]
+  a.append([3, 4])        # [1, 2, [3, 4]]    (list added as ONE item)
+  b = [1, 2]
+  b.extend([3, 4])        # [1, 2, 3, 4]      (items added separately)
+
+  Using + and *:
+  print([1, 2] + [3, 4])  # [1, 2, 3, 4]
+  print([0] * 5)          # [0, 0, 0, 0, 0]
+
+2.5 REMOVING ELEMENTS
+  remove(x)    removes the FIRST occurrence of value x (ValueError if absent)
+  pop()        removes and returns the LAST item
+  pop(i)       removes and returns the item at index i
+  del          deletes by index, slice, or the whole list
+  clear()      removes all items
+
+  a = [10, 20, 30, 20, 40]
+  a.remove(20)            # [10, 30, 20, 40]
+  x = a.pop()             # x = 40,  a = [10, 30, 20]
+  y = a.pop(0)            # y = 10,  a = [30, 20]
+  del a[0]                # a = [20]
+  a.clear()               # a = []
+
+  b = [1, 2, 3, 4, 5]
+  del b[1:3]              # [1, 4, 5]
+  del b                   # deletes the variable itself
+
+2.6 SEARCHING AND COUNTING
+  a = [10, 20, 30, 20, 40]
+  print(a.index(20))      # 1   (first position; ValueError if absent)
+  print(a.count(20))      # 2
+  print(30 in a)          # True
+  print(99 not in a)      # True
+
+2.7 SORTING AND REVERSING
+  nums = [5, 2, 9, 1]
+  nums.sort()                     # [1, 2, 5, 9]   (changes the list)
+  nums.sort(reverse=True)         # [9, 5, 2, 1]
+  nums.reverse()                  # [1, 2, 5, 9]
+
+  nums = [5, 2, 9, 1]
+  print(sorted(nums))             # [1, 2, 5, 9]   (returns NEW list)
+  print(sorted(nums, reverse=True))   # [9, 5, 2, 1]
+  print(nums)                     # [5, 2, 9, 1]   (original unchanged)
+
+  Sort by a key:
+  words = ["banana", "kiwi", "apple"]
+  words.sort(key=len)             # ['kiwi', 'apple', 'banana']
+  words.sort(key=str.lower)
+
+2.8 BUILT-IN FUNCTIONS ON LISTS
+  nums = [4, 8, 1, 9]
+  print(len(nums))        # 4
+  print(sum(nums))        # 22
+  print(max(nums))        # 9
+  print(min(nums))        # 1
+  print(sum(nums) / len(nums))    # 5.5  (average)
+  print(any([0, 0, 1]))   # True
+  print(all([1, 1, 0]))   # False
+  print(list(reversed(nums)))     # [9, 1, 8, 4]
+  print(list(enumerate(["a", "b"])))   # [(0, 'a'), (1, 'b')]
+  print(list(zip([1, 2], ["a", "b"]))) # [(1, 'a'), (2, 'b')]
+
+2.9 LOOPING THROUGH A LIST
+  fruits = ["apple", "banana", "mango"]
+
+  for f in fruits:
+      print(f)
+
+  for i in range(len(fruits)):
+      print(i, fruits[i])
+
+  for i, f in enumerate(fruits, start=1):
+      print(i, f)
+
+  i = 0
+  while i < len(fruits):
+      print(fruits[i])
+      i += 1
+
+2.10 COPYING A LIST
+  a = [1, 2, 3]
+  b = a               # NOT a copy! Both names point to the same list
+  b.append(4)
+  print(a)            # [1, 2, 3, 4]
+
+  c = a.copy()        # real (shallow) copy
+  d = a[:]            # also a copy
+  e = list(a)         # also a copy
+
+2.11 LIST COMPREHENSION
+  squares = [x * x for x in range(1, 6)]          # [1, 4, 9, 16, 25]
+  even = [x for x in range(10) if x % 2 == 0]     # [0, 2, 4, 6, 8]
+  upper = [s.upper() for s in ["a", "b"]]         # ['A', 'B']
+  pairs = [(x, y) for x in [1, 2] for y in "ab"]  # [(1,'a'),(1,'b'),(2,'a'),(2,'b')]
+  flat = [n for row in [[1, 2], [3, 4]] for n in row]   # [1, 2, 3, 4]
+
+2.12 UNPACKING
+  a, b, c = [10, 20, 30]
+  first, *rest = [1, 2, 3, 4]         # first = 1, rest = [2, 3, 4]
+  *start, last = [1, 2, 3, 4]         # start = [1, 2, 3], last = 4
+
+2.13 LIST METHODS SUMMARY
+ Method          Description                         Returns
+ --------------  ----------------------------------  -------------
+ append(x)       Add x at the end                    None
+ insert(i, x)    Insert x at index i                 None
+ extend(iter)    Add all items of iter               None
+ remove(x)       Remove first x                      None
+ pop([i])        Remove and return item at i (last)  the item
+ clear()         Remove all items                    None
+ index(x)        Index of first x                    int
+ count(x)        Number of x                         int
+ sort()          Sort in place                       None
+ reverse()       Reverse in place                    None
+ copy()          Shallow copy                        new list
+
+3. TUPLE: A tuple is an ORDERED, IMMUTABLE collection of items written insideparentheses ( ). 
+    Once created, its items cannot be changed, added or removed. Duplicates are allowed.
+
+SYNTAX
+  tuple_name = (item1, item2, item3)
+
+CREATING TUPLES
+  a = (10, 20, 30)
+  b = ("apple", "banana")
+  c = (1, "Hi", 3.5)              # mixed
+  d = ()                          # empty tuple
+  e = tuple([1, 2, 3])            # from a list
+  f = 1, 2, 3                     # parentheses are optional (packing)
+  print(type(a))                  # <class 'tuple'>
+
+SINGLE-ELEMENT TUPLE (needs a comma!)
+  t1 = (5,)
+  t2 = (5)
+  print(type(t1))                 # <class 'tuple'>
+  print(type(t2))                 # <class 'int'>
+
+3.1 INDEXING AND SLICING (same as lists)
+  t = (10, 20, 30, 40, 50)
+  print(t[0])                     # 10
+  print(t[-1])                    # 50
+  print(t[1:4])                   # (20, 30, 40)
+  print(t[::-1])                  # (50, 40, 30, 20, 10)
+
+3.2 IMMUTABILITY
+  t = (1, 2, 3)
+  # t[0] = 99                     # TypeError: item assignment not supported
+  # t.append(4)                   # AttributeError
+
+  But a mutable item INSIDE a tuple can change:
+  t = (1, [2, 3])
+  t[1].append(4)
+  print(t)                        # (1, [2, 3, 4])
+
+  To "change" a tuple, convert to a list and back:
+  t = (1, 2, 3)
+  l = list(t)
+  l.append(4)
+  t = tuple(l)                    # (1, 2, 3, 4)
+
+3.3 TUPLE METHODS (only two)
+  t = (10, 20, 30, 20)
+  print(t.count(20))              # 2
+  print(t.index(30))              # 2
+
+3.4 OPERATIONS
+  print((1, 2) + (3, 4))          # (1, 2, 3, 4)
+  print((0,) * 3)                 # (0, 0, 0)
+  print(2 in (1, 2, 3))           # True
+  print(len((1, 2, 3)))           # 3
+  print(max((4, 9, 1)), min((4, 9, 1)), sum((4, 9, 1)))
+  print(sorted((3, 1, 2)))        # [1, 2, 3]   (returns a list)
+
+3.5 PACKING AND UNPACKING
+  person = ("Ravi", 20, "BCA")        # packing
+  name, age, course = person          # unpacking
+  print(name, age, course)
+
+  first, *middle, last = (1, 2, 3, 4, 5)
+  print(first, middle, last)          # 1 [2, 3, 4] 5
+
+  a, b = 10, 20
+  a, b = b, a                         # swap using tuple unpacking
+
+  Returning multiple values from a function:
+  def min_max(nums):
+      return min(nums), max(nums)     # returns a tuple
+  lo, hi = min_max([4, 8, 1, 9])
+
+3.6 LOOPING
+  for x in (10, 20, 30):
+      print(x)
+
+3.7 WHY USE TUPLES?
+
+  - Protects data from accidental change.
+  - Faster and uses less memory than lists.
+  - Can be used as dictionary keys (lists cannot).
+  - Good for fixed data: coordinates, RGB colors, dates.
+
+  point = (10, 20)
+  locations = {(12.9, 77.5): "Bengaluru", (28.6, 77.2): "Delhi"}
+
+3.8 NAMED TUPLE
+  from collections import namedtuple
+  Student = namedtuple("Student", ["name", "age"])
+  s = Student("Ravi", 20)
+  print(s.name, s.age)                # Ravi 20
+
+4. SET:A set is an UNORDERED collection of UNIQUE items written inside curlybraces { }. 
+    It is mutable, does not allow duplicates, and does not support indexing or slicing. Items must be immutable (hashable).
+
+SYNTAX
+  set_name = {item1, item2, item3}
+
+CREATING SETS
+  a = {1, 2, 3, 3, 2}
+  print(a)                            # {1, 2, 3}   (duplicates removed)
+  b = set([1, 2, 2, 3])               # from a list
+  c = set("hello")                    # {'h', 'e', 'l', 'o'}
+  d = set()                           # EMPTY set
+  e = {}                              # this is an empty DICT, not a set!
+  print(type(a), type(e))
+
+RESTRICTION
+  s = {1, "Hi", (1, 2)}               # OK (immutable items)
+  # s = {1, [2, 3]}                   # TypeError: unhashable type: 'list'
+
+4.1 ACCESSING ELEMENTS
+  No indexing (no order). Use a loop or membership test.
+  s = {10, 20, 30}
+  for x in s:
+      print(x)
+  print(20 in s)                      # True
+  print(len(s))                       # 3
+
+4.2 ADDING ELEMENTS
+  s = {1, 2}
+  s.add(3)                            # {1, 2, 3}
+  s.add(2)                            # no change (already exists)
+  s.update([4, 5, 6])                 # {1, 2, 3, 4, 5, 6}
+  s.update({7}, (8, 9))               # accepts several iterables
+
+4.3 REMOVING ELEMENTS
+  remove(x)    removes x; KeyError if x is absent
+  discard(x)   removes x; NO error if x is absent
+  pop()        removes and returns an ARBITRARY item
+  clear()      removes everything
+
+  s = {1, 2, 3, 4}
+  s.remove(2)                         # {1, 3, 4}
+  s.discard(10)                       # no error
+  x = s.pop()                         # removes some item
+  s.clear()                           # set()
+
+4.4 SET OPERATIONS (MATHEMATICAL)
+  A = {1, 2, 3, 4}
+  B = {3, 4, 5, 6}
+
+  UNION            all items from both
+      print(A | B)                    # {1, 2, 3, 4, 5, 6}
+      print(A.union(B))
+
+  INTERSECTION     items common to both
+      print(A & B)                    # {3, 4}
+      print(A.intersection(B))
+
+  DIFFERENCE       items in A but not in B
+      print(A - B)                    # {1, 2}
+      print(A.difference(B))
+      print(B - A)                    # {5, 6}
+
+  SYMMETRIC DIFFERENCE   items in either, but not in both
+      print(A ^ B)                    # {1, 2, 5, 6}
+      print(A.symmetric_difference(B))
+
+  Venn sketch:
+        A only   common   B only
+        {1,2}    {3,4}    {5,6}
+
+  In-place versions:
+      A.update(B)                     # A |= B
+      A.intersection_update(B)        # A &= B
+      A.difference_update(B)          # A -= B
+      A.symmetric_difference_update(B)  # A ^= B
+
+4.5 SUBSET, SUPERSET AND DISJOINT
+  A = {1, 2}
+  B = {1, 2, 3, 4}
+  print(A.issubset(B))                # True     (A <= B)
+  print(B.issuperset(A))              # True     (B >= A)
+  print(A < B)                        # True     (proper subset)
+  print(A.isdisjoint({7, 8}))         # True     (nothing in common)
+
+4.6 COMMON USES
+  Remove duplicates from a list:
+      nums = [1, 2, 2, 3, 3, 3]
+      print(list(set(nums)))          # [1, 2, 3]  (order may change)
+
+  Keep order while removing duplicates:
+      print(list(dict.fromkeys(nums)))
+
+  Fast membership test (much faster than a list for large data).
+
+  Find common items:
+      print(set([1, 2, 3]) & set([2, 3, 4]))      # {2, 3}
+
+4.7 SET COMPREHENSION
+  print({x * x for x in range(5)})    # {0, 1, 4, 9, 16}
+
+4.8 SET METHODS SUMMARY
+--------------------------------------------------------------------------
+ Method                       Description
+ ---------------------------  -------------------------------------------
+ add(x)                       Add one item
+ update(iter)                 Add many items
+ remove(x)                    Remove x (error if missing)
+ discard(x)                   Remove x (no error)
+ pop()                        Remove an arbitrary item
+ clear()                      Remove all
+ union() / |                  Combine sets
+ intersection() / &           Common items
+ difference() / -             Items only in the first set
+ symmetric_difference() / ^   Items in only one set
+ issubset() / issuperset()    Subset / superset test
+ isdisjoint()                 No common items
+ copy()                       Shallow copy
+
+5. DICTIONARY:A dictionary stores data as KEY : VALUE pairs inside curly braces { }.
+  Keys must be unique and immutable (str, int, tuple); values can be of any type. Dictionaries are mutable and keep insertion order.
+
+SYNTAX
+  dict_name = {key1: value1, key2: value2}
+
+CREATING DICTIONARIES
+  student = {"name": "Ravi", "age": 20, "course": "BCA"}
+  empty = {}
+  d1 = dict(name="Ravi", age=20)                  # dict() constructor
+  d2 = dict([("a", 1), ("b", 2)])                 # from list of pairs
+  d3 = dict.fromkeys(["x", "y", "z"], 0)          # {'x': 0, 'y': 0, 'z': 0}
+  d4 = dict(zip(["a", "b"], [1, 2]))              # {'a': 1, 'b': 2}
+  print(type(student))                            # <class 'dict'>
+
+DUPLICATE KEYS
+  d = {"a": 1, "a": 2}
+  print(d)                                        # {'a': 2}   (last value wins)
+
+5.1 ACCESSING VALUES
+  student = {"name": "Ravi", "age": 20, "course": "BCA"}
+
+  print(student["name"])              # Ravi
+  # print(student["city"])            # KeyError
+  print(student.get("age"))           # 20
+  print(student.get("city"))          # None       (no error)
+  print(student.get("city", "NA"))    # NA         (default value)
+
+5.2 ADDING AND CHANGING
+  student["city"] = "Bengaluru"       # add a new key
+  student["age"] = 21                 # change an existing value
+  student.update({"age": 22, "grade": "A"})   # add/change many
+  student.setdefault("country", "India")      # add only if the key is absent
+
+5.3 REMOVING
+  student.pop("grade")                # removes key, returns its value
+  student.pop("xyz", None)            # no error if missing
+  student.popitem()                   # removes the LAST inserted pair
+  del student["city"]                 # delete a key
+  student.clear()                     # empty the dictionary
+  # del student                       # delete the dictionary itself
+
+5.4 KEYS, VALUES AND ITEMS
+  d = {"name": "Ravi", "age": 20}
+  print(d.keys())                     # dict_keys(['name', 'age'])
+  print(d.values())                   # dict_values(['Ravi', 20])
+  print(d.items())                    # dict_items([('name', 'Ravi'), ('age', 20)])
+
+  print(list(d.keys()))               # ['name', 'age']
+  print("name" in d)                  # True    (checks KEYS)
+  print("Ravi" in d.values())         # True
+  print(len(d))                       # 2
+
+5.5 LOOPING
+  d = {"name": "Ravi", "age": 20, "course": "BCA"}
+
+  for key in d:                       # keys
+      print(key)
+
+  for value in d.values():            # values
+      print(value)
+
+  for key, value in d.items():        # both
+      print(key, "->", value)
+
+  for i, (k, v) in enumerate(d.items(), 1):
+      print(i, k, v)
+
+5.6 NESTED DICTIONARY
+  students = {
+      "s1": {"name": "Ravi", "marks": 85},
+      "s2": {"name": "Anu",  "marks": 92}
+  }
+  print(students["s2"]["name"])       # Anu
+  students["s1"]["marks"] = 90
+  for sid, info in students.items():
+      print(sid, info["name"], info["marks"])
+
+5.7 DICTIONARY COMPREHENSION
+  squares = {x: x * x for x in range(1, 6)}
+  print(squares)                      # {1: 1, 2: 4, 3: 9, 4: 16, 5: 25}
+
+  names = ["a", "b"]
+  print({n: n.upper() for n in names})  # {'a': 'A', 'b': 'B'}
+
+  Filter:
+  marks = {"Ravi": 80, "Anu": 40, "Kiran": 95}
+  passed = {k: v for k, v in marks.items() if v >= 50}
+
+  Swap keys and values:
+  print({v: k for k, v in {"a": 1, "b": 2}.items()})   # {1: 'a', 2: 'b'}
+
+5.8 MERGING DICTIONARIES
+  a = {"x": 1, "y": 2}
+  b = {"y": 99, "z": 3}
+  print({**a, **b})                   # {'x': 1, 'y': 99, 'z': 3}
+  print(a | b)                        # same (Python 3.9+)
+  a.update(b)                         # modifies a in place
+
+5.9 SORTING A DICTIONARY-
+  marks = {"Ravi": 80, "Anu": 95, "Kiran": 70}
+  print(sorted(marks))                                    # sorted keys
+  print(sorted(marks.items(), key=lambda x: x[1]))        # by value
+  print(dict(sorted(marks.items(), key=lambda x: x[1], reverse=True)))
+  print(max(marks, key=marks.get))                        # Anu (highest)
+
+5.10 COUNTING WITH A DICTIONARY
+  text = "banana"
+  freq = {}
+  for ch in text:
+      freq[ch] = freq.get(ch, 0) + 1
+  print(freq)                         # {'b': 1, 'a': 3, 'n': 2}
+
+  Using Counter:
+  from collections import Counter
+  print(Counter("banana"))            # Counter({'a': 3, 'n': 2, 'b': 1})
+  print(Counter("banana").most_common(1))     # [('a', 3)]
+
+5.11 COPYING
+  d1 = {"a": 1}
+  d2 = d1                 # same dictionary (reference)
+  d3 = d1.copy()          # shallow copy
+  d4 = dict(d1)           # shallow copy
+
+5.12 DICTIONARY METHODS SUMMARY
+ Method               Description
+ -------------------  --------------------------------------------------
+ get(k, default)      Value of key k, or default if absent
+ keys()               All keys
+ values()             All values
+ items()              All (key, value) pairs
+
+- STRING DATA TYPE 
+
+1. INTRODUCTION TO STRINGS
+A string is a sequence of characters (letters, digits, symbols, spaces) enclosed in quotes. In Python the type is  str.
+
+KEY PROPERTIES
+  - Ordered: every character has a position (index).
+  - Immutable: a string cannot be changed after it is created.
+  - Indexed: characters are accessed by index, starting from 0.
+  - Iterable: you can loop through a string.
+  - Unicode: Python 3 strings store Unicode characters (any language, emoji).
+  - There is no separate char type; a single character is a string of length 1.
+
+EXAMPLE
+  s = "Python"
+  print(type(s))              # <class 'str'>
+  print(len(s))               # 6
+
+2. CREATING STRINGS
+SINGLE, DOUBLE AND TRIPLE QUOTES
+  s1 = 'Hello'                 # single quotes
+  s2 = "World"                 # double quotes
+  s3 = '''This is a
+  multi-line string'''         # triple single quotes
+  s4 = """Another
+  multi-line string"""         # triple double quotes
+
+  Single and double quotes work the same way. Triple quotes allow the string to span several lines .
+
+QUOTES INSIDE A STRING
+  print("It's a nice day")             # single quote inside double quotes
+  print('He said "Hello"')             # double quotes inside single quotes
+  print("He said \"Hello\"")           # escape with backslash
   print('It\'s fine')
 
-ESCAPE CHARACTERS
-  \n   new line          print("Hello\nWorld")
-  \t   tab               print("A\tB")
-  \\   backslash         print("C:\\folder")
-  \'   single quote
-  \"   double quote
+EMPTY STRING
+  e = ""
+  e2 = str()
+  print(len(e))                        # 0
+  print(bool(e))                       # False (empty string is falsy)
 
-RAW STRING (no escapes)
-  print(r"C:\new\table")      # C:\new\table
+CREATING WITH str()
+  print(str(100))                      # "100"
+  print(str(3.5))                      # "3.5"
+  print(str(True))                     # "True"
+  print(str([1, 2]))                   # "[1, 2]"
 
-INDEXING
+MULTI-LINE STRING WITH PARENTHESES (implicit joining)
+  msg = ("Hello "
+         "World "
+         "from Python")
+  print(msg)                           # Hello World from Python
+
+INPUT IS ALWAYS A STRING
+  name = input("Enter name: ")
+  age = input("Enter age: ")
+  print(type(age))                     # <class 'str'>
+
+3. ESCAPE CHARACTERS AND RAW STRINGS
+ESCAPE CHARACTERS (start with a backslash \)
+ Escape   Meaning            Example
+ -------  -----------------  ----------------------------
+ \n       New line           print("Hello\nWorld")
+ \t       Tab                print("A\tB")
+ \\       Backslash          print("C:\\Users")
+ \'       Single quote       print('It\'s')
+ \"       Double quote       print("Say \"Hi\"")
+ \r       Carriage return    overwrites from line start
+ \b       Backspace
+ \0       Null character
+ \xhh     Hex character      print("\x41")           # A
+ \uXXXX   Unicode (16-bit)   print("\u0905")         # Hindi letter
+ \N{name} Unicode name       print("\N{GREEK SMALL LETTER ALPHA}")
+
+4. INDEXING: Indexing means accessing a single character using its position.
+
+SYNTAX
+  string[index]
+
   s = "PYTHON"
-  Index:    0  1  2  3  4  5
-  Char:     P  Y  T  H  O  N
-  Negative: -6 -5 -4 -3 -2 -1
+  Positive index:   0   1   2   3   4   5
+  Character:        P   Y   T   H   O   N
+  Negative index:  -6  -5  -4  -3  -2  -1
 
-  print(s[0])                 # P
-  print(s[3])                 # H
-  print(s[-1])                # N
+EXAMPLES
+  print(s[0])                  # P   (first)
+  print(s[3])                  # H
+  print(s[5])                  # N
+  print(s[-1])                 # N   (last)
+  print(s[-3])                 # H
+  print(s[len(s) - 1])         # N
 
-SLICING   string[start : stop : step]   (stop is NOT included)
-  print(s[0:3])               # PYT
-  print(s[2:])                # THON
-  print(s[:4])                # PYTH
-  print(s[::2])               # PTO
-  print(s[::-1])              # NOHTYP   (reverse)
+OUT OF RANGE
+  print(s[10])                 # IndexError: string index out of range
 
-IMMUTABLE
+POINTS
+  - Indexes start from 0, not 1.
+  - Valid range is -len(s) to len(s) - 1.
+  - Negative index counts from the end.
+
+5. SLICING: Slicing extracts a part (substring) of a string.
+
+SYNTAX
+  string[start : stop : step]
+    start -> first index (INCLUDED)       default 0
+    stop  -> last index (NOT included)    default end of string
+    step  -> jump size                    default 1
+
+  s = "PYTHON"
+  print(s[0:3])                # PYT      (index 0, 1, 2)
+  print(s[2:5])                # THO
+  print(s[:4])                 # PYTH     (from start)
+  print(s[2:])                 # THON     (to the end)
+  print(s[:])                  # PYTHON   (full copy)
+  print(s[-3:])                # HON      (last 3)
+  print(s[:-1])                # PYTHO    (all except the last)
+  print(s[1:-1])               # YTHO
+  print(s[::2])                # PTO      (every 2nd character)
+  print(s[1::2])               # YHN
+  print(s[::-1])               # NOHTYP   (reverse)
+  print(s[4:1:-1])             # OHT      (backwards)
+  print(s[2:100])              # THON     (no error for out-of-range slices)
+
+QUICK MEMORY TRICK
+  s[a:b]  gives characters a, a+1, ..., b-1     (length = b - a)
+
+COMMON SLICING USES
+  - First n characters:   s[:n]
+  - Last n characters:    s[-n:]
+  - Reverse a string:     s[::-1]
+  - Remove first/last:    s[1:], s[:-1]
+  - Every other char:     s[::2]
+  - Get file extension:   "photo.jpg"[-3:]        # jpg
+
+6. IMMUTABILITY
+Strings cannot be changed after they are created.
+
   s = "Python"
-  # s[0] = "J"                # TypeError
-  s = "J" + s[1:]             # create a new string
-  print(s)                    # Jython
+  # s[0] = "J"                 # TypeError: 'str' object does not support item assignment
 
-OPERATIONS
-  print("Hello" + " " + "World")   # Hello World   (concatenation)
-  print("Hi " * 3)                 # Hi Hi Hi      (repetition)
-  print(len("Python"))             # 6
-  print("Py" in "Python")          # True
-  print("abc" < "abd")             # True  (alphabetical)
+TO "CHANGE" A STRING, CREATE A NEW ONE
+  s = "J" + s[1:]
+  print(s)                     # Jython
 
-COMMON METHODS
-  s = "  Hello World  "
-  print(s.upper())            #   HELLO WORLD
-  print(s.lower())            #   hello world
-  print(s.strip())            # Hello World
-  print(s.title())            #   Hello World
-  print(s.replace("World", "Python"))
-  print("a,b,c".split(","))   # ['a', 'b', 'c']
-  print("-".join(["a", "b"])) # a-b
-  print("hello".find("l"))    # 2
-  print("banana".count("a"))  # 3
-  print("hello".startswith("he"))   # True
-  print("123".isdigit())      # True
-  print("abc".isalpha())      # True
+  s = s.replace("J", "P")      # methods also return NEW strings
+  print(s)                     # Python
 
-FORMATTING
-  name = "Ravi"
-  age = 20
-  print(f"{name} is {age} years old")           # f-string
-  print("{} is {} years old".format(name, age))
-  print("%s is %d years old" % (name, age))
-  print(f"Pi = {3.14159:.2f}")                   # Pi = 3.14
+  The original string is never modified:
+  a = "hello"
+  b = a.upper()
+  print(a)                     # hello   (unchanged)
+  print(b)                     # HELLO
 
-LOOPING THROUGH A STRING
-  for ch in "Hi!":
+PROOF USING id()
+  s = "abc"
+  print(id(s))
+  s = s + "d"
+  print(id(s))                 # different id -> a new object was created
+
+WHY IMMUTABLE?
+  - Safe to share between variables.
+  - Can be used as dictionary keys.
+  - Allows Python to optimize memory.
+
+7. STRING OPERATIONS
+7.1 CONCATENATION (+)
+  print("Hello" + " " + "World")          # Hello World
+  first = "Ravi"
+  last = "Kumar"
+  print(first + " " + last)               # Ravi Kumar
+  # print("Age: " + 20)                   # TypeError
+  print("Age: " + str(20))                # Age: 20
+
+7.2 REPETITION (*)
+  print("Hi " * 3)                        # Hi Hi Hi
+  print("-" * 20)                         # --------------------
+  print("=" * 10)
+
+7.3 LENGTH (len)
+  print(len("Python"))                    # 6
+  print(len("Hello World"))               # 11  (space counts)
+  print(len(""))                          # 0
+
+7.4 MEMBERSHIP (in / not in)
+  print("Py" in "Python")                 # True
+  print("py" in "Python")                 # False  (case-sensitive)
+  print("z" not in "Python")              # True
+
+7.5 COMPARISON (==, !=, <, >, <=, >=)
+  Strings are compared character by character using Unicode values.
+  print("abc" == "abc")                   # True
+  print("abc" == "ABC")                   # False
+  print("apple" < "banana")               # True
+  print("a" < "B")                        # False  ('a' = 97, 'B' = 66)
+  print("10" < "9")                       # True   (compares '1' and '9')
+  print("abc".lower() == "ABC".lower())   # True   (case-insensitive check)
+
+7.6 MIN, MAX, SORTED
+  print(min("python"))                    # h
+  print(max("python"))                    # y
+  print(sorted("python"))                 # ['h', 'n', 'o', 'p', 't', 'y']
+  print("".join(sorted("python")))        # hnopty
+
+7.7 STRING CONCATENATION WITHOUT +
+  print("Hello", "World")                 # Hello World   (print adds a space)
+  print("Hello", "World", sep="-")        # Hello-World
+  print("Hello" "World")                  # HelloWorld   (adjacent literals)
+
+7.8 AUGMENTED OPERATORS
+  s = "Hi"
+  s += " there"                           # s = s + " there"
+  s *= 2
+  print(s)                                # Hi thereHi there
+
+8. LOOPING THROUGH A STRING
+  s = "Hello"
+
+  # direct
+  for ch in s:
       print(ch)
 
-MULTI-LINE STRING / DOCSTRING
-  text = """Line 1
-  Line 2
-  Line 3"""
-  print(text)
+  # by index
+  for i in range(len(s)):
+      print(i, s[i])
 
-POINTS TO REMEMBER
-  - Index starts from 0; out-of-range index gives IndexError.
-  - Slicing never gives an error for out-of-range values.
-  - Methods return NEW strings; the original is unchanged.
-  - input() always returns a str.
+  # with enumerate
+  for i, ch in enumerate(s):
+      print(i, ch)
+
+  # while loop
+  i = 0
+  while i < len(s):
+      print(s[i])
+
+9. STRING METHODS
+Methods are called as   string.method(arguments)
+They RETURN a new value; the original string is not changed.
+
+==========================================================================
+9.1 CASE METHODS
+==========================================================================
+ upper()        all uppercase            "python".upper()          -> PYTHON
+ lower()        all lowercase            "PYTHON".lower()          -> python
+ capitalize()   first letter capital     "hello world".capitalize() -> Hello world
+ title()        each word capitalized    "hello world".title()     -> Hello World
+ swapcase()     swap the case            "HeLLo".swapcase()        -> hEllO
+ casefold()     aggressive lowercase     "Straße".casefold()       -> strasse
+==========================================================================
+9.2 WHITESPACE AND TRIMMING
+==========================================================================
+ strip()        remove spaces from both ends
+ lstrip()       remove spaces from the left
+ rstrip()       remove spaces from the right
+ strip(chars)   remove the given characters from both ends
+
+==========================================================================
+9.3 SEARCHING
+==========================================================================
+ find(sub)         index of FIRST match, -1 if not found
+ rfind(sub)        index of LAST match, -1 if not found
+ index(sub)        like find, but raises ValueError if not found
+ rindex(sub)       like rfind, but raises ValueError
+ count(sub)        number of non-overlapping occurrences
+ startswith(x)     True if the string starts with x
+ endswith(x)       True if the string ends with x
+
+==========================================================================
+9.4 REPLACING AND MODIFYING
+==========================================================================
+ replace(old, new)           replace all occurrences
+ replace(old, new, count)    replace only the first count occurrences
+==========================================================================
+9.5 SPLITTING AND JOINING
+==========================================================================
+ split(sep)             split into a list (default: any whitespace)
+ split(sep, maxsplit)   limit the number of splits
+ rsplit(sep, maxsplit)  split from the right
+ splitlines()           split at line breaks
+ partition(sep)         split into (before, sep, after) - at the first sep
+ rpartition(sep)        same, at the last sep
+ join(iterable)         join items of a list/tuple using the string as glue
+==========================================================================
+9.6 CHECKING METHODS (return True / False)
+==========================================================================
+ isalpha()     only letters                 "abc".isalpha()       -> True
+ isdigit()     only digits                  "123".isdigit()       -> True
+ isnumeric()   numeric characters           "½".isnumeric()       -> True
+ isdecimal()   decimal digits               "123".isdecimal()     -> True
+ isalnum()     letters and digits           "abc123".isalnum()    -> True
+ isspace()     only whitespace              "  ".isspace()        -> True
+ islower()     all cased letters lowercase  "abc".islower()       -> True
+ isupper()     all cased letters uppercase  "ABC".isupper()       -> True
+ istitle()     title case                   "Hello World".istitle() -> True
+ isidentifier() valid variable name         "name1".isidentifier() -> True
+ isprintable() printable characters
+
+10. STRING FORMATTING
+10.1 f-STRINGS - RECOMMENDED
+ Put f before the quotes and write variables or expressions inside { }.
+
+ name = "Ravi"
+ age = 20
+ print(f"My name is {name} and I am {age} years old.")
+
+11. UNICODE: ord(), chr(), encode(), decode()
+ ord(char)    Unicode number of a character
+ chr(number)  character of a Unicode number
+
+12. TYPE CONVERSION WITH STRINGS
+ String to number
+   int("25")              # 25
+   float("3.14")          # 3.14
+   int("1010", 2)         # 10
+   # int("3.5")           # ValueError
+   # int("abc")           # ValueError
+   # int("")              # ValueError
+
+ Number to string
+   str(100)               # "100"
+   str(3.5)               # "3.5"
+   str(True)              # "True"
+
+ String to list / tuple / set
+   list("abc")            # ['a', 'b', 'c']
+   tuple("abc")           # ('a', 'b', 'c')
+   set("hello")           # {'h', 'e', 'l', 'o'}
+   "a b c".split()        # ['a', 'b', 'c']
+
+ List to string
+   "".join(["a", "b"])    # "ab"
+   str(["a", "b"])        # "['a', 'b']"
+
+ Safe conversion
+   value = input("Enter a number: ")
+   try:
+       n = int(value)
+       print("Integer:", n)
+   except ValueError:
+       print("Not a valid integer")
+
+ eval() converts a string expression (avoid with untrusted input):
+   print(eval("2 + 3 * 4"))           # 14
+
+15. STRING METHODS SUMMARY TABLE
+ Category    Method            Description                       Example result
+ ----------  ----------------  --------------------------------  ----------------
+ Case        upper()           uppercase                         "HELLO"
+             lower()           lowercase                         "hello"
+             title()           title case                        "Hello World"
+             capitalize()      first letter capital              "Hello world"
+             swapcase()        swap case                         "hELLO"
+ Trim        strip()           remove both-end spaces            "hi"
+             lstrip()/rstrip() remove left / right spaces
+ Search      find()            first index, -1 if absent         2
+             rfind()           last index                        13
+             index()           first index, error if absent      2
+             count()           number of occurrences             3
+             startswith()      begins with                       True
+             endswith()        ends with                         True
+ Modify      replace()         replace text                      "hexxo"
+             zfill()           zero pad                          "00042"
+ Split/Join  split()           string to list                    ['a', 'b']
+             join()            list to string                    "a-b"
+             partition()       3-part split                      ('a', '=', 'b')
+             splitlines()      split at line breaks              ['l1', 'l2']
+ Check       isalpha()         only letters                      True/False
+             isdigit()         only digits                       True/False
+             isalnum()         letters + digits                  True/False
+             isspace()         only spaces                       True/False
+             islower()/isupper()  case check                     True/False
+ Align       center()          center with fill                  "**Hi**"
+             ljust()/rjust()   left / right align                "Hi...."
+ Format      format()          format with {}                    "Name: Ravi"
+ Encode      encode()          str to bytes                      b'Hi'
 
