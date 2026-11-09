@@ -1,0 +1,131 @@
+CSS BORDER PROPERTIES AND BORDER-RADIUS PROPERTIES
+
+1. DEFINITION: A border is a line drawn around the edge of an element. It sits between the element's padding and its margin.
+
+    +------------------ margin ------------------+
+    |   +------------- border --------------+    |
+    |   |   +------- padding -------+       |    |
+    |   |   |        content         |       |    |
+    |   |   +------------------------+       |    |
+    |   +------------------------------------+    |
+    +---------------------------------------------+
+
+A visible border needs THREE things:
+  1. a style  (border-style)   - REQUIRED, default is none
+  2. a width  (border-width)   - default is medium
+  3. a color  (border-color)   - default is the element's text color
+
+Without border-style, no border appears.
+
+2. border-style: border-style sets the type of line used for the border.
+SYNTAX
+  border-style: value;
+
+VALUES
+ Value     Description
+ --------  ------------------------------------------------------------
+ none      No border (default)
+ hidden    Same as none, but wins in table border conflicts
+ solid     A single continuous line
+ dashed    A series of short dashes
+ dotted    A series of round dots
+ double    Two parallel lines (width must be at least 3px to see both)
+ groove    3D carved/grooved effect
+ ridge     3D raised ridge effect (opposite of groove)
+ inset     3D effect - the element looks pushed IN
+ outset    3D effect - the element looks pushed OUT
+
+VISUAL SKETCH
+  solid   ________________________
+  dashed  _ _ _ _ _ _ _ _ _ _ _ _
+  dotted  . . . . . . . . . . . .
+  double  ========================
+
+3. border-width: border-width sets the thickness of the border.
+SYNTAX
+  border-width: value;
+
+VALUES
+  thin       about 1px
+  medium     about 3px (default)
+  thick      about 5px
+  length     2px, 0.5em, 0.1rem ...  (negative values are NOT allowed)
+
+NOTE
+  If border-style is none, the computed width becomes 0.
+
+4. border-color: border-color sets the color of the border.
+SYNTAX
+  border-color: color;
+VALUES
+  color name, HEX, rgb(), rgba(), hsl(), hsla(), transparent, currentColor
+
+DEFAULT COLOR
+  If no color is given, the border uses the element's text color (colorproperty) - this is currentColor.
+
+5. border SHORTHAND
+SYNTAX
+  border: width style color;
+
+  - The order of the three values is flexible, but "width style color" is the usual convention.
+  - Only style is required.
+
+6. INDIVIDUAL SIDE BORDERS: Each side can have its own border.
+
+SHORTHAND FOR ONE SIDE
+  border-top:    width style color;
+  border-right:  width style color;
+  border-bottom: width style color;
+  border-left:   width style color;
+
+PART B: BORDER-RADIUS PROPERTIES
+14. DEFINITION :border-radius rounds the corners of an element. The value is the radius of the circle (or ellipse) used to curve each corner. 
+A larger value gives a rounder corner.
+
+SYNTAX
+  border-radius: value;
+
+VALUES
+  length (px, em, rem), percentage (%)
+
+It rounds the element's background, border and any image inside it (and
+clips content when overflow is hidden). It works even without a visible
+border.
+
+  Radius = 0:         Radius = 20px:         Radius = 50% (square):
+  +----------+        .-----------.           .---.
+  |          |        |           |         /       \
+  |          |        |           |        |         |
+  +----------+        '-----------'         \       /
+                                               '---'
+15. ONE, TWO, THREE AND FOUR VALUES: Corner order is clockwise starting from the top-left:
+
+     top-left  ------------  top-right
+         |                       |
+     bottom-left ----------  bottom-right
+
+1 VALUE  - all four corners
+  border-radius: 10px;
+
+2 VALUES - (top-left & bottom-right)  (top-right & bottom-left)
+  border-radius: 20px 5px;
+
+3 VALUES - (top-left)  (top-right & bottom-left)  (bottom-right)
+  border-radius: 20px 10px 30px;
+
+4 VALUES - top-left, top-right, bottom-right, bottom-left
+  border-radius: 10px 20px 30px 40px;
+
+16. INDIVIDUAL CORNER PROPERTIES
+  border-top-left-radius:      value;
+  border-top-right-radius:     value;
+  border-bottom-right-radius:  value;
+  border-bottom-left-radius:   value;
+
+17. PERCENTAGE VALUES: Percentages are calculated from the size of the element itself (horizontal radius from width, vertical radius from height).
+
+  border-radius: 50%;        /* circle on a square, ellipse on a rectangle */
+  border-radius: 25%;        /* softly rounded */
+  border-radius: 10% 40%;
+
+
