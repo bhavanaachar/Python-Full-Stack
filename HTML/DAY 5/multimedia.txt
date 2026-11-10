@@ -1,0 +1,112 @@
+HTML MULTIMEDIA
+
+1. Introduction
+- Multimedia means audio, video, animations and embedded content on a webpage.
+- HTML5 added the <audio> and <video> tags, so plugins like Flash are no longer needed.
+- Multimedia tags: <audio>, <video>, <source>, <track>, <iframe>, <embed>, <object>, <canvas>, <svg>.
+
+2. Audio Tag <audio>
+- Used to play sound files such as music, podcasts or recordings.
+
+Syntax:
+<audio src="song.mp3" controls></audio>
+
+Example:
+<audio controls>
+    <source src="song.mp3" type="audio/mpeg">
+    <source src="song.ogg" type="audio/ogg">
+    Your browser does not support the audio tag.
+</audio>
+
+- The browser plays the first format it supports.
+- The text inside the tag is shown only if the browser does not support audio.
+
+Audio attributes:
+Attribute    Description
+controls     Shows play, pause and volume controls
+autoplay     Starts playing automatically (often blocked by browsers)
+loop         Repeats the audio again and again
+muted        Starts with the sound off
+preload      Loads the file in advance: none, metadata, auto
+src          Path of the audio file
+
+Example with attributes:
+<audio src="bell.mp3" controls loop></audio>
+
+Supported audio formats:
+Format    MIME type       Extension
+MP3       audio/mpeg      .mp3
+WAV       audio/wav       .wav
+OGG       audio/ogg       .ogg
+
+3. Video Tag <video>
+- Used to play video files in the webpage.
+
+Syntax:
+<video src="movie.mp4" controls></video>
+
+Example:
+<video width="400" height="250" controls poster="thumbnail.jpg">
+    <source src="movie.mp4" type="video/mp4">
+    <source src="movie.webm" type="video/webm">
+    Your browser does not support the video tag.
+</video>
+
+Video attributes:
+Attribute    Description
+controls     Shows play, pause, volume and fullscreen controls
+autoplay     Starts playing automatically (works only with muted)
+loop         Repeats the video
+muted        Starts with the sound off
+poster       Image shown before the video plays
+width        Width of the player
+height       Height of the player
+preload      none, metadata, auto
+playsinline  Plays inside the page on mobile (not fullscreen)
+
+Autoplay example (background video):
+<video autoplay muted loop playsinline width="400">
+    <source src="intro.mp4" type="video/mp4">
+</video>
+
+Supported video formats:
+Format    MIME type       Extension
+MP4       video/mp4       .mp4    (supported by all browsers, most common)
+WebM      video/webm      .webm
+OGG       video/ogg       .ogg
+
+
+
+3. iframe (Embedding Other Content)
+- <iframe> shows another webpage or content inside your page.
+- Used for YouTube videos, Google Maps, documents and other websites.
+
+Syntax:
+<iframe src="url" width="600" height="400" title="description"></iframe>
+
+YouTube video:
+<iframe width="560" height="315"
+        src="https://www.youtube.com/embed/VIDEO_ID"
+        title="YouTube video" allowfullscreen></iframe>
+
+Google Map:
+<iframe src="https://www.google.com/maps/embed?pb=..."
+        width="400" height="300" loading="lazy"></iframe>
+
+iframe attributes:
+Attribute         Description
+src               URL of the page to show
+width, height     Size of the frame
+title             Description (needed for accessibility)
+name              Name used as a link target
+allowfullscreen   Allows fullscreen mode
+loading="lazy"    Loads only when it comes near the screen
+sandbox           Adds security restrictions
+
+Open a link inside an iframe:
+<iframe name="myframe" src="page1.html"></iframe>
+<a href="page2.html" target="myframe">Open page 2 in the frame</a>
+
+Note: some websites do not allow their pages to be shown inside an iframe.
+
+
