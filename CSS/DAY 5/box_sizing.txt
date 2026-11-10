@@ -1,0 +1,161 @@
+DAY 5: BOX MODEL AND BOX SIZING
+
+1. Introduction
+- In HTML/CSS, every element is treated as a rectangular box.
+- The box model describes how the size of this box is calculated.
+- The box-sizing property decides whether padding and border are included in the width and height or added on top of them.
+
+
+2. The Box Model
+Every element box has four parts (from inside to outside):
+
+    +--------------------------------------------+
+    |                  MARGIN                    |
+    |   +------------------------------------+   |
+    |   |              BORDER                |   |
+    |   |   +----------------------------+   |   |
+    |   |   |          PADDING           |   |   |
+    |   |   |   +--------------------+   |   |   |
+    |   |   |   |      CONTENT       |   |   |   |
+    |   |   |   +--------------------+   |   |   |
+    |   |   +----------------------------+   |   |
+    |   +------------------------------------+   |
+    +--------------------------------------------+
+
+Part      Description
+Content   The text or image inside the box. Its size is set by width and height.
+Padding   Space between the content and the border (inside the border).
+Border    A line around the padding and content.
+Margin    Space outside the border, between this box and other boxes.
+
+Example:
+div {
+    width: 300px;
+    height: 100px;
+    padding: 20px;
+    border: 5px solid black;
+    margin: 10px;
+}
+
+
+3. The box-sizing Property
+Syntax:
+box-sizing: content-box | border-box;
+
+3.1 content-box (default)
+- width and height apply to the CONTENT only.
+- Padding and border are ADDED outside, so the box becomes bigger.
+
+Total width  = width + padding-left + padding-right + border-left + border-right
+
+div {
+    box-sizing: content-box;
+    width: 300px;
+    padding: 20px;
+    border: 5px solid black;
+}
+Total width = 300 + 20 + 20 + 5 + 5 = 350px
+
+3.2 border-box
+- width and height INCLUDE the content, padding and border.
+- The box stays exactly the size you set.
+
+div {
+    box-sizing: border-box;
+    width: 300px;
+    padding: 20px;
+    border: 5px solid black;
+}
+Total width = 300px (content shrinks to 300 - 40 - 10 = 250px)
+
+Visual comparison:
+content-box:  |<-5->|<-20->|<------ 300 ------>|<-20->|<-5->|   = 350px
+border-box:   |<-5->|<-20->|<---- 250 ---->|<-20->|<-5->|     = 300px
+
+
+4. Difference between content-box and border-box
+content-box                          border-box
+-----------------------------------  -----------------------------------
+Default value                        Must be set manually
+width = content only                 width = content + padding + border
+Padding and border add to the size   Padding and border stay inside the size
+Total size is bigger than width      Total size equals width
+Harder to calculate layouts          Easy to calculate layouts
+
+Note: margin is never included in the width in either mode.
+
+
+5. Why border-box is Preferred
+Problem with content-box:
+.box {
+    width: 100%;
+    padding: 20px;
+}
+The box becomes 100% + 40px wide and overflows its parent.
+
+Fix with border-box:
+.box {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 20px;
+}
+The box stays exactly 100% wide.
+
+Common use: two columns side by side
+.col {
+    box-sizing: border-box;
+    width: 50%;
+    float: left;
+    padding: 15px;
+    border: 1px solid #ccc;
+}
+With content-box the two columns would be wider than 50% each and wrap to the next line.
+
+6. Calculating the Size of a Box
+Total width  = width + left padding + right padding
+             + left border + right border + left margin + right margin
+Total height = height + top padding + bottom padding
+             + top border + bottom border + top margin + bottom margin
+
+Example (content-box):
+div {
+    width: 200px;
+    height: 100px;
+    padding: 10px;
+    border: 2px solid black;
+    margin: 15px;
+}
+Visible box width  = 200 + 10 + 10 + 2 + 2 = 224px
+Visible box height = 100 + 10 + 10 + 2 + 2 = 124px
+Space used width   = 224 + 15 + 15 = 254px
+Space used height  = 124 + 15 + 15 = 154px
+
+Same example with border-box:
+Visible box width  = 200px
+Visible box height = 100px
+Space used width   = 200 + 15 + 15 = 230px
+Space used height  = 100 + 15 + 15 = 130px
+
+
+8. Related Properties
+min-width, max-width, min-height, max-height
+- Set the smallest and largest size of the box.
+.container {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+margin: 0 auto
+- Centers a block element horizontally (needs a width).
+
+overflow
+- Controls content that is bigger than the box.
+overflow: visible | hidden | scroll | auto;
+
+margin collapse
+- Top and bottom margins of neighboring block elements merge into one
+  (the larger one is used).
+
+outline
+- Drawn outside the border and does not change the box size.
