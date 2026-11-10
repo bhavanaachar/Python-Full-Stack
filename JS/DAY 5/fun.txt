@@ -1,0 +1,208 @@
+JAVASCRIPT - IMPORTANT TYPES OF FUNCTIONS
+
+1. Named Function
+2. Anonymous Function
+3. Arrow Function
+4. Callback Function
+5. Higher-Order Function (HOF)
+
+
+1. Named Function
+- A function that has a name.
+- It is created using the function keyword followed by a name.
+- It can be called using that name, and called again and again.
+
+Syntax:
+function functionName(parameters) {
+    // code
+    return value;
+}
+
+Example:
+function add(a, b) {
+    return a + b;
+}
+console.log(add(10, 20));      // 30
+
+2. Anonymous Function
+- A function that has no name.
+- It cannot be called directly by a name, so it is stored in a variable or passed as a value.
+- Often used as a function expression, a callback or an event handler.
+
+Syntax:
+const variableName = function (parameters) {
+    // code
+};
+
+Example 1 (stored in a variable):
+const multiply = function (a, b) {
+    return a * b;
+};
+console.log(multiply(4, 5));   // 20
+
+Example 2 (passed as a callback):
+setTimeout(function () {
+    console.log("Runs after 2 seconds");
+}, 2000);
+
+Example 3 (event handler):
+document.getElementById("btn").onclick = function () {
+    alert("Button clicked");
+};
+
+Note: An anonymous function stored in a variable is NOT hoisted. Call it only after it is defined.
+
+
+3. Arrow Function
+- A shorter way to write a function, introduced in ES6.
+- Uses the arrow symbol =>.
+- It is always anonymous (but can be stored in a variable).
+- If the body has one expression, return is automatic (implicit return).
+
+Syntax:
+const name = (parameters) => expression;
+const name = (parameters) => {
+    // code
+    return value;
+};
+
+Examples:
+const add = (a, b) => a + b;             // two parameters
+const square = n => n * n;               // one parameter: brackets optional
+const greet = () => "Hello";             // no parameter: empty brackets
+const area = (l, b) => {                 // many lines: { } and return needed
+    let result = l * b;
+    return result;
+};
+
+console.log(add(2, 3));                  // 5
+console.log(square(4));                  // 16
+
+Comparison with a normal function:
+// Normal function
+function add(a, b) {
+    return a + b;
+}
+// Arrow function
+const add = (a, b) => a + b;
+
+Difference between normal and arrow functions:
+Normal function                          Arrow function
+---------------------------------------  ---------------------------------------
+Uses the function keyword                Uses =>
+Has its own this                         Does not have its own this
+Can be used as a constructor (new)       Cannot be used as a constructor
+Has the arguments object                 No arguments object
+Longer syntax                            Short syntax
+
+
+4. Callback Function
+- A function that is passed as an argument to another function.
+- The other function calls it later, at the right time (after a task is
+  finished or when an event happens).
+
+Syntax:
+function mainFunction(callback) {
+    // code
+    callback();
+}
+
+Example 1:
+function greet(name, callback) {
+    console.log("Hello " + name);
+    callback();
+}
+function done() {
+    console.log("Greeting finished");
+}
+greet("Ravi", done);
+// Output: Hello Ravi
+//         Greeting finished
+
+Example 2 (with an arrow function):
+function calculate(a, b, operation) {
+    return operation(a, b);
+}
+console.log(calculate(10, 5, (x, y) => x + y));   // 15
+console.log(calculate(10, 5, (x, y) => x * y));   // 50
+
+Example 3 (built-in callbacks):
+setTimeout(() => console.log("After 1 second"), 1000);
+[1, 2, 3].forEach(n => console.log(n));
+document.getElementById("btn").addEventListener("click", () => alert("Hi"));
+
+Why use callbacks?
+- To run code after something finishes (timers, loading data).
+- To make functions flexible (pass different behavior each time).
+- To handle events (click, submit).
+
+
+5. Higher-Order Function (HOF)
+- A function that either:
+    (a) takes another function as an argument, or
+    (b) returns a function.
+- Callbacks are the functions passed into higher-order functions.
+
+Syntax:
+function hof(fn) {                 // takes a function
+    return fn();
+}
+function hof2() {                  // returns a function
+    return function () { };
+}
+
+Example 1 (takes a function):
+function repeat(n, action) {
+    for (let i = 0; i < n; i++) {
+        action(i);
+    }
+}
+repeat(3, i => console.log("Round " + i));
+// Round 0, Round 1, Round 2
+
+Example 2 (returns a function):
+function multiplier(factor) {
+    return function (number) {
+        return number * factor;
+    };
+}
+const double = multiplier(2);
+const triple = multiplier(3);
+console.log(double(5));            // 10
+console.log(triple(5));            // 15
+
+Built-in higher-order functions (array methods):
+let nums = [1, 2, 3, 4, 5, 6];
+
+map()      - transforms every item, returns a new array
+console.log(nums.map(n => n * 2));              // [2, 4, 6, 8, 10, 12]
+
+filter()   - keeps items that pass a test, returns a new array
+console.log(nums.filter(n => n % 2 === 0));     // [2, 4, 6]
+
+reduce()   - combines all items into one value
+console.log(nums.reduce((sum, n) => sum + n, 0));   // 21
+
+forEach()  - runs a function for every item
+nums.forEach(n => console.log(n));
+
+sort(), find(), some(), every() are also higher-order functions.
+
+
+Callback vs Higher-Order Function
+Callback function                        Higher-order function
+---------------------------------------  ---------------------------------------
+The function that is PASSED in           The function that RECEIVES or RETURNS
+                                         a function
+(n) => n * 2                             nums.map(...)
+Does one small job                       Controls when/how the job runs
+
+
+Summary Table
+Type              Has a name?   Short example
+Named function    Yes           function add(a, b) { return a + b; }
+Anonymous         No            const add = function (a, b) { return a + b; };
+Arrow function    No            const add = (a, b) => a + b;
+Callback          Either        setTimeout(() => console.log("Hi"), 1000);
+Higher-order      Either        nums.map(n => n * 2);
+
