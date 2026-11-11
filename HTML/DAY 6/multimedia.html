@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTML Day 6 - Multimedia</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; line-height: 1.6; }
+    h2 { border-bottom: 2px solid #ddd; padding-bottom: 4px; margin-top: 40px; }
+    img, video, iframe { max-width: 100%; }
+  </style>
+</head>
+<body>
+
+  <h1>HTML Day 6: Multimedia</h1>
+
+  <!-- 1. IMAGE -->
+  <h2>1. Image</h2>
+  <img src="https://picsum.photos/400/250" alt="Random sample photo" width="400" height="250">
+
+  <h3>Image as a link</h3>
+  <a href="https://www.w3schools.com">
+    <img src="https://picsum.photos/id/237/200/120" alt="Click to visit W3Schools">
+  </a>
+
+  <h3>Figure with caption</h3>
+  <figure>
+    <img src="https://picsum.photos/id/1015/400/250" alt="River valley" width="400">
+    <figcaption>Fig 1: A river valley</figcaption>
+  </figure>
+
+  <h3>Responsive image (&lt;picture&gt;)</h3>
+  <picture>
+    <source media="(min-width: 800px)" srcset="https://picsum.photos/id/1011/800/300">
+    <source media="(min-width: 400px)" srcset="https://picsum.photos/id/1011/400/200">
+    <img src="https://picsum.photos/id/1011/200/150" alt="Responsive example">
+  </picture>
+
+  <h3>Lazy loading</h3>
+  <img src="https://picsum.photos/id/1025/400/250" alt="Dog" loading="lazy" width="400">
+
+  <!-- 2. AUDIO -->
+  <h2>2. Audio</h2>
+  <audio controls>
+    <source src="https://www.w3schools.com/html/horse.mp3" type="audio/mpeg">
+    <source src="https://www.w3schools.com/html/horse.ogg" type="audio/ogg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <h3>Audio with loop</h3>
+  <audio controls loop>
+    <source src="https://www.w3schools.com/html/horse.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- 3. VIDEO -->
+  <h2>3. Video</h2>
+  <video width="640" controls poster="https://picsum.photos/id/1018/640/360">
+    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+    <source src="https://www.w3schools.com/html/mov_bbb.ogg" type="video/ogg">
+    Your browser does not support the video tag.
+  </video>
+
+  <h3>Autoplay (muted + loop)</h3>
+  <video width="320" autoplay muted loop playsinline>
+    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+  </video>
+
+  <!-- 4. SUBTITLES -->
+  <h2>4. Subtitles with &lt;track&gt;</h2>
+  <!-- Needs your own .vtt file saved next to this HTML file -->
+  <video width="640" controls>
+    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+    <track src="english.vtt" kind="subtitles" srclang="en" label="English" default>
+  </video>
+
+  <!-- 5. YOUTUBE -->
+  <h2>5. YouTube (iframe)</h2>
+  <!-- Replace VIDEO_ID with the code from the YouTube URL -->
+  <iframe width="560" height="315"
+    src="https://www.youtube.com/embed/VIDEO_ID"
+    title="YouTube video player"
+    allow="accelerometer; autoplay; encrypted-media; picture-in-picture"
+    allowfullscreen></iframe>
+
+  <!-- 6. GOOGLE MAP -->
+  <h2>6. Google Map (iframe)</h2>
+  <iframe src="https://www.google.com/maps?q=Bengaluru&output=embed"
+    width="600" height="400" style="border:0;" loading="lazy"
+    title="Map of Bengaluru" allowfullscreen></iframe>
+
+  <!-- 7. PDF EMBED -->
+  <h2>7. PDF (object)</h2>
+  <!-- Needs your own notes.pdf next to this HTML file -->
+  <object data="notes.pdf" type="application/pdf" width="600" height="400">
+    <p>PDF cannot be shown. <a href="notes.pdf">Download it</a>.</p>
+  </object>
+
+  <!-- 8. INLINE SVG -->
+  <h2>8. Inline SVG</h2>
+  <svg width="120" height="120" aria-label="Orange circle">
+    <circle cx="60" cy="60" r="50" stroke="black" stroke-width="3" fill="orange" />
+  </svg>
+
+</body>
+</html>
