@@ -1,0 +1,129 @@
+CSS - DAY 6: THE BOX MODEL
+
+1. WHAT IS THE BOX MODEL?
+Every element on a page is a rectangular box made of 4 layers (from inside to outside):
+
+  +-----------------------------------------+
+  |                MARGIN                   |
+  |   +---------------------------------+   |
+  |   |            BORDER               |   |
+  |   |   +-------------------------+   |   |
+  |   |   |        PADDING          |   |   |
+  |   |   |   +-----------------+   |   |   |
+  |   |   |   |     CONTENT     |   |   |   |
+  |   |   |   +-----------------+   |   |   |
+  |   |   +-------------------------+   |   |
+  |   +---------------------------------+   |
+  +-----------------------------------------+
+
+- Content : text, image, etc. (controlled by width/height)
+- Padding : space between content and border (inside)
+- Border  : line around the padding
+- Margin  : space outside the border (between elements)
+
+2. WIDTH AND HEIGHT
+.box {
+  width: 300px;
+  height: 150px;
+}
+
+Other useful properties:
+  min-width, max-width, min-height, max-height
+
+  img { max-width: 100%; }   /* image never overflows its parent */
+
+3. PADDING
+.box { padding: 20px; }                 /* all 4 sides */
+.box { padding: 10px 20px; }            /* top/bottom  left/right */
+.box { padding: 10px 20px 15px 5px; }   /* top right bottom left */
+
+Individual sides:
+  padding-top, padding-right, padding-bottom, padding-left
+
+TIP: Remember clockwise order: TOP -> RIGHT -> BOTTOM -> LEFT
+
+4. BORDER
+.box { border: 2px solid black; }
+        (width) (style) (color)
+
+Border styles: solid, dashed, dotted, double, none
+
+Individual sides:
+  border-top, border-right, border-bottom, border-left
+
+Rounded corners:
+  .box { border-radius: 10px; }
+  .circle { border-radius: 50%; }   /* makes a square into a circle */
+
+5. MARGIN
+.box { margin: 20px; }
+.box { margin: 10px 30px; }
+.box { margin-top: 15px; }
+
+Center a block element horizontally:
+  .container {
+    width: 600px;
+    margin: 0 auto;
+  }
+
+Margin collapsing:
+  Vertical margins of adjacent blocks merge into one.
+  (20px bottom + 30px top = 30px gap, NOT 50px)
+
+Negative margins are allowed (e.g. margin-left: -10px).
+
+6. BOX-SIZING (VERY IMPORTANT)
+Default (content-box):
+  width applies to CONTENT only.
+  Total width = width + padding + border
+
+  .box { width: 200px; padding: 20px; border: 5px solid; }
+  --> actual width = 200 + 40 + 10 = 250px
+
+border-box (recommended):
+  width INCLUDES padding and border.
+
+  .box { box-sizing: border-box; width: 200px; padding: 20px; border: 5px solid; }
+  --> actual width = 200px
+
+Best practice - put this at the top of every stylesheet:
+
+  * {
+    box-sizing: border-box;
+  }
+
+7. DISPLAY AND THE BOX MODEL (QUICK NOTE)
+- block        : takes full width, starts on a new line (div, p, h1)
+- inline       : only as wide as content; width/height and
+                 vertical margin DON'T work (span, a)
+- inline-block : sits inline but accepts width/height/margins
+
+
+8. OVERFLOW
+When content is bigger than its box:
+
+  overflow: visible;   /* default, spills out */
+  overflow: hidden;    /* clips extra content */
+  overflow: scroll;    /* always shows scrollbars */
+  overflow: auto;      /* scrollbars only if needed */
+
+9. EXAMPLE: A SIMPLE CARD
+HTML:
+  <div class="card">
+    <h2>Hello CSS</h2>
+    <p>This is my first styled box.</p>
+  </div>
+
+CSS:
+  * {
+    box-sizing: border-box;
+  }
+
+  .card {
+    width: 300px;
+    padding: 20px;
+    margin: 30px auto;
+    border: 2px solid #333;
+    border-radius: 10px;
+    background-color: #f5f5f5;
+  }
