@@ -1,0 +1,52 @@
+1. WHAT ARE CONDITIONAL STATEMENTS?
+--------------------------------------------------
+They let your program make decisions. A block of code runs
+only when a condition is True.
+
+Python uses INDENTATION (4 spaces) and a colon ( : ) to
+define blocks.
+
+2. TYPES
+--------------------------------------------------
+a if
+     if condition:
+         statements
+
+b if-else
+     if condition:
+         statements
+     else:
+         statements
+
+c if-elif-else  (many conditions, first True one runs)
+     if condition1:
+         statements
+     elif condition2:
+         statements
+     else:
+         statements
+
+d Nested if (an if inside another if)
+     if condition1:
+         if condition2:
+             statements
+
+e Ternary / one-line if-else
+     result = value_if_true if condition else value_if_false
+
+f match-case (Python 3.10+, like switch)
+     match value:
+         case 1:
+             statements
+         case _:
+             statements      # default
+
+3. OPERATORS USED IN CONDITIONS
+--------------------------------------------------
+Comparison : ==  !=  >  <  >=  <=
+Logical    : and, or, not
+Membership : in, not in
+Identity   : is, is not
+
+Falsy values : 0, 0.0, "", [], (), {}, None, False
+Everything else is truthy.
