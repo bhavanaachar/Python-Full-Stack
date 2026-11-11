@@ -1,15 +1,7 @@
-
-PYTHON - DAY 5 (PART B): LOOPING STATEMENTS
-
-(Example code: python_day5_looping.py)
-
 1. WHAT ARE LOOPS?
---------------------------------------------------
-Loops repeat a block of code multiple times, so you don't
-have to write the same lines again and again.
+Loops repeat a block of code multiple times, so you don't have to write the same lines again and again.
 
 2. for LOOP
---------------------------------------------------
 Repeats over a sequence (list, string, tuple, range, dict...).
 
      for item in sequence:
@@ -24,32 +16,25 @@ range() function:
 Note: the stop value is NOT included.
 
 3. while LOOP
---------------------------------------------------
 Repeats as long as the condition is True.
 
      while condition:
          statements
 
-Warning: update the variable inside the loop, otherwise
-you get an infinite loop.
+Warning: update the variable inside the loop, otherwise you get an infinite loop.
 
 4. NESTED LOOPS
---------------------------------------------------
 A loop inside another loop. Used for patterns and tables.
 
 5. JUMP STATEMENTS
---------------------------------------------------
 break    : exits the loop immediately.
 continue : skips the rest of this iteration, goes to the next.
 pass     : does nothing; placeholder.
 
 6. LOOP ELSE
---------------------------------------------------
-The else block of a for/while runs only if the loop finishes
-WITHOUT hitting break. Useful for prime checks and searches.
+The else block of a for/while runs only if the loop finishes WITHOUT hitting break. Useful for prime checks and searches.
 
 7. HELPFUL FUNCTIONS
---------------------------------------------------
 enumerate(seq) : index + value together.
 zip(a, b)      : loop over two sequences side by side.
 reversed(seq)  : loop backwards.
