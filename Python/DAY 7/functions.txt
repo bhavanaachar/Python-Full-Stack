@@ -1,0 +1,246 @@
+1. WHAT IS A FUNCTION?
+- A function is a named block of code that performs a specific task.
+- You write it once and call it as many times as needed.
+- Benefits: code reuse, less repetition, easier to read, test and maintain.
+Syntax ->
+    def function_name(parameters):
+        # code block (indented)
+        return value
+Example ->
+    def greet():
+        print("Hello!")
+
+    greet()          # calling the function -> Hello!
+
+2. TYPES OF FUNCTIONS
+There are two types:
+
+    1. Built-in functions
+    2. User-defined functions
+
+3. BUILT-IN FUNCTIONS
+- Functions that Python already provides. You can use them directly without defining them.
+
+Common built-in functions:
+    print()      -> displays output
+    input()      -> reads input from the user
+    len()        -> length of a sequence
+    type()       -> returns the data type
+    int(), float(), str(), bool()   -> type conversion
+    max(), min(), sum()             -> largest, smallest, total
+    abs()        -> absolute value
+    round()      -> rounds a number
+    pow()        -> power
+    sorted()     -> returns a sorted list
+    range()      -> generates numbers
+    list(), tuple(), set(), dict()  -> create collections
+    enumerate(), zip()              -> loop helpers
+    map(), filter()                 -> apply or filter over items
+    id()         -> memory identity of an object
+    isinstance() -> checks the type of an object
+    help(), dir()                   -> documentation and attributes
+Examples ->
+    print(len("Python"))            # 6
+    print(max(3, 9, 5))             # 9
+    print(sum([1, 2, 3]))           # 6
+    print(abs(-7))                  # 7
+    print(round(3.14159, 2))        # 3.14
+    print(type(10))                 # <class 'int'>
+
+
+4. USER-DEFINED FUNCTIONS
+- Functions that you create yourself using the def keyword.
+Steps ->
+    1. Define the function with def
+    2. Give it a name
+    3. Add parameters (optional)
+    4. Write the body (indented)
+    5. Use return to send a value back (optional)
+    6. Call the function
+
+Example 1: No parameters, no return
+
+    def welcome():
+        print("Welcome to Python")
+
+    welcome()
+
+Example 2: With parameters
+
+    def greet(name):
+        print("Hello,", name)
+
+    greet("Asha")                   # Hello, Asha
+
+Example 3: With return
+
+    def add(a, b):
+        return a + b
+
+    result = add(5, 3)
+    print(result)                   # 8
+
+
+5. PARAMETERS VS ARGUMENTS
+Parameter:
+- The variable name written in the function definition.
+- It is a placeholder that receives a value.
+
+Argument:
+- The actual value passed to the function when calling it.
+
+Example ->
+    def add(a, b):          # a and b are PARAMETERS
+        return a + b
+
+    add(10, 20)             # 10 and 20 are ARGUMENTS
+Summary:
+    Parameters -> in the definition  (def add(a, b))
+    Arguments  -> in the call        (add(10, 20))
+
+
+6. THE return STATEMENT
+- return sends a value back to the caller and ends the function.
+- A function without return gives back None.
+- Code written after return inside the function does not run.
+
+Example 1: Return a value
+
+    def square(n):
+        return n * n
+
+    print(square(4))                # 16
+
+Example 2: Return multiple values (returned as a tuple)
+    def calc(a, b):
+        return a + b, a - b
+
+    s, d = calc(10, 5)
+    print(s, d)                     # 15 5
+
+Example 3: No return gives None
+
+    def show():
+        print("Hi")
+
+    x = show()
+    print(x)                        # None
+
+Example 4: Code after return is unreachable
+
+    def test():
+        return 1
+        print("never runs")
+print vs return:
+    print   -> only displays a value on the screen
+    return  -> gives the value back so you can store or use it
+
+
+7. TYPES OF FUNCTIONS BY PARAMETERS AND RETURN
+    1. without parameters, without return
+    2. With parameters, without return
+    3. without parameters, with return
+    4. With parameters, with return
+
+Examples ->
+    # 1
+    def hello():
+        print("Hello")
+
+    # 2
+    def greet(name):
+        print("Hi", name)
+
+    # 3
+    def get_pi():
+        return 3.14
+
+    # 4
+    def multiply(a, b):
+        return a * b
+
+
+8. TYPES OF ARGUMENTS
+There are 5 types of arguments in Python:
+
+    1. Positional arguments
+    2. Keyword arguments
+    3. Default arguments
+    4. Variable-length positional arguments (*args)
+    5. Variable-length keyword arguments (**kwargs)
+
+8.1 POSITIONAL ARGUMENTS
+- Values are matched to parameters by their position (order).
+- The order matters, and the number of arguments must match.
+
+    def info(name, age):
+        print(name, age)
+
+    info("Asha", 20)         # Asha 20
+    info(20, "Asha")         # 20 Asha  (wrong order, wrong meaning)
+
+    info("Asha")             # Error: missing 1 required argument
+
+
+8.2 KEYWORD ARGUMENTS
+- Values are passed using parameter names (name=value).
+- Order does not matter.
+
+    def info(name, age):
+        print(name, age)
+
+    info(age=20, name="Asha")    # Asha 20
+
+Rule: positional arguments must come before keyword arguments.
+
+    info("Asha", age=20)         # OK
+    info(name="Asha", 20)        # Error
+
+
+8.3 DEFAULT ARGUMENTS
+- A parameter gets a default value used when no argument is passed.
+- Parameters with defaults must come after parameters without defaults.
+
+    def greet(name, msg="Hello"):
+        print(msg, name)
+
+    greet("Asha")                # Hello Asha
+    greet("Asha", "Hi")          # Hi Asha
+
+Warning: do not use a mutable default (like a list).
+    # Bad
+    def add_item(item, lst=[]):
+        lst.append(item)
+        return lst
+
+    # Good
+    def add_item(item, lst=None):
+        if lst is None:
+            lst = []
+        lst.append(item)
+        return lst
+
+
+8.4 VARIABLE-LENGTH POSITIONAL ARGUMENTS (*args)
+- Used when you do not know how many arguments will be passed.
+- *args collects the extra positional arguments into a tuple.
+
+    def total(*args):
+        print(args)              # (1, 2, 3, 4)
+        return sum(args)
+
+    print(total(1, 2, 3, 4))     # 10
+    print(total(5, 5))           # 10
+
+
+8.5 VARIABLE-LENGTH KEYWORD ARGUMENTS (**kwargs)
+- *kwargs is wrong. It is **kwargs (two stars).
+- **kwargs collects extra keyword arguments into a dictionary.
+
+    def profile(**kwargs):
+        print(kwargs)            # {'name': 'Asha', 'age': 20}
+        for key, value in kwargs.items():
+            print(key, value)
+
+    profile(name="Asha", age=20)
+
