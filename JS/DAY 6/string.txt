@@ -55,14 +55,41 @@ WAYS TO CREATE A STRING
    let n = 5;
    String.raw`Value:\t${n}`;            // "Value:\t5"
 
+6. SUMMARY TABLE OF STRINGS STATIC METHODS
+------------------------------------------
+Here is the overview of Strings Static Methods:
 
-QUICK RECAP
------------
+Method Name              : String.fromCharCode()
+Description              : Converts Unicode values (code units) into a string.
+                           Accepts one or more UTF-16 code units (integers)
+                           as arguments.
+Syntax                   : String.fromCharCode(code1, code2, ...)
+Return Type              : String
 
-- Literals:           '...' and "..." are identical
-- Template literals:  backticks, ${} interpolation, multi-line
-- String(x):          safe conversion to a primitive string
-- new String(x):      creates an object, so avoid it
-- fromCharCode:       code units -> string (limited to 16-bit)
-- fromCodePoint:      full Unicode support, including emojis
-- raw:                keeps backslashes as-is
+Method Name              : String.fromCodePoint()
+Description              : Converts Unicode code points into a string. Supports
+                           supplementary characters (e.g., emojis) by accepting
+                           code points directly.
+Syntax                   : String.fromCodePoint(code1, code2, ...)
+Return Type              : String
+
+Method Name              : String.raw()
+Description              : Creates a raw string literal by ignoring escape
+                           sequences. Typically used with tagged templates.
+Syntax                   : String.raw(template, ...substitutions)
+Return Type              : String
+
+1. STRING length PROPERTY
+-------------------------
+length Property:
+- The length property is used to determine the number of characters in a string. This includes spaces, special characters, and punctuation.
+- The length property is read-only and directly gives the total number of characters in the string.
+- Syntax ->
+
+    string.length
+
+- For Example ->
+
+    let text = "Hello, World!";
+    console.log(text.length);
+    // Output: 13 (counts each character in the string)

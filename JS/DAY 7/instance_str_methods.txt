@@ -1,0 +1,437 @@
+1. INSTANCE METHODS OF STRINGS
+Here are the some instance methods of strings:
+
+   1. at()
+   2. charAt()
+   3. charCodeAt()
+   4. concat()
+   5. includes()
+   6. indexOf()
+   7. lastIndexOf()
+   8. slice()
+   9. split()
+  10. subString()
+  11. toUpperCase()
+  12. toLowerCase()
+  13. trim()
+  14. trimStart()
+  15. trimEnd()
+  16. startWith()
+  17. endsWith()
+  18. repeat()
+  19. padStart()
+  20. padEnd()
+  21. replace()
+  22. replaceAll()
+  23. search()
+  24. match()
+  25. matchAll()
+  26. toString()
+
+
+1. at()
+- Returns the character at a specified position (positive or negative index).
+- Syntax ->      string.at(index)
+- Return Type:   String
+- For Example ->
+    const str = "Hello";
+    console.log(str.at(1));   // "e"
+    console.log(str.at(-1));  // "o"
+
+2. charAt()
+- Returns the character at a specified index (only positive index allowed).
+- Syntax ->      string.charAt(index)
+- Return Type:   String
+- For Example ->
+    const str = "Hello";
+    console.log(str.charAt(1));   // "e"
+    console.log(str.charAt(-1));  // nothing will logs (Not allowed negative)
+
+3. charCodeAt()
+- Returns the Unicode (ASCII) value of the character at a specified index.
+- Syntax ->      string.charCodeAt(index)
+- Return Type:   Number
+- For Example ->
+    const str = "Hello";
+    console.log(str.charCodeAt(0));  // 72
+    console.log(str.charCodeAt(3));  // 108
+
+4. concat()
+- Concatenates one or more strings and returns a new string.
+- Syntax ->      string.concat(str1, str2, ...)
+- Return Type:   String
+- For Example ->
+    const str1 = "Hello";
+    const str2 = "World";
+    console.log(str1.concat(", ", str2));  // "Hello, World"
+
+5. includes()
+- Checks if a string contains a specified substring.
+- Syntax ->      string.includes(substring, startIndex)
+- Return Type:   Boolean
+- For Example ->
+    const str = "Hello World";
+    console.log(str.includes("He"));   // true
+    console.log(str.includes("War"));  // false
+
+6. indexOf()
+- Returns the first occurrence index of a substring, or -1 if not found.
+- Syntax ->      string.indexOf(substring, startIndex)
+- Return Type:   Number
+- For Example ->
+    const str = "Hello World";
+    console.log(str.indexOf("World"));  // 6
+    console.log(str.indexOf("o"));      // 4 (consider first 'o')
+
+7. lastIndexOf()
+- Returns the last occurrence index of a substring, or -1 if not found.
+- Syntax ->      string.lastIndexOf(substring, startIndex)
+- Return Type:   Number
+- For Example ->
+    const str = "Hello World, Hello!";
+    console.log(str.lastIndexOf("Hello"));  // 13
+
+8. slice()
+- Extracts a section of a string and returns it as a new string.
+- Syntax ->      string.slice(startIndex, endIndex)
+- Return Type:   String
+- For Example ->
+    const str = "Hello World";
+    console.log(str.slice(0, 5));  // "Hello"
+    console.log(str.slice(-1));    // "d"
+    console.log(str.slice(-5));    // "World"
+
+9. split()
+- Splits a string into an array based on a specified separator.
+- Syntax ->      string.split(separator, limit)
+- Return Type:   Array
+- For Example ->
+    const str = "Hello World";
+
+    // If we pass empty string -> Return separate separate character from string.
+    console.log(str.split(""));   // (11) ['H','e','l','l','o',' ','W','o','r','l','d']
+
+    // If we give one space between empty string -> Return Word from whole string.
+    console.log(str.split(" "));  // (2) ['Hello', 'World']
+
+    // If we pass two spaces ->
+    console.log(str.split("  ")); // ['Hello World']
+
+10. subString()
+- Extracts a part of a string between two specified indexes.
+- Syntax ->      string.substring(startIndex, endIndex)
+- Return Type:   String
+- For Example ->
+    const str = "Hello World";
+    console.log(str.substring(0,5));  // "Hello"
+    console.log(str.substring(6));    // "World"
+
+11. toUpperCase()
+- Converts a string to uppercase.
+- Syntax ->      string.toUpperCase()
+- Return Type:   String
+- For Example ->
+    const str = "hello";
+    console.log(str.toUpperCase());  // "HELLO"
+
+12. toLowerCase()
+- Converts a string to lowercase.
+- Syntax ->      string.toLowerCase()
+- Return Type:   String
+- For Example ->
+    const str = "HELLO";
+    console.log(str.toLowerCase());  // "hello"
+
+13. trim()
+- Removes whitespace from both ends of a string.
+- Syntax ->      string.trim()
+- Return Type:   String
+- For Example ->
+    const str = "  Hello World  ";
+    console.log(str.length);         // 15
+    console.log(str.trim());         // "Hello World"
+    console.log(str.trim().length);  // 11
+
+14. trimStart()
+- Removes whitespace from the beginning of a string.
+- Syntax ->      string.trimStart()
+- Return Type:   String
+- For Example ->
+    const str = "  Hello World  ";
+    console.log(str.length);              // 15
+    console.log(str.trimStart());         // "Hello World  "
+    console.log(str.trimStart().length);  // 13
+
+15. trimEnd()
+- Removes whitespace from the end of a string.
+- Syntax ->      string.trimEnd()
+- Return Type:   String
+- For Example ->
+    const str = "  Hello World  ";
+    console.log(str.length);            // 15
+    console.log(str.trimEnd());         // "  Hello World"
+    console.log(str.trimEnd().length);  // 13
+
+16. startWith()  (correct method name: startsWith)
+- Checks if a string starts with a specified substring.
+- Syntax ->      string.startsWith(substring, startIndex)
+- Return Type:   Boolean
+- For Example ->
+    const str = "Hello World";
+    console.log(str.startsWith("Hello"));  // true
+    console.log(str.startsWith("hello"));  // false
+    console.log(str.startsWith("ello"));   // false
+
+17. endsWith()
+- Checks if a string ends with a specified substring.
+- Syntax ->      string.endsWith(substring, length)
+- Return Type:   Boolean
+- For Example ->
+    const str = "Hello World";
+    console.log(str.endsWith("World"));  // true
+    console.log(str.endsWith("world"));  // false
+    console.log(str.endsWith(" World")); // true
+    console.log(str.endsWith("orld"));   // true
+
+18. repeat()
+- Repeats a string a specified number of times.
+- Syntax ->      string.repeat(count)
+- Return Type:   String
+- For Example ->
+    const str = "Hello";
+    console.log(str.repeat(3));  // "HelloHelloHello"
+
+19. padStart()
+- Pads the start of a string with a specified character until it reaches
+  the target length.
+- Syntax ->      string.padStart(targetLength, padString)
+- Return Type:   String
+- For Example ->
+    const str = "5";
+    console.log(str.padStart(3, "0"));  // "005"
+
+20. padEnd()
+- Pads the end of a string with a specified character until it reaches
+  the target length.
+- Syntax ->      string.padEnd(targetLength, padString)
+- Return Type:   String
+- For Example ->
+    const str = "5";
+    console.log(str.padEnd(3, "0"));  // "500"
+
+21. replace()
+- Replaces the first occurrence of a specified substring with another.
+- Syntax ->      string.replace(searchValue, newValue)
+- Return Type:   String
+- For Example ->
+    const str = "Hello World";
+    console.log(str.replace("World", "Universe"));  // "Hello Universe"
+
+22. replaceAll()
+- Replaces all occurrences of a specified substring with another.
+- Syntax ->      string.replaceAll(searchValue, newValue)
+- Return Type:   String
+- For Example ->
+    const str = "Hello World, Hello!";
+    console.log(str.replaceAll("Hello", "Hi"));  // "Hi World, Hi!"
+
+23. search()
+- Searches for a substring using a regular expression and returns the
+  index of the first match.
+- Syntax ->      string.search(regex)
+- Return Type:   Number
+- For Example ->
+    const str = "Hello World";
+    console.log(str.search(/World/));  // 6
+    console.log(str.search(/ello/));   // 1
+
+24. match()
+- Matches a string against a regular expression and returns an array of
+  results.
+- Syntax ->      string.match(regex)
+- Return Type:   array OR null
+- For Example ->
+    const str = "Hello World";
+    console.log(str.match(/Hello/));  // ['Hello', index: 0, input: 'Hello World', groups: undefined]
+    console.log(str.match(/World/));  // ['World', index: 6, input: 'Hello World', groups: undefined]
+    console.log(str.match(/Hi/));     // null
+
+25. matchAll()
+- Returns all matches of a string against a regular expression as an
+  iterator.
+- Syntax ->      string.matchAll(regex)
+- Return Type:   iterator
+- For Example ->
+    const str = "Hello World Hello";
+    for (const match of str.matchAll(/Hello/g)) {
+      console.log(match);
+    }
+    // Output:
+    // ['Hello', index: 0, input: 'Hello World Hello', groups: undefined]
+    // ['Hello', index: 12, input: 'Hello World Hello', groups: undefined]
+
+26. toString()
+- Converts a string object to a primitive string.
+- Syntax ->      string.toString()
+- Return Type:   String
+- For Example ->
+    const str = new String("Hello");
+    console.log(typeof str);             // object
+    console.log(str.toString());         // "Hello"
+    console.log(typeof str.toString());  // string
+
+
+7. SUMMARY TABLE OF STRINGS INSTANCE METHODS
+--------------------------------------------
+Here is the overview of Strings Instance Methods:
+
+Method Name : .at()
+Description : Returns the character at the specified index. Supports negative
+              indexing (from the end of the string).
+Syntax      : str.at(index)
+Return Type : String
+
+Method Name : .charAt()
+Description : Returns the character at the specified index (no support for
+              negative indexing).
+Syntax      : str.charAt(index)
+Return Type : String
+
+Method Name : .charCodeAt()
+Description : Returns the Unicode value (code unit) of the character at the
+              specified index.
+Syntax      : str.charCodeAt(index)
+Return Type : Number
+
+Method Name : .concat()
+Description : Combines the string with one or more specified strings and
+              returns a new string.
+Syntax      : str.concat(str2, str3, ...)
+Return Type : String
+
+Method Name : .includes()
+Description : Checks if the string contains a specified substring, returning
+              true or false.
+Syntax      : str.includes(substring, position)
+Return Type : Boolean
+
+Method Name : .indexOf()
+Description : Returns the index of the first occurrence of the specified
+              substring. Returns -1 if not found.
+Syntax      : str.indexOf(substring, position)
+Return Type : Number
+
+Method Name : .lastIndexOf()
+Description : Returns the index of the last occurrence of the specified
+              substring. Returns -1 if not found.
+Syntax      : str.lastIndexOf(substring, position)
+Return Type : Number
+
+Method Name : .slice()
+Description : Extracts a portion of the string and returns it as a new string.
+Syntax      : str.slice(start, end)
+Return Type : String
+
+Method Name : .split()
+Description : Splits the string into an array of substrings based on the
+              specified delimiter.
+Syntax      : str.split(separator, limit)
+Return Type : Array
+
+Method Name : .substring()
+Description : Extracts a portion of the string and returns it as a new string.
+              Does not support negative indices.
+Syntax      : str.substring(start, end)
+Return Type : String
+
+Method Name : .toUpperCase()
+Description : Converts the string to uppercase.
+Syntax      : str.toUpperCase()
+Return Type : String
+
+Method Name : .toLowerCase()
+Description : Converts the string to lowercase.
+Syntax      : str.toLowerCase()
+Return Type : String
+
+Method Name : .trim()
+Description : Removes whitespace from both ends of the string.
+Syntax      : str.trim()
+Return Type : String
+
+Method Name : .trimStart()
+Description : Removes whitespace from the beginning of the string.
+Syntax      : str.trimStart()
+Return Type : String
+
+Method Name : .trimEnd()
+Description : Removes whitespace from the end of the string.
+Syntax      : str.trimEnd()
+Return Type : String
+
+Method Name : .startsWith()
+Description : Checks if the string starts with the specified substring,
+              returning true or false.
+Syntax      : str.startsWith(substring, position)
+Return Type : Boolean
+
+Method Name : .endsWith()
+Description : Checks if the string ends with the specified substring,
+              returning true or false.
+Syntax      : str.endsWith(substring, length)
+Return Type : Boolean
+
+Method Name : .repeat()
+Description : Constructs and returns a new string that repeats the original
+              string a specified number of times.
+Syntax      : str.repeat(count)
+Return Type : String
+
+Method Name : .padStart()
+Description : Pads the string with another string to ensure it reaches the
+              specified length, starting from the beginning.
+Syntax      : str.padStart(targetLength, padString)
+Return Type : String
+
+Method Name : .padEnd()
+Description : Pads the string with another string to ensure it reaches the
+              specified length, starting from the end.
+Syntax      : str.padEnd(targetLength, padString)
+Return Type : String
+
+Method Name : .replace()
+Description : Replaces the first occurrence of a specified substring or
+              pattern with a new string.
+Syntax      : str.replace(pattern, replacement)
+Return Type : String
+
+Method Name : .replaceAll()
+Description : Replaces all occurrences of a specified substring or pattern
+              with a new string.
+Syntax      : str.replaceAll(pattern, replacement)
+Return Type : String
+
+Method Name : .search()
+Description : Searches for a match against a regular expression and returns
+              the index of the first match or -1 if not found.
+Syntax      : str.search(regexp)
+Return Type : Number
+
+Method Name : .match()
+Description : Searches for matches against a regular expression and returns
+              the matches as an array (or null if no matches are found).
+Syntax      : str.match(regexp)
+Return Type : Array or null
+
+Method Name : .matchAll()
+Description : Returns an iterator of all matches of a regular expression in
+              the string.
+Syntax      : str.matchAll(regexp)
+Return Type : Iterator
+
+Method Name : .toString()
+Description : Returns a string representation of the object (typically the
+              same as the string itself).
+Syntax      : str.toString()
+Return Type : String
+
