@@ -1,0 +1,172 @@
+CSS DAY 7: FLOAT AND CLEAR
+1. WHAT IS FLOAT?
+- The float property takes an element out of the normal flow and pushes it to the left or right of its container.
+- Text and inline content wrap around the floated element.
+- It was originally designed for wrapping text around images, like in a newspaper or magazine.
+- Floated elements still sit inside their container's width, but the container may not grow to include them (see "Collapsed parent" below).
+Syntax ->
+
+    selector {
+      float: value;
+    }
+
+2. VALUES OF float
+  left      -> the element floats to the left of its container
+  right     -> the element floats to the right of its container
+  none      -> the element does not float (default)
+  inherit   -> takes the float value from its parent element
+
+
+3. FLOAT EXAMPLES
+Example 1: Wrapping text around an image
+    HTML:
+    <img src="photo.jpg" class="photo">
+    <p>This text wraps around the image on the right side...</p>
+
+    CSS:
+    .photo {
+      float: left;
+      width: 150px;
+      margin-right: 15px;
+    }
+
+  Result: the image sits on the left and the paragraph text flows around it.
+
+Example 2: Float right
+    .box {
+      float: right;
+      width: 200px;
+    }
+
+  Result: the box moves to the right edge of the container.
+
+Example 3: Two columns side by side
+    HTML:
+    <div class="container">
+      <div class="left">Left column</div>
+      <div class="right">Right column</div>
+    </div>
+
+    CSS:
+    .left {
+      float: left;
+      width: 50%;
+    }
+    .right {
+      float: right;
+      width: 50%;
+    }
+
+4. HOW FLOAT BEHAVES
+- A floated element is removed from the normal document flow.
+- Following block elements ignore the floated element and sit where it would have been, but their inline content (text) wraps around it.
+- Multiple floated elements line up next to each other if there is room. If there is not enough room, the next one drops down below.
+- A floated element becomes block-level. Its display value is treated as block even if it was inline (for example a span).
+- Floated elements need a width (for non-replaced elements like div), otherwise they shrink to fit their content.
+- Vertical margins do not collapse on floated elements.
+
+5. THE COLLAPSED PARENT PROBLEM
+Because floated children are taken out of the normal flow, a parent that contains only floated children has no height. It collapses to zero height.
+    HTML:
+    <div class="parent">
+      <div class="child">Floated</div>
+    </div>
+
+    CSS:
+    .parent {
+      border: 2px solid black;
+    }
+    .child {
+      float: left;
+      width: 100px;
+      height: 100px;
+    }
+
+  Problem: the border of .parent shows as a thin line at the top, and the child hangs outside it.
+
+This is exactly what the clear property and the clearfix technique solve.
+
+
+6. WHAT IS CLEAR?
+- The clear property specifies which sides of an element must NOT have floated elements next to them.
+- It forces an element to move down below any floated elements.
+- It is used on the element that comes AFTER the floats, to stop it from wrapping around them.
+Syntax ->
+
+    selector {
+      clear: value;
+    }
+
+7. VALUES OF clear
+  none      -> the element can sit next to floats on both sides (default)
+  left      -> the element moves below any left-floated elements
+  right     -> the element moves below any right-floated elements
+  both      -> the element moves below any left or right floated elements
+  inherit   -> takes the clear value from its parent element
+
+8. CLEAR EXAMPLES
+Example 1: Footer below floated columns
+    HTML:
+    <div class="left">Left</div>
+    <div class="right">Right</div>
+    <footer>Footer</footer>
+
+    CSS:
+    .left  { float: left;  width: 50%; }
+    .right { float: right; width: 50%; }
+    footer { clear: both; }
+
+  Without clear: the footer would slide up beside the columns.
+  With clear: both, the footer sits below both columns.
+
+Example 2: clear left only
+    .item {
+      clear: left;
+    }
+
+  The element moves below any left-floated elements. A right-floated
+  element can still be next to it.
+
+
+9. CLEARFIX: FIXING THE COLLAPSED PARENT
+There are a few ways to make a parent wrap its floated children.
+
+Method 1: Empty element with clear (old way)
+    HTML:
+    <div class="parent">
+      <div class="child">Floated</div>
+      <div style="clear: both;"></div>
+    </div>
+
+  Works, but adds extra meaningless markup. Not recommended.
+
+
+Method 2: The clearfix pseudo-element
+    .clearfix::after {
+      content: "";
+      display: block;
+      clear: both;
+    }
+
+    HTML:
+    <div class="parent clearfix">
+      <div class="child">Floated</div>
+    </div>
+
+  An invisible block is added after the last child. It clears the floats, so the parent grows to include them.
+
+
+Method 3: overflow on the parent
+    .parent {
+      overflow: auto;   /* or overflow: hidden */
+    }
+
+  Creates a new block formatting context, so the parent contains its floats. Be careful: it can clip content or add scrollbars.
+
+
+Method 4: display: flow-root (modern and cleanest)
+    .parent {
+      display: flow-root;
+    }
+
+  Creates a new block formatting context with no side effects. This is the recommended modern approach.
