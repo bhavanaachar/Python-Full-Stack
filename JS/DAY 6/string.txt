@@ -1,0 +1,68 @@
+WAYS TO CREATE A STRING
+1. String literals (single or double quotes)
+
+   let a = 'Hello';
+   let b = "World";
+
+2. Template literals (backticks) - support interpolation and multi-line text
+
+   let name = "Asha";
+   let c = `Hi, ${name}!`;
+   let d = `Line 1
+   Line 2`;
+
+3. String() function - converts any value to a primitive string
+
+   let e = String(123);     // "123"
+   let f = String(true);    // "true"
+   let g = String(null);    // "null"
+
+4. new String() constructor - creates a String object, not a primitive (rarely recommended)
+
+   let h = new String("hi");
+   typeof h;        // "object"
+   typeof "hi";     // "string"
+   h == "hi";       // true
+   h === "hi";      // false
+
+5. Converting from other values
+
+   let i = (255).toString(16);      // "ff"
+   let j = [1, 2, 3].join("-");     // "1-2-3"
+   let k = "ab" + 5;                // "ab5" (concatenation)
+
+
+3 STATIC METHODS OF String: Static methods are called on String itself, not on a string instance.
+
+1. String.fromCharCode()
+   Creates a string from UTF-16 code units.
+
+   String.fromCharCode(72, 105);        // "Hi"
+   String.fromCharCode(65, 66, 67);     // "ABC"
+
+2. String.fromCodePoint()
+   Like fromCharCode, but handles full Unicode code points (including emojis).
+
+   String.fromCodePoint(128512);        // "😀"
+   String.fromCodePoint(72, 105);       // "Hi"
+
+3. String.raw()
+   Returns the raw string of a template literal, ignoring escape sequences.
+
+   String.raw`C:\Users\new\table`;      // "C:\Users\new\table"
+   `C:\Users\new`;                      // \n becomes a newline
+
+   let n = 5;
+   String.raw`Value:\t${n}`;            // "Value:\t5"
+
+
+QUICK RECAP
+-----------
+
+- Literals:           '...' and "..." are identical
+- Template literals:  backticks, ${} interpolation, multi-line
+- String(x):          safe conversion to a primitive string
+- new String(x):      creates an object, so avoid it
+- fromCharCode:       code units -> string (limited to 16-bit)
+- fromCodePoint:      full Unicode support, including emojis
+- raw:                keeps backslashes as-is
