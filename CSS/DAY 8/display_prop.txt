@@ -1,0 +1,98 @@
+CSS DISPLAY PROPERTY: BLOCK, INLINE, INLINE-BLOCK, FLEX, GRID
+The "display" property controls how an element is laid out on the page.
+
+1. display: block
+- Starts on a new line.
+- Takes the full available width by default.
+- Width, height, margin and padding all work.
+- Default for: div, p, h1-h6, ul, li, section, header, footer, form.
+
+Example:
+    span.box {
+      display: block;
+      width: 200px;
+      height: 50px;
+      background: lightblue;
+      margin: 10px 0;
+    }
+
+2. display: inline
+- Does NOT start on a new line; flows with the text.
+- Only takes content level width.
+- Width and height are IGNORED.
+- Top/bottom margin is ignored; left/right margin and padding work.
+- Default for: span, a, strong, em, img (img is technically inline-replaced).
+
+Example:
+    div.tag {
+      display: inline;
+      background: yellow;
+      padding: 4px 8px;
+    }
+
+3. display: inline-block
+- Sits in line with other elements (like inline).
+- BUT width, height, margin and padding all work (like block).
+- Good for buttons, nav links, small cards in a row.
+
+Example:
+    .btn {
+      display: inline-block;
+      width: 120px;
+      height: 40px;
+      margin: 8px;
+      text-align: center;
+      line-height: 40px;
+      background: #3498db;
+      color: white;
+    }
+
+4. display: flex
+- One-dimensional layout (a row OR a column).
+- Apply it to the parent; children become flex items.
+
+Key container properties:
+    flex-direction     row | row-reverse | column | column-reverse
+    justify-content    alignment along the MAIN axis
+                       (flex-start, flex-end, center, space-between,
+                        space-around, space-evenly)
+    align-items        alignment along the CROSS axis
+                       (stretch, flex-start, flex-end, center, baseline)
+    flex-wrap          nowrap | wrap | wrap-reverse
+    gap                space between items
+
+Key item properties:
+    flex               shorthand: grow shrink basis (e.g. flex: 1;)
+    flex-grow          how much an item grows to fill extra space
+    flex-shrink        how much an item shrinks when space is short
+    flex-basis         starting size of the item
+    align-self         override align-items for one item
+    order              change the visual order of an item
+
+5. display: grid
+- Two-dimensional layout (rows AND columns).
+- Apply it to the parent; children become grid items.
+- display: inline-grid does the same but the container itself is inline.
+
+Key container properties:
+    grid-template-columns   defines column sizes
+    grid-template-rows      defines row sizes
+    gap                     space between rows/columns
+    justify-items           align items horizontally inside cells
+    align-items             align items vertically inside cells
+
+Key item properties:
+    grid-column             e.g. 1 / 3  (span from line 1 to 3)
+    grid-row                e.g. 1 / 2
+
+COMPARISION TABLE 
+-------------------
+Feature              block     inline     inline-block   flex (container)   grid (container)
+-------------------  --------  ---------  -------------  -----------------  ----------------
+Starts new line      Yes       No         No             Yes                Yes
+Width/height work    Yes       No         Yes            Yes                Yes
+Vertical margin      Yes       No         Yes            Yes                Yes
+Default width        Full      Content    Content        Full               Full
+Layout of children   Normal    Normal     Normal         Row or column      Rows + columns
+Dimensions           -         -          -              1D                 2D
+
