@@ -1,0 +1,209 @@
+1. WHAT IS SCOPE: Scope is the region of a program where a variable can be seen and used.
+
+2. THE LEGB Rule
+When Python looks up a name, it searches in this order and stops at the first match:
+    L - Local       : inside the current function
+    E - Enclosing   : inside outer (enclosing) functions, for nested functions
+    G - Global      : at the top level of the file/module
+    B - Built-in    : names Python provides (len, print, range, int, ...)
+
+If the name is not found in any of them, Python raises NameError.
+
+3. LOCAL SCOPE
+A variable created inside a function exists only inside that function.
+    def greet():
+        message = "Hello"        # local variable
+        print(message)
+
+    greet()                      # Hello
+    print(message)               # NameError: name 'message' is not defined
+
+
+4. GLOBAL SCOPE
+A variable created at the top level (outside all functions) is global.
+It can be READ from anywhere in the file.
+
+    count = 10                   # global variable
+
+    def show():
+        print(count)             # reads the global value
+
+    show()                       # 10
+
+5. ENCLOSING SCOPE
+When a function is defined inside another function, the inner function can read variables of the outer function.
+
+    def outer():
+        x = "outer value"        # enclosing variable
+
+        def inner():
+            print(x)             # found in enclosing scope
+
+        inner()
+
+    outer()                      # outer value
+
+6. BUILT-IN SCOPE
+Names that Python provides automatically.
+
+    print(len("python"))         # len is a built-in name
+    print(max(3, 9, 5))          # max is a built-in name
+
+7. LEGB EXAMPLE (ALL FOUR LEVELS)
+    x = "global x"
+
+    def outer():
+        x = "enclosing x"
+
+        def inner():
+            x = "local x"
+            print(x)             # local x       (L)
+
+        inner()
+        print(x)                 # enclosing x   (E)
+
+    outer()
+    print(x)                     # global x      (G)
+    print(len("abc"))            # 3             (B)
+
+Same name "x" in three places, each in its own scope, so they do not interfere with each other.
+
+8. THE global KEYWORD
+It is used inside a function to refer and modify a variable present in globalscope.
+
+Syntax:
+    global variable_name
+
+Example:
+    counter = 0
+
+    def increment():
+        global counter           # use the global counter
+        counter = counter + 1
+
+    increment()
+    increment()
+    print(counter)               # 2
+
+Creating a global from inside a function:
+    def create():
+        global language
+        language = "Python"
+
+    create()
+    print(language)              # Python
+
+Rules for global:
+- Declare it BEFORE using the variable in the function.
+- You can declare several: global a, b, c
+- You cannot assign a value on the same line as the declaration.
+      global x = 5               # SyntaxError
+- Only needed for assigning/modifying. Reading needs no keyword.
+- Mutable objects (list, dict) can be changed WITHOUT global, since you
+  are changing the object, not rebinding the name:
+
+      items = []
+      def add():
+          items.append("a")      # works, no global needed
+      add()
+      print(items)               # ['a']
+
+- But rebinding the name (items = [1, 2]) DOES need global.
+
+
+9. THE nonlocal KEYWORD
+It is used inside a nested function to refer and modify a variable present in its enclosing scope.
+
+Syntax:
+    nonlocal variable_name
+
+Without nonlocal (problem):
+    def outer():
+        count = 0
+
+        def inner():
+            count = count + 1    # UnboundLocalError
+            print(count)
+
+        inner()
+
+    outer()
+
+With nonlocal (fixed):
+    def outer():
+        count = 0
+
+        def inner():
+            nonlocal count       # refer to outer's count
+            count = count + 1
+
+        inner()
+        inner()
+        print(count)             # 2
+
+    outer()
+
+Practical example - a counter (closure):
+    def make_counter():
+        total = 0
+
+        def add():
+            nonlocal total
+            total += 1
+            return total
+
+        return add
+
+    c = make_counter()
+    print(c())                   # 1
+    print(c())                   # 2
+    print(c())                   # 3
+
+Rules for nonlocal:
+- The variable must already exist in an enclosing function.
+      def outer():
+          def inner():
+              nonlocal y         # SyntaxError: no binding for 'y' found
+- It cannot be used at module (global) level.
+- It does NOT reach the global scope. For globals, use "global".
+
+
+10. global vs nonlocal
+----------------------
+Feature              global                      nonlocal
+-------------------  --------------------------  ---------------------------
+Refers to            Module-level variable       Variable in nearest enclosing
+                                                 function
+Variable must exist? No (can create new global)  Yes (must already exist)
+Used in              Any function                Nested functions only
+Skips                Enclosing scopes            Local and global scopes
+
+
+11. BOTH TOGETHER
+-----------------
+    x = "global"
+
+    def outer():
+        x = "enclosing"
+
+        def inner():
+            nonlocal x           # changes outer's x
+            x = "changed by inner"
+
+        inner()
+        print(x)                 # changed by inner
+
+    outer()
+    print(x)                     # global (untouched)
+
+    def change_global():
+        global x
+        x = "changed globally"
+
+    change_global()
+    print(x)                     # changed globally
+
+12: Global variable: These are the variable which are declared outside the functiona which are declared outside the function and it can be accessed anywhere inside a program.
+but global variable cannot be modifies inside a function directly
+
+13. Local variable: These are the variables which are declared inside the function and are accessed only within that function.
