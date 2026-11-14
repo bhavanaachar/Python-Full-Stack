@@ -1,0 +1,74 @@
+STATIC ARRAY METHODS
+
+1. Array.isArray(value):Checks whether a value is a real array.
+More reliable than typeof, because typeof [] returns "object".
+
+Example:
+
+    Array.isArray([1, 2, 3]);      // true
+    Array.isArray("hello");        // false
+    Array.isArray({ length: 2 });  // false
+    Array.isArray(null);           // false
+    typeof [];                     // "object"  (not helpful)
+
+
+2. Array.of(...items):Creates a new array from the arguments you pass in.
+Fixes the quirk of new Array(n), where a single number sets the length.
+
+Example:
+
+    Array.of(7);          // [7]
+    new Array(7);         // [ <7 empty items> ]  (length 7, no elements)
+    Array.of(1, 2, 3);    // [1, 2, 3]
+    Array.of("a", "b");   // ["a", "b"]
+    Array.of();           // []
+
+
+3. Array.from(iterable | arrayLike, mapFn?)
+Converts iterables (string, Set, Map) and array-likes
+(NodeList, arguments, { length: n }) into a real array.
+Takes an optional map function as the second argument.
+
+Example:
+
+    Array.from("hello");                  // ["h", "e", "l", "l", "o"]
+    Array.from(new Set([1, 1, 2, 3]));    // [1, 2, 3]
+    Array.from({ length: 3 });            // [undefined, undefined, undefined]
+
+    // With a map function
+    Array.from({ length: 5 }, (_, i) => i * 2);   // [0, 2, 4, 6, 8]
+    Array.from([1, 2, 3], x => x ** 2);           // [1, 4, 9]
+
+    // From a Map
+    const m = new Map([["a", 1], ["b", 2]]);
+    Array.from(m);          // [["a", 1], ["b", 2]]
+    Array.from(m.keys());   // ["a", "b"]
+
+WAYS TO CREATE AN ARRAY
+1. Array literal (most common)
+    const a = [1, 2, 3];
+    const empty = [];
+    const mixed = [1, "two", true, null, { x: 1 }, [5, 6]];
+
+
+2. Array constructor: new Array()
+    const b = new Array(1, 2, 3);   // [1, 2, 3]
+    const c = new Array(3);         // [ <3 empty items> ]  (length 3)
+
+    Warning: a single number creates empty slots, not a value.
+
+
+3. Array() without "new" (same as above)
+    const d = Array(1, 2, 3);       // [1, 2, 3]
+
+
+QUICK SUMMARY
+Method             Purpose
+-----------------  ---------------------------------------------------
+Array.isArray()    Check if a value is an array
+Array.of()         Build an array from arguments
+Array.from()       Convert iterable/array-like to array, optional map
+[ ] literal        Simplest, most common way
+new Array(n)       Creates n empty slots (careful!)
+Spread [...x]      Copy or convert iterables
+split()            String to array
