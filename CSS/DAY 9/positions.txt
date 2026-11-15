@@ -1,0 +1,104 @@
+DAY 09 - CSS POSITION PROPERTIES
+
+1. POSITION: STATIC
+-------------------
+- This is the DEFAULT value for every element.
+- The element sits in the normal document flow (top to bottom, left to right).
+- top, bottom, left and right have NO effect on it.
+- z-index also has no effect.
+
+Example:
+    .box {
+      position: static;   /* same as not writing position at all */
+      top: 50px;          /* ignored */
+      left: 50px;         /* ignored */
+    }
+
+
+2. POSITION: RELATIVE
+---------------------
+- The element stays in the normal flow, so its ORIGINAL SPACE IS KEPT.
+- top, bottom, left and right move it away from its OWN normal position.
+- Other elements do not move to fill the gap it leaves.
+- It also becomes the reference point (containing block) for any absolutely positioned child inside it.
+
+Example:
+    .box {
+      position: relative;
+      top: 20px;     /* moves 20px DOWN from where it would normally be */
+      left: 30px;    /* moves 30px RIGHT from where it would normally be */
+    }
+
+3. POSITION: ABSOLUTE
+---------------------
+- The element is REMOVED from the normal flow. Its original space is not kept, and the elements after it move up as if it were not there.
+- It is positioned relative to its NEAREST POSITIONED ANCESTOR (an ancestor with position: relative, absolute, fixed or sticky).
+- If no such ancestor exists, it is positioned relative to the page (the initial containing block / <html>).
+- Its width shrinks to fit its content unless you set a width.
+
+Example:
+    .parent {
+      position: relative;     /* reference point */
+      width: 300px;
+      height: 200px;
+      border: 2px solid black;
+    }
+
+    .child {
+      position: absolute;
+      top: 10px;
+      right: 10px;            /* sits 10px from the parent's top-right corner */
+    }
+
+Common use: badges, close buttons, tooltips, overlays, icons on top of images.
+
+4. TOP, BOTTOM, LEFT, RIGHT
+---------------------------
+These are the offset properties. They only work when position is NOT static.
+
+Property   Meaning (distance from...)
+--------   ----------------------------------------------------
+top        the top edge of the reference box
+bottom     the bottom edge of the reference box
+left       the left edge of the reference box
+right      the right edge of the reference box
+
+For position: relative  -> the reference is the element's own normal position.
+For position: absolute  -> the reference is the nearest positioned ancestor.
+
+Values can be px, %, em, rem, vw, vh, and so on. Negative values are allowed.
+
+Examples:
+    /* relative: nudge from its own spot */
+    .a { position: relative; top: 10px; left: 10px; }
+
+    /* absolute: pin to the bottom-right corner of the parent */
+    .b { position: absolute; bottom: 0; right: 0; }
+
+    /* absolute: stretch to fill the whole parent */
+    .c { position: absolute; top: 0; right: 0; bottom: 0; left: 0; }
+
+    /* absolute: center inside the parent */
+    .d {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+Tip: if both top and bottom are set (or both left and right) on an absolute element with no fixed height/width, the element stretches between them.
+
+
+5. DIFFERENCE BETWEEN RELATIVE AND ABSOLUTE
+-------------------------------------------
+
+Feature                      relative                  absolute
+---------------------------  ------------------------  ------------------------
+In normal flow?              Yes                       No (removed from flow)
+Original space kept?         Yes                       No
+Offsets measured from        Its own normal position   Nearest positioned
+                                                       ancestor (or the page)
+Affects other elements?      No, they ignore the move  Yes, others fill its space
+Width                        Normal (block = full)     Shrinks to fit content
+Common use                   Small nudges; making a    Overlays, badges, icons,
+                             parent a reference box    tooltips, corner pinning
