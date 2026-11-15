@@ -1,0 +1,410 @@
+Array instance methods
+ 1. push            14. filter
+ 2. pop             15. map
+ 3. shift           16. forEach
+ 4. unshift         17. reduce
+ 5. concat          18. reduceRight
+ 6. join            19. some
+ 7. slice           20. every
+ 8. splice          21. sort
+ 9. indexOf         22. reverse
+10. lastIndexOf     23. flat
+11. includes        24. flatMap
+12. find            25. fill
+13. findIndex       26. at
+
+1. push()
+Definition : Adds one or more elements to the END of an array.
+Syntax     : array.push(item1, item2, ...)
+Returns    : the new length of the array
+Mutates?   : YES
+
+Example:
+    const fruits = ["apple", "banana"];
+    const len = fruits.push("mango", "orange");
+    console.log(fruits);   // ["apple", "banana", "mango", "orange"]
+    console.log(len);      // 4
+
+2. pop()
+Definition : Removes the LAST element of an array.
+Syntax     : array.pop()
+Returns    : the removed element (undefined if the array is empty)
+Mutates?   : YES
+
+Example:
+    const nums = [1, 2, 3];
+    const last = nums.pop();
+    console.log(last);     // 3
+    console.log(nums);     // [1, 2]
+
+3. shift()
+Definition : Removes the FIRST element of an array.
+Syntax     : array.shift()
+Returns    : the removed element (undefined if the array is empty)
+Mutates?   : YES
+
+Example:
+    const nums = [1, 2, 3];
+    const first = nums.shift();
+    console.log(first);    // 1
+    console.log(nums);     // [2, 3]
+
+4. unshift()
+Definition : Adds one or more elements to the START of an array.
+Syntax     : array.unshift(item1, item2, ...)
+Returns    : the new length of the array
+Mutates?   : YES
+
+Example:
+    const nums = [3, 4];
+    const len = nums.unshift(1, 2);
+    console.log(nums);     // [1, 2, 3, 4]
+    console.log(len);      // 4
+
+5. concat()
+Definition : Merges two or more arrays (or values) into a new array.
+Syntax     : array.concat(value1, value2, ...)
+Returns    : a NEW array
+Mutates?   : No
+
+Example:
+    const a = [1, 2];
+    const b = [3, 4];
+    const c = a.concat(b, [5], 6);
+    console.log(c);        // [1, 2, 3, 4, 5, 6]
+    console.log(a);        // [1, 2]  (unchanged)
+
+6. join()
+Definition : Combines all elements into ONE STRING using a separator.
+Syntax     : array.join(separator)      (default separator is ",")
+Returns    : a string
+Mutates?   : No
+
+Example:
+    const words = ["Hello", "World"];
+    console.log(words.join());        // "Hello,World"
+    console.log(words.join(" "));     // "Hello World"
+    console.log(words.join("-"));     // "Hello-World"
+
+7. slice()
+Definition : Copies a portion of an array into a new array. The end index is NOT included. Negative indexes count from the end.
+Syntax     : array.slice(start, end)
+Returns    : a NEW array
+Mutates?   : No
+
+Example:
+    const n = [10, 20, 30, 40, 50];
+    console.log(n.slice(1, 3));    // [20, 30]
+    console.log(n.slice(2));       // [30, 40, 50]
+    console.log(n.slice(-2));      // [40, 50]
+    console.log(n);                // [10, 20, 30, 40, 50] (unchanged)
+
+8. splice()
+Definition : Adds, removes or replaces elements at any position.
+Syntax     : array.splice(start, deleteCount, item1, item2, ...)
+Returns    : an array of the removed elements
+Mutates?   : YES
+
+Example:
+    const arr = [1, 2, 3, 4, 5];
+
+    arr.splice(1, 2);              // remove 2 items from index 1
+    console.log(arr);              // [1, 4, 5]
+
+    arr.splice(1, 0, "a", "b");    // insert without removing
+    console.log(arr);              // [1, "a", "b", 4, 5]
+
+    arr.splice(0, 1, "x");         // replace first item
+    console.log(arr);              // ["x", "a", "b", 4, 5]
+
+9. indexOf()
+Definition : Finds the index of the FIRST occurrence of a value
+Syntax     : array.indexOf(value, fromIndex)
+Returns    : index, or -1 if not found
+Mutates?   : No
+
+Example:
+    const m = [5, 8, 5, 9];
+    console.log(m.indexOf(5));      // 0
+    console.log(m.indexOf(5, 1));   // 2
+    console.log(m.indexOf(100));    // -1
+
+10. lastIndexOf()
+Definition : Finds the index of the LAST occurrence of a value (searches from the end).
+Syntax     : array.lastIndexOf(value, fromIndex)
+Returns    : index, or -1 if not found
+Mutates?   : No
+
+Example:
+    const m = [5, 8, 5, 9];
+    console.log(m.lastIndexOf(5));     // 2
+    console.log(m.lastIndexOf(100));   // -1
+
+11. includes()
+Definition : Checks whether an array contains a value. Unlike indexOf, it can find NaN.
+Syntax     : array.includes(value, fromIndex)
+Returns    : true or false
+Mutates?   : No
+
+Example:
+    const colors = ["red", "green", "blue"];
+    console.log(colors.includes("green"));   // true
+    console.log(colors.includes("pink"));    // false
+    console.log([NaN].includes(NaN));        // true
+
+12. find()
+Definition : Returns the FIRST element that passes a test function.
+Syntax     : array.find((element, index, array) => condition)
+Returns    : the element, or undefined if none match
+Mutates?   : No
+
+Example:
+    const nums = [3, 8, 12, 5];
+    console.log(nums.find(n => n > 5));    // 8
+    console.log(nums.find(n => n > 50));   // undefined
+
+    const users = [{ id: 1, name: "Asha" }, { id: 2, name: "Ravi" }];
+    console.log(users.find(u => u.id === 2));   // { id: 2, name: "Ravi" }
+
+13. findIndex()
+Definition : Returns the INDEX of the first element that passes a test.
+Syntax     : array.findIndex((element, index, array) => condition)
+Returns    : index, or -1 if none match
+Mutates?   : No
+
+Example:
+    const nums = [3, 8, 12, 5];
+    console.log(nums.findIndex(n => n > 5));    // 1
+    console.log(nums.findIndex(n => n > 50));   // -1
+
+14. filter()
+Definition : Creates a new array with only the elements that pass a test.
+Syntax     : array.filter((element, index, array) => condition)
+Returns    : a NEW array (can be empty)
+Mutates?   : No
+
+Example:
+    const nums = [1, 2, 3, 4, 5, 6];
+    const even = nums.filter(n => n % 2 === 0);
+    console.log(even);     // [2, 4, 6]
+
+    const words = ["hi", "hello", "hey", "greetings"];
+    console.log(words.filter(w => w.length > 3));   // ["hello", "greetings"]
+
+15. map()
+Definition : Creates a new array by applying a function to EVERY element.
+Syntax     : array.map((element, index, array) => newValue)
+Returns    : a NEW array of the same length
+Mutates?   : No
+
+Example:
+    const nums = [1, 2, 3];
+    console.log(nums.map(n => n * 2));    // [2, 4, 6]
+
+    const users = [{ name: "Asha" }, { name: "Ravi" }];
+    console.log(users.map(u => u.name));  // ["Asha", "Ravi"]
+
+16. forEach()
+Definition : Runs a function once for each element. Used for side effects
+             (logging, updating the page). It cannot be stopped with break.
+Syntax     : array.forEach((element, index, array) => { ... })
+Returns    : undefined
+Mutates?   : No (unless your callback changes the array)
+
+Example:
+    const fruits = ["apple", "banana", "mango"];
+    fruits.forEach((f, i) => {
+      console.log(i, f);
+    });
+    // 0 apple
+    // 1 banana
+    // 2 mango
+
+17. reduce()
+Definition : Processes elements from LEFT to RIGHT and combines them into
+             a single value, using an accumulator.
+Syntax     : array.reduce((acc, current, index, array) => newAcc, initialValue)
+Returns    : the final accumulated value
+Mutates?   : No
+
+Example:
+    const nums = [1, 2, 3, 4, 5];
+    const sum = nums.reduce((acc, n) => acc + n, 0);
+    console.log(sum);      // 15
+
+    // Count occurrences
+    const letters = ["a", "b", "a", "c", "a"];
+    const count = letters.reduce((acc, l) => {
+      acc[l] = (acc[l] || 0) + 1;
+      return acc;
+    }, {});
+    console.log(count);    // { a: 3, b: 1, c: 1 }
+
+Tip: always give an initial value (an empty array with no initial value
+throws a TypeError).
+
+18. reduceRight()
+Definition : Same as reduce(), but processes elements from RIGHT to LEFT.
+Syntax     : array.reduceRight((acc, current, index, array) => newAcc, initialValue)
+Returns    : the final accumulated value
+Mutates?   : No
+
+Example:
+    const letters = ["a", "b", "c"];
+    console.log(letters.reduce((acc, l) => acc + l, ""));        // "abc"
+    console.log(letters.reduceRight((acc, l) => acc + l, ""));   // "cba"
+
+19. some()
+Definition : Checks whether AT LEAST ONE element passes a test.
+Syntax     : array.some((element, index, array) => condition)
+Returns    : true or false (stops early at the first match)
+Mutates?   : No
+
+Example:
+    const ages = [12, 17, 25];
+    console.log(ages.some(a => a >= 18));   // true
+    console.log(ages.some(a => a > 60));    // false
+    console.log([].some(a => true));        // false (empty array)
+
+20. every()
+Definition : Checks whether ALL elements pass a test.
+Syntax     : array.every((element, index, array) => condition)
+Returns    : true or false (stops early at the first failure)
+Mutates?   : No
+
+Example:
+    const ages = [20, 25, 30];
+    console.log(ages.every(a => a >= 18));   // true
+    console.log([20, 15].every(a => a >= 18)); // false
+    console.log([].every(a => false));         // true (empty array)
+
+21. sort()
+Definition : Sorts the elements IN PLACE. The default order converts items
+             to strings, so use a compare function for numbers.
+Syntax     : array.sort((a, b) => a - b)
+Returns    : the same (now sorted) array
+Mutates?   : YES
+
+Example:
+    console.log(["pear", "apple", "mango"].sort());
+    // ["apple", "mango", "pear"]
+
+    console.log([10, 9, 1, 100].sort());
+    // [1, 10, 100, 9]   (wrong for numbers)
+
+    console.log([10, 9, 1, 100].sort((a, b) => a - b));   // [1, 9, 10, 100]
+    console.log([10, 9, 1, 100].sort((a, b) => b - a));   // [100, 10, 9, 1]
+
+Compare function rule: negative -> a first, positive -> b first, 0 -> same.
+
+22. reverse()
+Definition : Reverses the order of elements IN PLACE.
+Syntax     : array.reverse()
+Returns    : the same (now reversed) array
+Mutates?   : YES
+
+Example:
+    const nums = [1, 2, 3];
+    nums.reverse();
+    console.log(nums);     // [3, 2, 1]
+
+    // Without changing the original:
+    const copy = [...nums].reverse();
+
+23. flat()
+Definition : Flattens nested arrays into a single array up to a given depth (default depth is 1).
+Syntax     : array.flat(depth)
+Returns    : a NEW array
+Mutates?   : No
+
+Example:
+    const nested = [1, [2, 3], [4, [5]]];
+    console.log(nested.flat());           // [1, 2, 3, 4, [5]]
+    console.log(nested.flat(2));          // [1, 2, 3, 4, 5]
+    console.log([1, [2, [3, [4]]]].flat(Infinity));   // [1, 2, 3, 4]
+
+24. flatMap()
+Definition : Applies map() and then flattens the result by ONE level.
+Syntax     : array.flatMap((element, index, array) => newValueOrArray)
+Returns    : a NEW array
+Mutates?   : No
+
+Example:
+    const sentences = ["hello world", "good day"];
+    console.log(sentences.flatMap(s => s.split(" ")));
+    // ["hello", "world", "good", "day"]
+
+    console.log([1, 2, 3].flatMap(n => [n, n * 10]));
+    // [1, 10, 2, 20, 3, 30]
+
+25. fill()
+Definition : Fills elements with a fixed value IN PLACE.
+Syntax     : array.fill(value, start, end)
+Returns    : the same array
+Mutates?   : YES
+
+Example:
+    console.log(new Array(3).fill(0));          // [0, 0, 0]
+    console.log([1, 2, 3, 4, 5].fill(9, 1, 3)); // [1, 9, 9, 4, 5]
+
+Warning: fill() with an object or array puts the SAME reference in
+every slot.
+
+26. at()
+Definition : Gets the element at an index. Supports NEGATIVE indexes, counting from the end.
+Syntax     : array.at(index)
+Returns    : the element, or undefined if out of range
+Mutates?   : No
+
+Example:
+    const fruits = ["apple", "banana", "mango"];
+    console.log(fruits.at(0));      // "apple"
+    console.log(fruits.at(-1));     // "mango"
+    console.log(fruits.at(10));     // undefined
+
+SUMMARY TABLE
+#   Method        Returns                 Mutates?
+--  ------------  ----------------------  --------
+1   push          new length              YES
+2   pop           removed item            YES
+3   shift         removed item            YES
+4   unshift       new length              YES
+5   concat        new array               No
+6   join          string                  No
+7   slice         new array               No
+8   splice        removed items array     YES
+9   indexOf       index or -1             No
+10  lastIndexOf   index or -1             No
+11  includes      boolean                 No
+12  find          element or undefined    No
+13  findIndex     index or -1             No
+14  filter        new array               No
+15  map           new array               No
+16  forEach       undefined               No
+17  reduce        single value            No
+18  reduceRight   single value            No
+19  some          boolean                 No
+20  every         boolean                 No
+21  sort          same array              YES
+22  reverse       same array              YES
+23  flat          new array               No
+24  flatMap       new array               No
+25  fill          same array              YES
+26  at            element or undefined    No
+
+Methods that mutate: push, pop, shift, unshift, splice, sort, reverse, fill.
+
+BONUS: OTHER ARRAY INSTANCE METHODS NOT COVERED ABOVE
+============================================================
+copyWithin()      copies part of the array to another position in place
+entries()         iterator of [index, value] pairs
+keys()            iterator of indexes
+values()          iterator of values
+findLast()        like find(), but searches from the end
+findLastIndex()   like findIndex(), but searches from the end
+toString()        array as a comma-separated string
+toLocaleString()  locale-aware string of the elements
+toSorted()        sorted COPY (original unchanged)
+toReversed()      reversed COPY (original unchanged)
+toSpliced()       spliced COPY (original unchanged)
+with()            copy with one index replaced
