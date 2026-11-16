@@ -1,0 +1,217 @@
+ DAY 10: forEach, map, filter, reduce
+
+ 1. forEach
+
+What it does : runs a function once for each element.
+Returns      : undefined (nothing)
+Use it for   : side effects like logging or updating the page.
+
+Syntax:
+    array.forEach((value, index, array) => { ... });
+
+Examples:
+
+    nums.forEach(n => console.log(n));
+    // 1 2 3 4 5
+
+    nums.forEach((n, i) => console.log(i + ": " + n));
+    // 0: 1
+    // 1: 2 ...
+
+    // Adding up with an outside variable
+    let total = 0;
+    nums.forEach(n => { total += n; });
+    console.log(total);   // 15
+
+Things to remember:
+  - You cannot use break or continue inside it.
+  - You cannot chain anything after it (it returns undefined).
+  - It does not wait for async/await inside the callback.
+  - If you need a result array, use map or filter instead.
+
+ 2. map
+What it does : transforms every element.
+Returns      : a NEW array with the SAME length.
+Use it for   : changing each item into something else.
+
+Syntax:
+    const result = array.map((value, index, array) => newValue);
+
+Picture it:
+    [ 1,  2,  3  ]
+      |   |   |     apply function to each
+    [ f(1) f(2) f(3) ]
+
+Examples:
+
+    nums.map(n => n * 2);          // [2, 4, 6, 8, 10]
+    nums.map(n => n * n);          // [1, 4, 9, 16, 25]
+    nums.map(n => "No. " + n);     // ["No. 1", "No. 2", ...]
+
+    const users = [
+      { name: "Asha", age: 25 },
+      { name: "Ravi", age: 30 },
+    ];
+
+    users.map(u => u.name);
+    // ["Asha", "Ravi"]
+
+    users.map(u => ({ ...u, adult: u.age >= 18 }));
+    // [{name:"Asha", age:25, adult:true}, ...]
+
+Things to remember:
+  - Output length always equals input length.
+  - Forgetting return in a { } body gives undefined values:
+        nums.map(n => { n * 2 });      // [undefined x5]  WRONG
+        nums.map(n => { return n * 2 }) // correct
+        nums.map(n => n * 2)            // correct
+  - To return an object from an arrow function, wrap it in ( ):
+        nums.map(n => ({ value: n }))
+  - The parseInt trap:
+        ["1","2","3"].map(parseInt);        // [1, NaN, NaN]  WRONG
+        ["1","2","3"].map(Number);          // [1, 2, 3]      correct
+  - If you do not use the returned array, use forEach.
+
+ 3. filter
+What it does : keeps only elements that pass a test.
+Returns      : a NEW array, same length or shorter.
+Use it for   : selecting / removing items.
+
+Syntax:
+    const result = array.filter((value, index, array) => condition);
+
+The callback returns true (keep) or false (drop).
+
+Examples:
+
+    nums.filter(n => n % 2 === 0);   // [2, 4]
+    nums.filter(n => n > 3);         // [4, 5]
+
+    const users = [
+      { name: "Asha",  age: 25 },
+      { name: "Ravi",  age: 17 },
+      { name: "Meera", age: 32 },
+    ];
+
+    users.filter(u => u.age >= 18);
+    // [Asha, Meera]
+
+    // Search by text
+    users.filter(u => u.name.toLowerCase().includes("a"));
+
+    // Remove one item
+    users.filter(u => u.name !== "Ravi");
+
+    // Remove empty/falsy values
+    [0, 1, "", "hi", null, undefined].filter(Boolean);
+    // [1, "hi"]
+
+Things to remember:
+  - It always returns an ARRAY, even for one match.
+        users.filter(u => u.name === "Asha")[0]   // the object
+    For just the first match, use find() instead.
+  - If nothing matches you get an empty array [].
+  - Objects in the result are the same objects as in the original
+    (not copies).
+
+ 4. reduce
+What it does : combines all elements into ONE final value.
+Returns      : anything (number, string, object, array...).
+Use it for   : totals, counts, grouping, building lookup objects.
+
+Syntax:
+    const result = array.reduce(
+      (accumulator, value, index, array) => nextAccumulator,
+      initialValue
+    );
+
+  accumulator  = the running result carried between steps
+  value        = the current element
+  initialValue = what accumulator starts as (0, "", [], {} ...)
+  The value you RETURN becomes the accumulator for the next step.
+
+Step-by-step trace:
+
+    nums.reduce((acc, n) => acc + n, 0)
+
+    step   acc   n    returns
+    1      0     1    1
+    2      1     2    3
+    3      3     3    6
+    4      6     4    10
+    5      10    5    15      -> result is 15
+
+Examples:
+
+    // Sum
+    nums.reduce((acc, n) => acc + n, 0);          // 15
+
+    // Product
+    nums.reduce((acc, n) => acc * n, 1);          // 120
+
+    // Maximum
+    nums.reduce((a, b) => (a > b ? a : b));       // 5
+
+    // Total price of a cart
+    const cart = [
+      { item: "Pen",  price: 10, qty: 5 },
+      { item: "Book", price: 50, qty: 2 },
+    ];
+    cart.reduce((sum, p) => sum + p.price * p.qty, 0);   // 150
+
+    // Count occurrences
+    const fruits = ["apple", "banana", "apple", "orange", "banana", "apple"];
+    fruits.reduce((acc, f) => {
+      acc[f] = (acc[f] || 0) + 1;
+      return acc;
+    }, {});
+    // { apple: 3, banana: 2, orange: 1 }
+
+    // Group by a property
+    const people = [
+      { name: "Asha",  city: "Bengaluru" },
+      { name: "Ravi",  city: "Chennai"   },
+      { name: "Meera", city: "Bengaluru" },
+    ];
+    people.reduce((acc, p) => {
+      (acc[p.city] ||= []).push(p.name);
+      return acc;
+    }, {});
+    // { Bengaluru: ["Asha","Meera"], Chennai: ["Ravi"] }
+
+Things to remember:
+  - ALWAYS pass an initial value.
+      Without it, an empty array throws an error:
+          [].reduce((a, b) => a + b);   // TypeError
+      and arrays of objects give wrong results.
+  - ALWAYS return the accumulator, otherwise it becomes undefined:
+          arr.reduce((acc, v) => { acc[v] = 1; }, {});         WRONG
+          arr.reduce((acc, v) => { acc[v] = 1; return acc; }, {}); correct
+  - The starting value decides the result type:
+        0 -> number,  "" -> string,  [] -> array,  {} -> object
+
+  Method    Returns                  Length          Chain after it?
+  --------  -----------------------  --------------  ---------------
+  forEach   undefined                n/a             No
+  map       new array                same as input   Yes
+  filter    new array                same or shorter Yes
+  reduce    single value (any type)  n/a             Depends on type
+
+  Which one do I use?
+    Do something for each item ............. forEach
+    One new item for every old item ......... map
+    Keep only some items .................... filter
+    Boil everything down to one value ....... reduce
+
+ CHEAT SHEET
+
+    arr.forEach((v, i) => { ... })           -> undefined
+    arr.map((v, i) => newValue)              -> new array, same length
+    arr.filter((v, i) => true/false)         -> new array, <= length
+    arr.reduce((acc, v) => nextAcc, start)   -> one final value
+
+    Remember:
+      - reduce: always give a start value, always return acc
+      - map: return a value for every item
+      - object from arrow function: x => ({ ... })
+      - forEach cannot break; none of the four mutate the original
