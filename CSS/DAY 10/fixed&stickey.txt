@@ -1,0 +1,91 @@
+DAY 10 - CSS POSITION: FIXED & STICKY
+1. position: fixed
+- Removes the element from normal flow (other elements act like it isn't there).
+- Positioned relative to the VIEWPORT (the browser window).
+- Stays in the same spot even when you scroll.
+- Use top / right / bottom / left to place it.
+- Exception: if an ancestor has transform, filter or perspective, the fixed element is positioned relative to that ancestor instead of the viewport.
+
+Common uses:
+- Sticky top navbars
+- "Back to top" buttons
+- Chat widgets
+- Cookie banners
+- Modals / overlays
+
+Example:
+
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #222;
+    color: #fff;
+    z-index: 1000;
+  }
+
+  body {
+    padding-top: 60px; /* because the fixed navbar no longer takes space */
+  }
+
+  .back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+  }
+
+Gotchas:
+- Fixed elements take no space, so content can hide behind them. Add padding/margin to the content.
+- Use z-index so it stays above other content.
+- On mobile, fixed + browser address bar/keyboard can behave oddly.
+
+
+2. position: sticky
+- A hybrid of relative and fixed.
+- Acts like relative (normal flow) until you scroll to a threshold, then "sticks" like fixed.
+- Positioned relative to its nearest SCROLLING ancestor, and it can only move within its PARENT container.
+- You MUST set at least one of top / right / bottom / left, otherwise it does nothing.
+
+Common uses:
+- Table headers that stay visible
+- Section headings (like contact lists A, B, C...)
+- Sidebars / table of contents
+- Navbars that appear after scrolling past a header
+
+Example:
+
+  .section-title {
+    position: sticky;
+    top: 0;
+    background: #fff;
+    padding: 10px;
+  }
+
+  th {
+    position: sticky;
+    top: 0;
+    background: #eee;
+  }
+
+  .sidebar {
+    position: sticky;
+    top: 20px; /* sticks 20px from the top of the viewport */
+  }
+
+Gotchas (why sticky "doesn't work"):
+- No top/bottom/left/right value set.
+- A parent has overflow: hidden / auto / scroll (this becomes the scroll container and breaks sticking to the viewport).
+- Parent is too short - the element can't stick outside its parent.
+- A flex/grid child stretching to full height: add align-self: flex-start.
+
+
+3. Fixed vs Sticky - Quick Comparison
+-------------------------------------
+| Feature              | fixed                | sticky                       |
+|----------------------|----------------------|------------------------------|
+| Removed from flow?   | Yes                  | No (keeps its space)         |
+| Relative to          | Viewport             | Nearest scrolling ancestor   |
+| Scrolls with page?   | Never                | Until threshold, then sticks |
+| Limited by parent?   | No                   | Yes                          |
+| Needs offset value?  | Recommended          | Required                     |
