@@ -1,0 +1,94 @@
+DAY 10 - PYTHON: LAMBDA FUNCTIONS
+
+1. What is a lambda function?
+- A small, anonymous function written in a single line.
+- Created with the keyword `lambda`.
+- Can take any number of arguments but has only ONE expression.
+- The expression's result is returned automatically (no `return` keyword).
+
+Syntax
+  lambda arguments: expression
+
+
+2. Basic Examples
+  # Normal function
+  def square(x):
+      return x * x
+
+  # Same thing as a lambda
+  square = lambda x: x * x
+  print(square(5))          # 25
+
+  # Multiple arguments
+  add = lambda a, b: a + b
+  print(add(3, 4))          # 7
+
+  # No arguments
+  greet = lambda: "Hello!"
+  print(greet())            # Hello!
+
+  # Default argument
+  power = lambda x, n=2: x ** n
+  print(power(3))           # 9
+  print(power(2, 3))        # 8
+
+  # Conditional expression inside lambda
+  check = lambda n: "Even" if n % 2 == 0 else "Odd"
+  print(check(7))           # Odd
+
+  # Call immediately
+  print((lambda x, y: x * y)(6, 7))   # 42
+
+
+3. Lambda with Built-in Functions
+This is where lambdas are used the most.
+
+a map()  - apply a function to every item
+
+  nums = [1, 2, 3, 4]
+  squares = list(map(lambda x: x ** 2, nums))
+  print(squares)            # [1, 4, 9, 16]
+
+b filter()  - keep items that satisfy a condition
+
+  nums = [1, 2, 3, 4, 5, 6]
+  evens = list(filter(lambda x: x % 2 == 0, nums))
+  print(evens)              # [2, 4, 6]
+
+c sorted() / sort() / min() / max()  - custom key
+
+  words = ["banana", "kiwi", "apple", "fig"]
+  print(sorted(words, key=lambda w: len(w)))
+  # ['fig', 'kiwi', 'apple', 'banana']
+
+  students = [("Ravi", 82), ("Anu", 95), ("Kiran", 70)]
+  print(sorted(students, key=lambda s: s[1], reverse=True))
+  # [('Anu', 95), ('Ravi', 82), ('Kiran', 70)]
+
+d reduce()  - combine all items into one value
+
+  from functools import reduce
+  nums = [1, 2, 3, 4]
+  total = reduce(lambda a, b: a + b, nums)
+  print(total)              # 10
+
+4. Lambda Returning Lambda (Closure)
+
+  def multiplier(n):
+      return lambda x: x * n
+
+  double = multiplier(2)
+  triple = multiplier(3)
+  print(double(5))          # 10
+  print(triple(5))          # 15
+
+
+5. Lambda vs Normal Function
+----------------------------
+| Feature        | def function          | lambda                     |
+|----------------|-----------------------|----------------------------|
+| Name           | Has a name            | Anonymous                  |
+| Statements     | Many allowed          | Only one expression        |
+| return keyword | Needed                | Not used (auto return)     |
+| Docstring      | Allowed               | Not allowed                |
+| Best for       | Complex logic         | Short, throwaway functions |
