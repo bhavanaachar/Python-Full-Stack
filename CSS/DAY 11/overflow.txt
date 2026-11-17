@@ -1,0 +1,80 @@
+CSS DAY 11: OVERFLOW
+
+1. WHAT IS OVERFLOW?
+Overflow happens when an element's content is bigger than the box that holds it (because the box has a fixed width/height). 
+The overflow property controls what the browser does with the extra content.
+
+
+2. THE overflow PROPERTY VALUES
+overflow: visible;   (default) Content spills outside the box and is not clipped.
+overflow: hidden;    Extra content is clipped (cut off). No scrollbar is shown.
+overflow: scroll;    Content is clipped and scrollbars are ALWAYS shown.
+overflow: auto;      Scrollbars appear ONLY when content overflows.
+overflow: clip;      Like hidden, but no scrolling at all, even by code.
+
+
+3. EXAMPLE
+HTML:
+    <div class="box">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua.
+    </div>
+
+CSS:
+    .box {
+      width: 200px;
+      height: 80px;
+      border: 2px solid black;
+      overflow: auto;
+    }
+
+Try changing overflow to visible, hidden, scroll, auto and compare.
+
+
+4. overflow-x AND overflow-y
+Control each direction separately:
+
+    .box {
+      overflow-x: auto;     /* horizontal */
+      overflow-y: hidden;   /* vertical   */
+    }
+
+Shorthand with two values: overflow: <x> <y>;
+    overflow: auto hidden;
+
+Note: if one axis is visible and the other is not, visible becomes auto.
+
+5. overflow-wrap / word-break (long words)
+Stops long words or URLs from breaking the layout:
+
+    .text {
+      overflow-wrap: break-word;   /* break long words if needed */
+    }
+    .text2 {
+      word-break: break-all;       /* break anywhere */
+    }
+
+6. COMMON USES
+- Scrollable areas (chat boxes, code blocks, tables on mobile)
+- Hiding content outside a rounded image/card (overflow: hidden + border-radius)
+- Clearing floats (old trick): overflow: hidden / auto on the parent
+- Preventing horizontal scroll on the page: body { overflow-x: hidden; }
+- Smooth scrolling container: scroll-behavior: smooth;
+
+9. USEFUL RELATED PROPERTIES
+- scroll-behavior: smooth;           smooth scrolling
+- overscroll-behavior: contain;      stop scroll chaining to the parent
+- scrollbar-width: thin;             thinner scrollbar
+- scrollbar-color: gray white;       scrollbar thumb / track colors
+- position: sticky;                  breaks if an ancestor has overflow set
+
+10. QUICK SUMMARY TABLE
+-----------------------
+Value     | Clips content? | Scrollbar?
+----------|----------------|-------------------
+visible   | No             | No
+hidden    | Yes            | No
+scroll    | Yes            | Always
+auto      | Yes            | Only when needed
+clip      | Yes            | No (not scrollable)
+
