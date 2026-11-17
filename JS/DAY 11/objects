@@ -1,0 +1,81 @@
+Objects
+
+1. WHAT IS AN OBJECT?
+An object is a collection of related data stored as key-value pairs.Each key (also called a property name) has a value. 
+The value can be a string, number, boolean, array, another object, or even a function.
+
+Real-life example: a person has a name, an age and a city. Instead of keeping three separate variables, we group them in one object.
+  const person = {
+    name: "Asha",
+    age: 25,
+    city: "Bengaluru"
+  };
+
+- Keys are strings (or symbols).
+- Values can be any type.
+- A function stored in an object is called a METHOD.
+
+
+2. HOW TO CREATE AN OBJECT
+
+a Object literal (most common)
+
+   const car = {
+     brand: "Toyota",
+     year: 2022,
+     isElectric: false
+   };
+
+b Using the new Object() constructor
+
+   const phone = new Object();
+   phone.model = "Pixel";
+   phone.price = 50000;
+
+3. HOW TO ACCESS OBJECT PROPERTIES
+Given:
+
+   const person = {
+     name: "Asha",
+     age: 25,
+     "favorite color": "blue",
+     address: { city: "Bengaluru", pin: 560001 }
+   };
+
+a Dot notation (most common)
+
+   person.name          // "Asha"
+   person.age           // 25
+
+b Bracket notation
+
+   person["name"]             // "Asha"
+   person["favorite color"]   // "blue"
+
+   const key = "age";
+   person[key]                // 25  (variable used as key)
+
+c Nested properties
+
+   person.address.city        // "Bengaluru"
+   person["address"]["pin"]   // 560001
+
+d Accessing a property that does not exist
+
+   person.salary              // undefined
+
+4. ADD, UPDATE, DELETE PROPERTIES
+   person.email = "asha@mail.com";   // add
+   person.age = 26;                  // update
+   delete person.city;               // delete
+   "name" in person                  // true  (check if key exists)
+   person.hasOwnProperty("name")     // true
+
+5. LOOP THROUGH PROPERTIES
+   for (const key in person) {
+     console.log(key, person[key]);
+   }
+
+   Object.keys(person)     // array of keys
+   Object.values(person)   // array of values
+   Object.entries(person)  // array of [key, value] pairs
