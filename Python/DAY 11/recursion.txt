@@ -1,0 +1,164 @@
+PYTHON DAY 11: RECURSION
+
+1. WHAT IS RECURSION:
+Recursion is when a function calls ITSELF to solve a smaller version of the same problem. Every recursive function needs:
+  a BASE CASE       - the condition where it stops (no more self-calls)
+  b RECURSIVE CASE  - the part where the function calls itself with a smaller/simpler input
+
+Without a base case, the function calls itself forever and Python raises:
+    RecursionError: maximum recursion depth exceeded
+
+2. SIMPLE EXAMPLE: COUNTDOWN
+def countdown(n):
+    if n == 0:            # base case
+        print("Done!")
+        return
+    print(n)
+    countdown(n - 1)      # recursive case
+
+countdown(3)
+# Output: 3 2 1 Done!
+
+
+3. FACTORIAL
+n! = n * (n-1) * (n-2) * ... * 1      (0! = 1)
+
+def factorial(n):
+    if n == 0 or n == 1:      # base case
+        return 1
+    return n * factorial(n - 1)
+
+print(factorial(5))   # 120
+
+How it works (call stack):
+    factorial(5) = 5 * factorial(4)
+                 = 5 * 4 * factorial(3)
+                 = 5 * 4 * 3 * factorial(2)
+                 = 5 * 4 * 3 * 2 * factorial(1)
+                 = 5 * 4 * 3 * 2 * 1 = 120
+
+
+4. SUM OF NUMBERS 1 TO n
+def sum_n(n):
+    if n == 0:
+        return 0
+    return n + sum_n(n - 1)
+
+print(sum_n(5))   # 15
+
+
+5. FIBONACCI SERIES
+Sequence: 0, 1, 1, 2, 3, 5, 8, 13, ...
+
+def fib(n):
+    if n == 0:
+        return 0
+    if n == 1:
+        return 1
+    return fib(n - 1) + fib(n - 2)
+
+for i in range(8):
+    print(fib(i), end=" ")
+# Output: 0 1 1 2 3 5 8 13
+
+Note: this version is slow for big n (it repeats work). See memoization below.
+
+
+6. POWER FUNCTION
+def power(base, exp):
+    if exp == 0:
+        return 1
+    return base * power(base, exp - 1)
+
+print(power(2, 5))   # 32
+
+
+7. SUM OF DIGITS
+def sum_digits(n):
+    if n == 0:
+        return 0
+    return (n % 10) + sum_digits(n // 10)
+
+print(sum_digits(1234))   # 10
+
+
+8. REVERSE A STRING
+def reverse(s):
+    if len(s) <= 1:
+        return s
+    return reverse(s[1:]) + s[0]
+
+print(reverse("python"))   # nohtyp
+
+
+9. PALINDROME CHECK
+def is_palindrome(s):
+    if len(s) <= 1:
+        return True
+    if s[0] != s[-1]:
+        return False
+    return is_palindrome(s[1:-1])
+
+print(is_palindrome("madam"))    # True
+print(is_palindrome("hello"))    # False
+
+
+10. SUM OF A LIST
+def list_sum(lst):
+    if not lst:
+        return 0
+    return lst[0] + list_sum(lst[1:])
+
+print(list_sum([1, 2, 3, 4]))   # 10
+
+
+11. BINARY SEARCH (RECURSIVE)
+def binary_search(arr, target, low, high):
+    if low > high:
+        return -1
+    mid = (low + high) // 2
+    if arr[mid] == target:
+        return mid
+    elif arr[mid] < target:
+        return binary_search(arr, target, mid + 1, high)
+    else:
+        return binary_search(arr, target, low, mid - 1)
+
+nums = [1, 3, 5, 7, 9, 11]
+print(binary_search(nums, 7, 0, len(nums) - 1))   # 3
+
+
+12. FLATTEN A NESTED LIST
+def flatten(lst):
+    result = []
+    for item in lst:
+        if isinstance(item, list):
+            result.extend(flatten(item))
+        else:
+            result.append(item)
+    return result
+
+print(flatten([1, [2, [3, 4]], 5]))   # [1, 2, 3, 4, 5]
+
+
+13. TOWER OF HANOI
+def hanoi(n, source, target, helper):
+    if n == 1:
+        print(f"Move disk 1 from {source} to {target}")
+        return
+    hanoi(n - 1, source, helper, target)
+    print(f"Move disk {n} from {source} to {target}")
+    hanoi(n - 1, helper, target, source)
+
+hanoi(3, "A", "C", "B")
+
+14. RECURSION vs LOOP (ITERATION)
+Recursion:
+  + Clean and short for problems that are naturally recursive
+    (trees, nested data, divide and conquer, backtracking)
+  - Uses more memory (each call adds a stack frame)
+  - Slower, and limited by the recursion depth
+
+Loop:
+  + Faster and uses less memory
+  - Can be longer/harder for tree-like problems
