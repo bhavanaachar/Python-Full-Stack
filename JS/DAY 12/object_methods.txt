@@ -1,0 +1,102 @@
+Object methods
+1. Object.keys()
+Definition : Returns an array of an object's own property names.
+Syntax     : Object.keys(obj)
+Example    :
+  console.log(Object.keys(person));
+  // ["name", "age", "city"]
+
+
+2. Object.values()
+Definition : Returns an array of an object's own property values.
+Syntax     : Object.values(obj)
+Example    :
+  console.log(Object.values(person));
+  // ["Asha", 25, "Bengaluru"]
+
+
+3. Object.entries()
+Definition : Returns an array of [key, value] pairs.
+Syntax     : Object.entries(obj)
+Example    :
+  for (const [key, value] of Object.entries(person)) {
+    console.log(key + " = " + value);
+  }
+
+
+4. Object.fromEntries()
+Definition : Converts [key, value] pairs back into an object.
+Syntax     : Object.fromEntries(iterable)
+Example    :
+  const doubled = Object.fromEntries(
+    Object.entries({ a: 1, b: 2 }).map(([k, v]) => [k, v * 2])
+  );
+  console.log(doubled);   // { a: 2, b: 4 }
+
+
+5. Object.assign()
+Definition : Copies properties from source objects into a target object.
+Syntax     : Object.assign(target, ...sources)
+Example    :
+  const merged = Object.assign({}, { x: 1 }, { y: 2 });
+  console.log(merged);    // { x: 1, y: 2 }
+  // Modern alternative: { ...a, ...b }
+
+
+6. Object.freeze()
+Definition : Makes an object read-only (no add, delete or change).
+Syntax     : Object.freeze(obj)
+Example    :
+  const config = Object.freeze({ mode: "dark" });
+  config.mode = "light";      // ignored
+  console.log(config.mode);   // "dark"
+
+
+7. Object.create()
+Definition : Creates a new object with a chosen prototype.
+Syntax     : Object.create(proto)
+Example    :
+  const animal = { speak() { console.log(this.name + " makes a sound"); } };
+  const dog = Object.create(animal);
+  dog.name = "Bruno";
+  dog.speak();   // Bruno makes a sound
+
+
+8. Object.defineProperty()
+Definition : Adds or changes one property with control over writable, enumerable and configurable.
+Syntax     : Object.defineProperty(obj, prop, descriptor)
+Example    :
+  const car = {};
+  Object.defineProperty(car, "brand", {
+    value: "Toyota",
+    writable: false,
+    enumerable: true
+  });
+  car.brand = "Honda";
+  console.log(car.brand);   // "Toyota"
+
+
+9. Object.hasOwn()
+Definition : Checks if a property belongs directly to the object.
+Syntax     : Object.hasOwn(obj, prop)
+Example    :
+  console.log(Object.hasOwn(person, "age"));        // true
+  console.log(Object.hasOwn(person, "toString"));   // false
+
+
+10. Object.getPrototypeOf()
+Definition : Returns the prototype of an object.
+Syntax     : Object.getPrototypeOf(obj)
+Example    :
+  console.log(Object.getPrototypeOf(dog) === animal);   // true
+
+QUICK SUMMARY
+  keys / values / entries  -> read data from an object
+  fromEntries              -> build an object from pairs
+  assign                   -> copy or merge objects
+  freeze                   -> make an object read-only
+  create                   -> set up inheritance
+  defineProperty           -> control property behavior
+  hasOwn                   -> safely check a property
+  getPrototypeOf           -> inspect inheritance
+
