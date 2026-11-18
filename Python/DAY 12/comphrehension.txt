@@ -1,0 +1,84 @@
+DAY 12 - PYTHON COMPREHENSIONS
+
+WHAT IS A COMPREHENSION?
+Definition:
+  A comprehension is a short, single-line way to build a new collection (list, dict, set) from an existing iterable, optionally filtering or
+  transforming each item.
+
+Example:
+  squares = [x * x for x in range(5)]
+  print(squares)        # [0, 1, 4, 9, 16]
+
+
+1. LIST COMPREHENSION
+Definition:
+  Creates a new list. Syntax:
+  [expression for item in iterable if condition]
+
+Example:
+  nums = [1, 2, 3, 4, 5, 6]
+  evens = [n for n in nums if n % 2 == 0]
+  print(evens)          # [2, 4, 6]
+
+Same thing with a normal loop:
+  evens = []
+  for n in nums:
+      if n % 2 == 0:
+          evens.append(n)
+
+
+2. LIST COMPREHENSION WITH if / else
+Definition:
+  To choose between two values, put if/else BEFORE the for.
+  [value_if_true if condition else value_if_false for item in iterable]
+
+Example:
+  labels = ["even" if n % 2 == 0 else "odd" for n in range(5)]
+  print(labels)         # ['even', 'odd', 'even', 'odd', 'even']
+
+
+3. NESTED LOOPS IN A COMPREHENSION
+Definition:
+  Multiple "for" clauses work like nested loops, left to right.
+
+Example:
+  pairs = [(x, y) for x in range(2) for y in range(2)]
+  print(pairs)          # [(0, 0), (0, 1), (1, 0), (1, 1)]
+
+  matrix = [[1, 2], [3, 4]]
+  flat = [n for row in matrix for n in row]
+  print(flat)           # [1, 2, 3, 4]
+
+
+4. DICTIONARY COMPREHENSION
+Definition:
+  Creates a new dictionary. Syntax:
+  {key: value for item in iterable if condition}
+
+Example:
+  words = ["apple", "kiwi", "banana"]
+  lengths = {w: len(w) for w in words}
+  print(lengths)        # {'apple': 5, 'kiwi': 4, 'banana': 6}
+
+
+5. SET COMPREHENSION
+Definition:
+  Creates a new set (unique values only). Syntax:
+  {expression for item in iterable if condition}
+
+Example:
+  letters = {ch for ch in "hello"}
+  print(letters)        # {'h', 'e', 'l', 'o'}  (order may vary)
+
+
+6. GENERATOR EXPRESSION
+Definition:
+  Like a list comprehension but with round brackets. It produces valuesone at a time (lazy), so it uses very little memory.
+
+Example:
+  total = sum(x * x for x in range(1000))
+  print(total)          # 332833500
+
+WHEN TO USE
+- Use for simple transform / filter tasks.
+- If it becomes long or hard to read, use a normal for loop.
