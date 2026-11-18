@@ -1,0 +1,66 @@
+DAY 12 - CSS: VISIBILITY AND OPACITY
+
+1. VISIBILITY
+Definition:
+  The visibility property shows or hides an element WITHOUT removing it from the page layout. The hidden element still takes up its space.
+
+Values:
+  visible   - element is shown (default)
+  hidden    - element is invisible, but its space is kept
+  collapse  - used for table rows/columns; removes them without affecting the table layout
+
+Example:
+  <p>Line 1</p>
+  <p class="hide">Line 2 (hidden)</p>
+  <p>Line 3</p>
+
+  .hide {
+    visibility: hidden;
+  }
+
+2. OPACITY
+Definition:
+  The opacity property sets how transparent an element is. The value is a number from 0 to 1.
+
+Values:
+  1     - fully visible (default)
+  0.5   - half transparent
+  0     - fully transparent 
+
+Example:
+  .box {
+    background: blue;
+    opacity: 0.5;
+  }
+
+  Note: opacity applies to the WHOLE element, including its text and children. To make only the background transparent, use rgba():
+
+  .box {
+    background: rgba(0, 0, 255, 0.5);   /* only background is transparent */
+  }
+
+3. display: none  vs  visibility: hidden  vs  opacity: 0
+---------------------------------------------------------
+  Property             Visible?   Takes space?   Clickable?
+  -------------------  ---------  -------------  ----------
+  display: none        No         No             No
+  visibility: hidden   No         Yes            No
+  opacity: 0           No         Yes            Yes
+
+Example:
+  .a { display: none; }        /* removed from layout completely */
+  .b { visibility: hidden; }   /* invisible, gap remains */
+  .c { opacity: 0; }           /* invisible, gap remains, still clickable */
+
+
+4. TRANSITIONS
+  opacity can be animated smoothly (fade in / fade out). display cannot be animated.
+
+Example (fade on hover):
+  .card {
+    opacity: 0.3;
+    transition: opacity 0.5s;
+  }
+  .card:hover {
+    opacity: 1;
+  }
