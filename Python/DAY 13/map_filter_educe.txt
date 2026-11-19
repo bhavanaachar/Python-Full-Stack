@@ -1,0 +1,151 @@
+DAY 13 - PYTHON: MAP, FILTER, REDUCE (DETAILED NOTES)
+
+1. OVERVIEW
+map, filter and reduce are functional-programming tools. They let you process a collection without writing an explicit for loop.
+
+- map(func, iterable)      -> transform EVERY item
+- filter(func, iterable)   -> KEEP only items where func returns True
+- reduce(func, iterable)   -> COMBINE all items into ONE value
+
+map and filter are built in. reduce must be imported:
+
+    from functools import reduce
+
+
+2. MAP
+Syntax:
+    map(function, iterable, ...)
+
+Applies the function to each item and returns a map object. Wrap it in list() to see the values.
+
+Example 1: square every number
+    nums = [1, 2, 3, 4, 5]
+    result = list(map(lambda x: x ** 2, nums))
+    print(result)            # [1, 4, 9, 16, 25]
+
+Example 2: using a normal function
+    def double(x):
+        return x * 2
+
+    print(list(map(double, [1, 2, 3])))   # [2, 4, 6]
+
+Example 3: built-in functions work too
+    words = ["10", "20", "30"]
+    print(list(map(int, words)))          # [10, 20, 30]
+
+Example 4: change case
+    names = ["asha", "ravi", "meena"]
+    print(list(map(str.upper, names)))    # ['ASHA', 'RAVI', 'MEENA']
+
+Example 5: two iterables at once
+    a = [1, 2, 3]
+    b = [10, 20, 30]
+    print(list(map(lambda x, y: x + y, a, b)))   # [11, 22, 33]
+    (stops at the shortest iterable)
+
+Example 6: user input to ints
+    nums = list(map(int, input("Enter numbers: ").split()))
+
+
+3. FILTER
+Syntax:
+    filter(function, iterable)
+
+The function must return True or False. Only items where it returns True are kept. Returns a filter object (iterator), so use list().
+
+Example 1: even numbers
+    nums = [1, 2, 3, 4, 5, 6]
+    evens = list(filter(lambda x: x % 2 == 0, nums))
+    print(evens)             # [2, 4, 6]
+
+Example 2: words longer than 3 letters
+    words = ["is", "python", "fun", "language"]
+    print(list(filter(lambda w: len(w) > 3, words)))   # ['python', 'language']
+
+Example 3: remove empty strings
+    items = ["a", "", "b", "", "c"]
+    print(list(filter(None, items)))      # ['a', 'b', 'c']
+    (filter with None removes all falsy values: 0, "", None, [], False)
+
+Example 4: marks above 40
+    marks = [35, 78, 40, 90, 22]
+    print(list(filter(lambda m: m > 40, marks)))   # [78, 90]
+
+
+4. REDUCE
+Syntax:
+    from functools import reduce
+    reduce(function, iterable, initial)
+
+The function takes TWO arguments (accumulator, current item). It processes items left to right, carrying the result forward, and ends with a single value.
+
+How it works for reduce(lambda a, b: a + b, [1, 2, 3, 4]):
+    step 1: a=1, b=2  -> 3
+    step 2: a=3, b=3  -> 6
+    step 3: a=6, b=4  -> 10
+    result: 10
+
+Example 1: sum
+    from functools import reduce
+    nums = [1, 2, 3, 4, 5]
+    print(reduce(lambda a, b: a + b, nums))      # 15
+
+Example 2: product
+    print(reduce(lambda a, b: a * b, nums))      # 120
+
+Example 3: maximum
+    print(reduce(lambda a, b: a if a > b else b, [4, 9, 2, 7]))   # 9
+
+Example 4: initial value
+    print(reduce(lambda a, b: a + b, [1, 2, 3], 100))   # 106
+    (100 is the starting value; also avoids an error on an empty list)
+
+Example 5: join strings
+    words = ["Python", "is", "fun"]
+    print(reduce(lambda a, b: a + " " + b, words))   # Python is fun
+
+Example 6: flatten a list of lists
+    data = [[1, 2], [3, 4], [5]]
+    print(reduce(lambda a, b: a + b, data))          # [1, 2, 3, 4, 5]
+
+Note: reduce on an empty list with no initial value raises TypeError.
+
+5. USING ALL THREE TOGETHER
+---------------------------
+Task: sum of squares of the even numbers.
+
+    from functools import reduce
+    nums = [1, 2, 3, 4, 5, 6]
+
+    evens   = filter(lambda x: x % 2 == 0, nums)    # 2, 4, 6
+    squares = map(lambda x: x ** 2, evens)          # 4, 16, 36
+    total   = reduce(lambda a, b: a + b, squares)   # 56
+    print(total)                                    # 56
+
+Real-life style example: total price of items costing above 100, after a 10 percent discount.
+
+    prices = [50, 120, 300, 80, 150]
+    expensive = filter(lambda p: p > 100, prices)
+    discounted = map(lambda p: p * 0.9, expensive)
+    total = reduce(lambda a, b: a + b, discounted)
+    print(total)            # 483.0
+
+
+6. LAMBDA REFRESHER
+A lambda is a small anonymous one-line function.
+
+    lambda arguments: expression
+
+    square = lambda x: x * x
+    add = lambda a, b: a + b
+
+Used heavily with map, filter and reduce.
+
+7. COMPARISON TABLE
+-------------------
+            map              filter            reduce
+Purpose     transform items  select items      combine into one value
+Function    1 arg            1 arg (T/F)       2 args
+Output size same as input    same or smaller   single value
+Returns     iterator         iterator          single value
+Import      built-in         built-in          functools
