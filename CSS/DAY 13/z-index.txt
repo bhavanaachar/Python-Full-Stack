@@ -1,0 +1,37 @@
+DAY 13 - CSS Z-INDEX
+
+WHAT IT IS
+z-index controls the stacking order of elements along the z-axis. Higher number = closer to the viewer.
+
+THE KEY RULE
+It only works on positioned elements (position: relative | absolute | fixed | sticky) and on flex/grid children. On a plain position: static element, it does nothing.
+
+    .box {
+      position: relative;
+      z-index: 10;
+    }
+
+VALUES
+- auto: the default (same as 0, follows DOM order)
+- positive integers: stack above lower values
+- negative integers: stack behind the parent's content
+- equal z-index: the element later in the HTML wins
+
+STACKING CONTEXTS
+
+A z-index only competes with its siblings inside the same stacking context.
+A child can never escape its parent's context, so z-index: 9999 inside a parent with z-index: 1 still sits below a sibling of that parent with z-index: 2.
+
+A new stacking context is created by:
+- the root <html> element
+- a positioned element with a z-index other than auto
+- opacity less than 1
+- transform, filter, perspective
+- position: fixed or sticky
+- isolation: isolate (the clean way to create one on purpose)
+
+COMMON USES
+- Modals and overlays above page content
+- Sticky headers above scrolling content
+- Dropdowns and tooltips
+- Decorative backgrounds with z-index: -1
