@@ -1,0 +1,111 @@
+DAY 13: JS SPREAD AND REST OPERATOR
+Both use the same syntax (...) but do opposite jobs.
+
+DEFINITIONS
+SPREAD OPERATOR (...)
+  Definition:
+    The spread operator (...) expands an iterable (array, string, Set,Map) or an object into its individual elements or key-value pairs.
+    It "spreads out" a collection so each item can be used separately.
+
+  Used for:
+    - Copying arrays and objects
+    - Merging arrays and objects
+    - Passing array items as separate function arguments
+    - Adding items to a new array without changing the original
+
+  Where it appears: in function CALLS, array literals [ ], object literals { }
+  Position: can be used anywhere, any number of times.
+
+  Example:
+    const nums = [1, 2, 3];
+    console.log(...nums);        // 1 2 3
+    const more = [...nums, 4];   // [1, 2, 3, 4]
+
+REST OPERATOR (...)
+  Definition:
+    The rest operator (...) collects the remaining, unmatched items into a single array. It "packs" many values into one variable.
+
+  Used for:
+    - Accepting any number of arguments in a function
+    - Grabbing the leftover items when destructuring an array
+    - Grabbing the leftover properties when destructuring an object
+    - Omitting certain keys from an object
+
+  Where it appears: in function PARAMETERS and DESTRUCTURING patterns.
+  Position: must always be the LAST element, and only one is allowed.
+
+  Example:
+    function total(...nums) {    // nums = [1, 2, 3]
+      return nums.reduce((a, b) => a + b, 0);
+    }
+    total(1, 2, 3);              // 6
+
+    const [first, ...others] = [10, 20, 30];
+    // first = 10, others = [20, 30]
+
+In short: spread UNPACKS (one collection becomes many values), rest PACKS (many values become one collection).
+
+RULE OF THUMB
+- Spread EXPANDS an iterable or object into individual pieces. It appears where values are being USED.
+- Rest COLLECTS leftover pieces into one array or object.It appears where values are being RECEIVED.
+
+
+1. SPREAD
+
+// Arrays: copy, merge, add
+const a = [1, 2, 3];
+const b = [...a];                 // copy: [1, 2, 3]
+const c = [...a, 4, 5];           // [1, 2, 3, 4, 5]
+const d = [0, ...a, ...[9, 10]];  // [0, 1, 2, 3, 9, 10]
+
+// Passing array items as arguments
+Math.max(...a);                   // 3, same as Math.max(1, 2, 3)
+
+// Strings are iterable too
+[..."hey"];                       // ["h", "e", "y"]
+
+// Objects: copy, merge, override
+const user = { name: "Asha", age: 25 };
+const copy = { ...user };
+const updated = { ...user, age: 26 };           // later keys win
+const merged = { ...user, ...{ city: "BLR" } };
+
+GOTCHA: spread makes a SHALLOW copy. Nested objects/arrays are still shared references.
+
+const o = { inner: { x: 1 } };
+const s = { ...o };
+s.inner.x = 99;
+console.log(o.inner.x); // 99 (original changed too!)
+
+
+2. REST:Rest parameter is a function parameter written with three dots (...) before its name. 
+It collects all the remaining arguments passed to the function into a single real array, so a function can accept any number of arguments.
+
+// In function parameters
+function sum(...nums) {          // nums is a real array
+  return nums.reduce((t, n) => t + n, 0);
+}
+sum(1, 2, 3, 4); // 10
+
+// Mixing named params with rest (rest must be LAST)
+function greet(greeting, ...names) {
+  return `${greeting}, ${names.join(" & ")}!`;
+}
+greet("Hi", "Asha", "Ravi"); // "Hi, Asha & Ravi!"
+
+// In array destructuring
+const [first, second, ...others] = [10, 20, 30, 40, 50];
+// first = 10, second = 20, others = [30, 40, 50]
+
+// In object destructuring (great for "omit a key")
+const { password, ...safeUser } = { name: "Asha", password: "x", age: 25 };
+// safeUser = { name: "Asha", age: 25 }
+
+
+3. SPREAD VS REST AT A GLANCE
+
+              Spread                          Rest
+Job           Unpacks                         Packs
+Where         Calls, array/object literals    Function params, destructuring
+Position      Anywhere                        Always last
+
