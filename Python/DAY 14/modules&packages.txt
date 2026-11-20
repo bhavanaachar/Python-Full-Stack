@@ -1,0 +1,132 @@
+PYTHON MODULES AND PACKAGES
+
+1. WHAT IS A MODULE?
+A module is a single .py file containing Python code (functions, classes, variables) that you can reuse in other files.
+
+Example: mymath.py
+  PI = 3.14159
+
+  def add(a, b):
+      return a + b
+
+  def square(x):
+      return x * x
+
+
+2. IMPORTING MODULES
+
+import mymath
+  print(mymath.add(2, 3))        # use module name as prefix
+
+import mymath as mm
+  print(mm.square(4))            # alias
+
+from mymath import add, square
+  print(add(2, 3))               # no prefix needed
+
+from mymath import *
+  # imports everything public. Avoid it: pollutes the namespace
+  # and makes code hard to read.
+
+from mymath import add as plus
+  print(plus(1, 2))
+
+
+3. BUILT-IN / STANDARD LIBRARY MODULES
+Python ships with many useful modules. No installation needed.
+
+  import math
+  math.sqrt(16)          # 4.0
+  math.pi                # 3.14159...
+  math.ceil(4.2)         # 5
+
+  import random
+  random.randint(1, 10)
+  random.choice(["a", "b", "c"])
+
+  import datetime
+  datetime.date.today()
+  datetime.datetime.now()
+
+  import os
+  os.getcwd()
+  os.listdir(".")
+
+  import sys
+  sys.argv               # command-line arguments
+  sys.path               # where Python looks for modules
+
+  import json
+  json.dumps({"a": 1})
+  json.loads('{"a": 1}')
+
+  import collections, itertools, pathlib, re, time, statistics
+
+
+4. HOW PYTHON FINDS MODULES
+When you write "import x", Python searches in this order:
+  1. Built-in modules
+  2. The folder of the running script
+  3. Directories listed in sys.path 
+
+Tip: don't name your file the same as a standard module. 
+
+
+5. THE __name__ == "__main__" PATTERN
+Every module has a built-in variable __name__.
+  - When run directly:  __name__ == "__main__"
+  - When imported:      __name__ == the module's name
+
+  def main():
+      print("Running as a script")
+
+  if __name__ == "__main__":
+      main()
+
+Code under this check runs only when the file is executed directly, not when it is imported.
+
+
+6. WHAT IS A PACKAGE?
+A package is a folder of modules. It lets you organize larger projects.
+
+Structure:
+
+  myproject/
+  |-- main.py
+  |-- shapes/
+      |-- __init__.py
+      |-- circle.py
+      |-- square.py
+
+__init__.py marks the folder as a package (optional in modern Python 3, but still recommended). It can be empty, or it can run setup code and control what the package exposes.
+Importing from a package:
+
+  import shapes.circle
+  shapes.circle.area(5)
+
+  from shapes import circle
+  circle.area(5)
+
+  from shapes.circle import area
+  area(5)
+
+7. USING __init__.py
+You can re-export names so users get a cleaner import.
+
+  # shapes/__init__.py
+  from .circle import area as circle_area
+  from .square import area as square_area
+
+Now:
+  from shapes import circle_area, square_area
+
+8. ABSOLUTE vs RELATIVE IMPORTS
+Absolute (preferred, clear):
+  from shapes.circle import area
+
+Relative (inside a package only):
+  from . import circle          # same folder
+  from .circle import area      # module in same folder
+  from .. import utils          # parent folder
+
+Relative imports only work when the file is part of a package and run as part of it , not as a plain script.
