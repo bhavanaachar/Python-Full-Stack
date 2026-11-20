@@ -1,0 +1,153 @@
+DAY 14 - JAVASCRIPT: OPERATORS
+
+1. WHAT IS OPERATOR AND OPERAND?
+- Operator: A symbol or function that performs a specific operation on one or more operands.
+- Operand: A value or variable on which the operator performs operations.
+
+For Example ->
+    a = 5 + 3;
+    // Here, "+" is the operator, and "5" and "3" are the operands.
+
+
+2. TYPES OF OPERATORS
+Operators are categorized into the following types:
+
+    1.  Unary Operators
+    2.  Arithmetic Operators
+    3.  Assignment Operators
+    4.  Comparison Operators
+    5.  Bitwise Operators
+    6.  Logical Operators
+    7.  Ternary/Conditional Operators
+
+3. UNARY OPERATOR
+- These operators work on a single operand.
+
+Types:
+    1. Unary Plus ( + )   : Converts an operand to a number.
+    2. Unary Minus ( - )  : Negates the value of an operand.
+    3. Increment ( ++ )   : Increases the value by 1.
+    4. Decrement ( -- )   : Decreases the value by 1.
+    5. Logical NOT ( ! )  : Inverts a boolean value.
+
+For Example ->
+
+    let a = 5;
+    console.log(+a);    // 5
+    console.log(-a);    // -5
+    console.log(++a);   // 6 (Pre-Increment Operator)
+    console.log(--a);   // 5 (Pre-Decrement Operator)
+    console.log(a++);   // 5 (Post-Increment Operator)
+    console.log(a--);   // 6 (Post-Decrement Operator)
+    console.log(!true); // false
+
+
+4. ARITHMETIC OPERATOR
+- These operators perform basic mathematical operations.
+
+Types:
+    1. Addition ( + )
+    2. Subtraction ( - )
+    3. Multiplication ( * )
+    4. Division ( / )
+    5. Modulus ( % )         : Remainder of division.
+    6. Exponentiation ( ** ) : Raises one number to the power of another.
+
+For Example ->
+
+    let a = 10;
+    let b = 3;
+    console.log(a + b);   // 13
+    console.log(a - b);   // 7
+    console.log(a * b);   // 30
+    console.log(a / b);   // 3.33
+    console.log(a % b);   // 1
+    console.log(a ** b);  // 1000
+
+
+5. ASSIGNMENT OPERATOR
+- These operators assign values to variables.
+
+Types:
+    1. Simple Assignment ( = )           : Assigns the value.
+    2. Addition Assignment ( += )        : Adds and assigns.
+    3. Subtraction Assignment ( -= )     : Subtracts and assigns.
+    4. Multiplication Assignment ( *= )  : Multiplies and assigns.
+    5. Division Assignment ( /= )        : Divides and assigns.
+    6. Modulus Assignment ( %= )         : Modulus and assigns.
+
+For Example ->
+
+    let a = 5;
+    a += 3;                 // a = a + 3
+    console.log(a);         // 8
+
+    a *= 2;                 // a = a * 2
+    console.log(a);         // 16
+
+
+6. COMPARISON OPERATOR
+- These operators compare two values and return a boolean result.
+
+Types:
+    1. Equal to ( == )              : Only checks the value, not datatype.
+    2. Not equal to ( != )
+    3. Strict equal to ( === )      : Checks the value as well as datatype.
+    4. Strict not equal to ( !== )
+    5. Greater than ( > )
+    6. Less than ( < )
+    7. Greater than or equal to ( >= )
+    8. Less than or equal to ( <= )
+
+For Example ->
+
+    console.log(5 == "5");    // true
+    console.log(5 === "5");   // false
+    console.log(10 > 5);      // true
+    console.log(10 <= 5);     // false
+
+
+7. BIT-WISE OPERATOR
+- These operators perform bit-level operations.
+
+Types:
+    1. AND ( & )
+    2. OR ( | )
+    3. XOR ( ^ )
+    4. NOT ( ~ )
+    5. Left Shift ( << )
+    6. Right Shift ( >> )
+
+For Example ->
+
+    console.log(5 & 3);    // 1  (0101 & 0011 = 0001)
+    console.log(5 | 3);    // 7  (0101 | 0011 = 0111)
+    console.log(~5);       // -6 (~0101 = 1010)
+    console.log(5 << 1);   // 10 (0101 << 1 = 1010)
+
+
+8. LOGICAL OPERATOR
+- These operators work with boolean values.
+
+Types:
+    1. AND ( && )
+    2. OR ( || )
+    3. NOT ( ! )
+
+For Example ->
+
+    console.log(true && false);   // false
+    console.log(true && true);    // true
+    console.log(true || false);   // true
+    console.log(!true);           // false
+
+
+9. TERNARY OPERATOR / CONDITIONAL OPERATOR
+- It is a shorthand for an if-else statement.
+- Syntax -> condition ? value_if_true : value_if_false
+
+For Example ->
+
+    let age = 18;
+    let canVote = age >= 18 ? "Yes" : "No";
+    console.log(canVote);   // Yes
