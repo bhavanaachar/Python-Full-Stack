@@ -1,0 +1,82 @@
+CSS FLEXBOX BASICS (Day 13)
+
+WHAT IS FLEXBOX?
+A one-dimensional layout system. It arranges items in a row OR a column,and handles spacing, alignment and sizing for you.
+
+Two parts:
+  - Flex container: the parent  -> display: flex;
+  - Flex items: the direct children of the container
+
+1. THE TWO AXES
+Main axis:   the direction items are laid out (default: left to right)
+Cross axis:  perpendicular to the main axis (default: top to bottom)
+
+If flex-direction changes, the axes swap.
+
+Flex parent properties
+1. display
+2. flex-direction
+3. justify-content
+4. align-items
+5. flex-wrap
+6. align content 
+7. gap
+8.Flex-flow (shorthand)
+
+1.Display flex :This is the main property we must use to work with flex boxes. By assigning this property we are able to use all other oroperty.
+ex:
+.container {
+  display: flex;        /* block-level flex container */
+  /* display: inline-flex; -> inline-level version */
+}
+
+Children now sit side by side in a row by default.
+
+2. flex-direction:It will specify the direction of flex items, whether to display in row/column format. It will decide the main axis.
+Syntax: flex-direction: value
+  row             -> left to right (default)
+  row-reverse     -> right to left
+  column          -> top to bottom
+  column-reverse  -> bottom to top
+
+
+3. flex-wrap :allow items to wrap onto new lines
+Synatx: flex-wrap:values
+  nowrap          -> all on one line (default, items may shrink)
+  wrap            -> wrap onto multiple lines
+  wrap-reverse    -> wrap in reverse order
+
+
+4. flex-flow :shorthand: direction & wrap
+  flex-flow: row wrap;
+
+
+5.justify-content :It will align the flex items on main axis
+Syntax: justify-content:values
+  flex-start      -> items packed at the start (default)
+  flex-end        -> packed at the end
+  center          -> centered
+  space-between   -> first at start, last at end, equal gaps between
+  space-around    -> equal space around each item
+  space-evenly    -> equal space between items and edges
+
+
+6.align-items :alignment along the CROSS axis, for one line
+Syntax: align-items:values
+  stretch         -> items fill the container height (default)
+  flex-start      -> aligned to the cross start
+  flex-end        -> aligned to the cross end
+  center          -> centered on the cross axis
+  baseline        -> aligned by text baseline
+
+
+7. align-content  :It will specify the position of wrapped flex items
+Syntax: align-content:values
+values: start, center, end, space-between,space-around, stretch
+
+
+8.gap :space between items
+  gap: 16px;
+  row-gap: 10px;
+  column-gap: 20px;
+
