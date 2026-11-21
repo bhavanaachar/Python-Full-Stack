@@ -1,0 +1,62 @@
+JS TYPECASTING (DAY 15)
+
+1. WHAT IS TYPECASTING?
+- Typecasting is the process of converting one data type into another.
+- This can involve converting a string into a number, a number into a boolean, or vice versa.
+- Typecasting can occur implicitly or explicitly.
+
+
+2. WHAT IS THE NEED TO PERFORM TYPECASTING?
+Typecasting is important for the following reasons:
+
+1. Data Compatibility: It helps to ensure that data is in the correct format for specific operations.
+2. Error Prevention: Prevents unexpected behaviour or errors during arithmetic or logical operations.
+3. Dynamic Typing: In JavaScript, types are not strictly enforced, so typecasting provides control over type conversions.
+4. Enhanced Functionality: Enables operations like concatenating strings and numbers, parsing inputs, or performing calculations with mixed types.
+
+
+3. TYPES OF TYPECASTING
+There are mainly two types of typecasting:
+
+3.11. Implicit Typecasting (Type Coercion):
+   - The JavaScript engine automatically converts data types during operations.
+   - Examples include converting numbers to strings when concatenated, or booleans to numbers during arithmetic operations.
+
+3.1.1 Examples of Implicit Typecasting
+console.log(10 + "10");        // "1010" (number 10 is coerced to a string)
+console.log(10 + "hello");     // "10hello"
+console.log(true + 11);        // 12 (true is coerced to 1)
+console.log("true" - 1);       // NaN ("true" cannot be coerced to a number)
+console.log("30" - 10);        // 20 (string "30" is coerced to a number)
+console.log("33" + 33 + "22"); // "333322" (concatenation as strings)
+
+3.2. Explicit Typecasting:
+   - The developer explicitly converts one data type to another using built-in functions like Number(), String(), or Boolean().
+
+3.2.1 Examples of Explicit Typecasting
+console.log(10 + Number("10"));  // 20 (explicitly converting string "10" to number)
+console.log(10 + Number("a"));   // NaN ("a" cannot be converted to a number)
+console.log(String(true) + 10);  // "true10" (true converted to string)
+console.log(Boolean("a") + 11);  // 12 (non-empty string is coerced to true, true = 1)
+console.log(Boolean("") + true); // 1 (empty string is false, false + true = 1)
+
+4. EDGE CASES IN TYPECASTING
+4.1 String Concatenation vs. Arithmetic
+console.log("33" - "33");        // 0 (both strings are coerced to numbers)
+console.log("33" + 33 + "22");   // "333322" (concatenation as strings)
+console.log("33" - 33 + "33");   // "033" (first coerced to number, then concatenated)
+
+4.2 Boolean Typecasting
+console.log(Boolean(""));        // false (empty string is falsy)
+console.log(Boolean(" "));       // true (non-empty string is truthy)
+console.log(Boolean(null));      // false (null is falsy)
+console.log(Boolean("-10") - 10); // -9 (non-empty string "-10" is truthy)
+
+4.3 String to Number Conversion
+console.log("String" - 10);      // NaN (string cannot be converted to a number)
+console.log("10" - 10);          // 0 (string "10" is coerced to number)
+console.log("a" - 33);           // NaN ("a" cannot be coerced to a number)
+
+4.4 Combining Types
+console.log(33 - "33" + Boolean("") + "hello"); // "0hello"
+console.log(Boolean(String(null)) - 10);        // -9
