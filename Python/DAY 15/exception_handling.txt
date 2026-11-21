@@ -1,0 +1,335 @@
+Exception handling 
+
+1. WHAT IS AN EXCEPTION?
+An exception is an error that occurs while the program is RUNNINE (at runtime). When it happens, Python stops the normal flow of the
+program and shows an error message (traceback), unless the exception is handled.
+
+Example:
+  print(10 / 0)
+Output:
+  ZeroDivisionError: division by zero
+
+Points to remember:
+  - The code is written correctly (no syntax mistake), but something goes wrong during execution.
+  - Every exception is an object of a class (ZeroDivisionError, ValueError, TypeError, etc.).
+  - If not handled, the program crashes at that line.
+
+Common exceptions:
+  ZeroDivisionError    -> dividing by zero            (5 / 0)
+  ValueError           -> right type, wrong value     (int("abc"))
+  TypeError            -> wrong type in operation     ("a" + 5)
+  NameError            -> variable not defined        (print(x))
+  IndexError           -> list index out of range     ([1, 2][5])
+  KeyError             -> dictionary key not found    (d["missing"])
+  FileNotFoundError    -> file does not exist         (open("no.txt"))
+  AttributeError       -> object has no such attribute
+
+2. WHAT IS EXCEPTION HANDLING?
+Exception handling is the process of catching and managing runtime errors so that the program does NOT crash and can continue running or end gracefully.
+
+Instead of this:
+  num = int(input("Enter number: "))     # user types "abc" -> crash
+
+We do this:
+  try:
+      num = int(input("Enter number: "))
+  except ValueError:
+      print("Please enter a valid number")
+
+Benefits:
+  - Program does not stop suddenly
+  - User gets a friendly, clear message
+  - Resources (files, connections) can be cleaned up properly
+  - Errors can be logged and fixed later
+
+3. THE 4 MAJOR KEYWORDS
+
+Structure:
+  try:
+      # risky code
+  except:
+      # runs if an error occurs
+  else:
+      # runs if NO error occurs
+  finally:
+      # ALWAYS runs
+
+3.1 try
+Holds the code that MIGHT cause an exception.
+Python runs it first. If an error occurs, it jumps to except.
+
+  try:
+      result = 10 / 0
+
+Rule: try must be followed by at least one except or a finally.
+
+3.2 except
+Catches the exception and defines what to do about it.Runs ONLY when an error occurs in the try block.
+
+  try:
+      result = 10 / 0
+  except ZeroDivisionError:
+      print("Cannot divide by zero")
+
+You can have multiple except blocks for different errors.
+
+3.3 else
+Runs ONLY if the try block finished with NO exception. Used to keep the success code separate from the risky code.
+
+  try:
+      num = int("25")
+  except ValueError:
+      print("Invalid number")
+  else:
+      print("Converted successfully:", num)
+
+Note: else must come after all except blocks.
+
+3.4 finally
+ALWAYS runs, whether an exception happened or not. Used for cleanup work: closing files, database connections, etc.
+
+  try:
+      f = open("data.txt")
+  except FileNotFoundError:
+      print("File not found")
+  finally:
+      print("This always runs")
+
+Note: finally runs even if there is a return, break or an unhandled error.
+
+Full example-
+  try:
+      a = int(input("Enter a: "))
+      b = int(input("Enter b: "))
+      result = a / b
+  except ZeroDivisionError:
+      print("b cannot be zero")
+  except ValueError:
+      print("Enter numbers only")
+  else:
+      print("Result:", result)
+  finally:
+      print("Program finished")
+
+Flow summary:
+  Error happens   -> try (stops) -> except -> finally
+  No error        -> try -> else -> finally
+
+Order is fixed: try -> except -> else -> finally
+
+4. HANDLING AN EXCEPTION IN 3 WAYS
+
+WAY 1: SPECIFIC exception handling
+
+Catch one particular, named exception type.
+
+Syntax:
+  except ExceptionName:
+
+Example:
+  try:
+      print(10 / 0)
+  except ZeroDivisionError:
+      print("You cannot divide by zero")
+
+Multiple specific handlers:
+  try:
+      num = int(input("Enter number: "))
+      print(10 / num)
+  except ValueError:
+      print("Please enter digits only")
+  except ZeroDivisionError:
+      print("Zero is not allowed")
+
+Several in one line:
+  except (ValueError, TypeError):
+      print("Invalid value or type")
+
+Getting the message:
+  except ZeroDivisionError as e:
+      print("Error:", e)
+
+Best for: errors you expect and know how to fix. Recommended: this is the preferred way.
+
+WAY 2: GENERIC exception handling
+
+Catch any normal error using the base class Exception.
+
+Syntax:
+  except Exception as e:
+
+Example:
+  try:
+      print(10 / 0)
+  except Exception as e:
+      print("Something went wrong:", e)
+
+Why it works:
+  Exception is the parent class of almost all built-in errors, so it catches ZeroDivisionError, ValueError, TypeError, etc.
+
+Rule:
+  Put specific handlers FIRST and the generic one LAST.
+
+  try:
+      risky_code()
+  except ValueError:
+      print("Value problem")
+  except Exception as e:
+      print("Unexpected error:", e)
+
+Best for: a safety net for unexpected errors, and for logging.
+Note: it does NOT catch system-level signals like KeyboardInterrupt.
+
+WAY 3: DEFAULT exception handling
+A bare except with no exception name. It is the "default" handler that catches EVERYTHING, with no details about the error.
+
+Syntax:
+  except:
+
+Example:
+  try:
+      print(10 / 0)
+  except:
+      print("An error occurred")
+
+Characteristics:
+  - Catches every possible error, even Ctrl+C (KeyboardInterrupt) and SystemExit
+  - You do not get the error type or message
+  - Must be the LAST except block if used with others
+
+  try:
+      num = int("abc")
+  except ZeroDivisionError:
+      print("Zero error")
+  except:
+      print("Some other error")      # default handler
+
+Warning:
+  Bare except hides real problems and makes debugging hard. Avoid it in real projects; use "except Exception as e" instead.
+
+Comparison of the 3 ways
+----------------------------------------------------------
+  Way        Syntax                    Catches               Gives error info?
+  ---------  ------------------------  --------------------  -----------------
+  Specific   except ValueError:        Only that error       Yes (as e)
+  Generic    except Exception as e:    Almost all errors     Yes (as e)
+  Default    except:                   Absolutely everything No
+
+  Best practice order: Specific -> Generic -> (Default, avoid)
+
+5. WHAT IS RAISING AN EXCEPTION?
+Raising an exception means deliberately (manually) triggering an error in your own code using Python's raise keyword, instead of waiting for Python to raise it automatically.
+
+Syntax:
+  raise ExceptionType("error message")
+
+Why raise exceptions?
+  - To stop the program when data is invalid
+  - To enforce rules (age cannot be negative, balance must be enough)
+  - To tell the caller of a function that something went wrong
+
+Example:
+  age = -5
+  if age < 0:
+      raise ValueError("Age cannot be negative")
+
+Output:
+  ValueError: Age cannot be negative
+
+Re-raising the same error inside except:
+  try:
+      int("abc")
+  except ValueError:
+      print("Logging error...")
+      raise
+
+Difference:
+  Exception handling  -> responds to an error that happened
+  Raising             -> creates an error on purpose
+
+6. 3 WAYS OF RAISING ERRORS
+
+WAY 1: Raising BUILT-IN errors Use Python's ready-made exception classes with raise.
+
+Syntax:
+  raise ExceptionType("message")
+
+Example:
+  def divide(a, b):
+      if b == 0:
+          raise ZeroDivisionError("Divisor cannot be zero")
+      return a / b
+
+  divide(10, 0)
+
+Output:
+  ZeroDivisionError: Divisor cannot be zero
+
+More examples:
+  raise ValueError("Invalid value")
+  raise TypeError("Expected a string")
+  raise KeyError("Key not found")
+  raise FileNotFoundError("File is missing")
+
+Choose the type that matches the problem:
+  ValueError -> value is wrong
+  TypeError  -> type is wrong
+  KeyError   -> key is missing
+
+WAY 2: Raising CUSTOM errors
+Create your own exception class by inheriting from Exception, then raise it.
+
+Example:
+  class InsufficientBalanceError(Exception):
+      pass
+
+  def withdraw(balance, amount):
+      if amount > balance:
+          raise InsufficientBalanceError("Not enough balance")
+      return balance - amount
+
+  try:
+      withdraw(500, 1000)
+  except InsufficientBalanceError as e:
+      print("Error:", e)
+
+Output:
+  Error: Not enough balance
+
+Custom error with extra data:
+  class AgeError(Exception):
+      def __init__(self, age):
+          self.age = age
+          super().__init__(f"Invalid age: {age}")
+
+Best for: application-specific problems and clearer error names.
+
+WAY 3: Raising an ASSERTION error
+The assert statement checks a condition. If the condition is False, Python raises AssertionError.
+
+Syntax:
+  assert condition, "error message"
+
+Example:
+  x = -10
+  assert x >= 0, "x must be non-negative"
+
+Output:
+  AssertionError: x must be non-negative
+
+If the condition is True, nothing happens and the program continues.
+
+Best for: debugging and testing, checking things that should never
+be false in your own code.
+
+Warning:
+  - Do not use assert to validate user input.
+  - Assertions are skipped when Python runs with the -O flag.
+
+Comparison of the 3 ways of raising
+----------------------------------------------------------
+  Way                Error raised          Best for
+  -----------------  --------------------  ----------------------------
+  Built-in error     ValueError, etc.      Validating inputs
+  Custom error       Your own class        Application-specific rules
+  Assertion error    AssertionError        Debugging and testing
