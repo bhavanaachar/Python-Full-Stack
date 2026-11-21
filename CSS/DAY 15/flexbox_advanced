@@ -1,0 +1,160 @@
+Flexbox child properties
+
+LIST OF FLEXBOX CHILD PROPERTIES
+  1. order
+  2. flex-grow
+  3. flex-shrink
+  4. flex-basis
+  5. flex  (shorthand of grow + shrink + basis)
+  6. align-self
+  7. margin: auto  (bonus trick for flex items)
+  8. min-width / max-width (bonus - limits for flex items)
+
+1. order: Changes the VISUAL order of an item without changing the HTML order.
+
+Default value: 0
+Accepted values: any integer (positive or negative)
+
+How it works:
+  Items are displayed from the lowest order value to the highest.
+  Items with the same value follow the HTML source order.
+
+Example:
+  .item1 { order: 3; }
+  .item2 { order: 1; }
+  .item3 { order: 2; }
+  Visual result: item2, item3, item1
+
+2. flex-grow: Decides how much an item should GROW to fill extra empty space in the container.
+
+Default value: 0  (do not grow)
+Accepted values: any number >= 0 (no units)
+
+How it works:
+  Extra free space is shared among items in proportion to their flex-grow values.
+
+Example:
+  .item1 { flex-grow: 1; }
+  .item2 { flex-grow: 2; }
+  .item3 { flex-grow: 1; }
+  Free space is divided 1 : 2 : 1.
+  item2 gets twice as much of the extra space as item1 or item3.
+
+3. flex-shrink: Decides how much an item should SHRINK when there is not enough space in the container.
+
+Default value: 1  (items can shrink)
+Accepted values: any number >= 0
+
+How it works:
+  When the total item size is bigger than the container, items shrink
+  in proportion to their flex-shrink values.
+  A higher value shrinks faster. 0 means it will never shrink.
+
+Example:
+  .item1 { flex-shrink: 1; }
+  .item2 { flex-shrink: 0; }   /* keeps its size, never shrinks */
+  .item3 { flex-shrink: 3; }   /* shrinks 3x faster */
+
+4. flex-basis: ets the STARTING (initial) size of an item along the main axis,
+  before growing or shrinking happens.
+
+Default value: auto  (uses the item's width/height or its content size)
+Accepted values: length (px, %, rem, em ...), auto, content, 0
+
+How it works:
+  - If flex-direction is row     -> flex-basis acts like width
+  - If flex-direction is column  -> flex-basis acts like height
+  - flex-basis overrides width/height on the main axis (when it is not auto)
+
+Example:
+  .item1 { flex-basis: 200px; }
+  .item2 { flex-basis: 30%; }
+  .item3 { flex-basis: auto; }
+
+5. flex  (shorthand):A shorthand that sets flex-grow, flex-shrink and flex-basis together.
+
+Syntax:
+  flex: <flex-grow> <flex-shrink> <flex-basis>;
+
+Default value: 0 1 auto
+
+Common shorthand values:
+  flex: 1;           ->  1 1 0%      (grow equally, shrink, start from 0)
+  flex: auto;        ->  1 1 auto    (grow and shrink from content size)
+  flex: none;        ->  0 0 auto    (fixed, no grow, no shrink)
+  flex: 0 0 200px;   ->  fixed 200px item
+  flex: 2;           ->  2 1 0%      (takes twice the share of flex: 1)
+
+Example:
+  .sidebar { flex: 0 0 250px; }   /* fixed 250px */
+  .content { flex: 1; }           /* takes all remaining space */
+
+6. align-self: Overrides the parent's align-items for ONE individual item,
+  controlling its alignment on the CROSS axis.
+
+Default value: auto  (inherits the parent's align-items)
+Accepted values:
+  auto | flex-start | flex-end | center | baseline | stretch
+
+Meaning of each value (for flex-direction: row, cross axis = vertical):
+  auto        -> follows the parent's align-items
+  flex-start  -> item sits at the top
+  flex-end    -> item sits at the bottom
+  center      -> item is vertically centered
+  baseline    -> item aligns to the text baseline of other items
+  stretch     -> item stretches to fill the container height
+                 (only if the item has no fixed height)
+
+Example:
+  .container { display: flex; align-items: flex-start; height: 300px; }
+  .item2     { align-self: center; }
+  .item3     { align-self: flex-end; }
+
+  Result: item1 at top, item2 in the middle, item3 at the bottom.
+
+7. BONUS: margin: auto on flex items
+Auto margins absorb all free space in that direction, pushing items apart. This is the way to align a single item on the main axis.
+
+Example:
+  .nav { display: flex; }
+  .nav .logo   { }
+  .nav .login  { margin-left: auto; }
+
+  Result: logo on the left, login button pushed to the far right.
+
+Other forms:
+  margin: auto;        -> centers the item both horizontally and vertically
+  margin-top: auto;    -> pushes item to the bottom (in a column)
+  margin-right: auto;  -> pushes following items to the right
+
+8. BONUS: min-width, max-width (and min-height, max-height)
+Sets limits that flex-grow and flex-shrink can't cross.
+
+Important concept:
+  By default, a flex item has min-width: auto, which means it will not shrink smaller than its content. Long text or images can cause overflow.
+
+Fix:
+  .item { min-width: 0; }    /* allows the item to shrink below content size */
+
+Example:
+  .card { flex: 1; min-width: 200px; max-width: 400px; }
+
+PARENT vs CHILD PROPERTIES - SUMMARY TABLE
+==========================================================
+
+  Property        Applied on   Axis         Purpose
+  --------------  -----------  -----------  ---------------------------------
+  order           child        -            Change visual order
+  flex-grow       child        main         Share extra space
+  flex-shrink     child        main         Shrink when space is short
+  flex-basis      child        main         Starting size
+  flex            child        main         Shorthand for grow/shrink/basis
+  align-self      child        cross        Align one item individually
+  margin: auto    child        both         Push / center a single item
+  min/max-width   child        main         Size limits
+
+  justify-content parent       main         Align all items on main axis
+  align-items     parent       cross        Align all items on cross axis
+  align-content   parent       cross        Align wrapped lines
+  flex-wrap       parent       -            Allow items to wrap
+  gap             parent       -            Space between items
