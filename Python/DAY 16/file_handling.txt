@@ -1,0 +1,149 @@
+PYTHON - FILE HANDLING
+
+File handling lets a program create, read, write, update and delete files stored on disk, so data survives after the program ends.
+
+1. OPENING A FILE - open()
+Syntax: file_object = open("filename", "mode")
+
+Explanation:
+  open() returns a file object. You use that object to read or write. Always close the file when done.
+
+Example:
+  f = open("demo.txt", "r")
+  print(f.read())
+  f.close()
+
+2. FILE MODES
+"r"   Read (default). Error if file does not exist.
+"w"   Write. Creates file if missing. ERASES existing content.
+"a"   Append. Creates file if missing. Adds to the end.
+"x"   Exclusive create. Error if file already exists.
+"r+"  Read and write. File must exist. Starts at beginning.
+"w+"  Write and read. Erases existing content.
+"a+"  Append and read.
+
+Add these to any mode:
+"t"   Text mode (default).   Example: "rt"
+"b"   Binary mode.           Example: "rb", "wb" (images, PDFs, etc.)
+
+3. READING A FILE
+read()          -> reads the entire file as one string
+read(n)         -> reads first n characters
+readline()      -> reads one line at a time
+readlines()     -> reads all lines into a list
+
+Example:
+  f = open("demo.txt", "r")
+  print(f.read())          # whole file
+
+  f = open("demo.txt", "r")
+  print(f.readline())      # first line
+  print(f.readline())      # second line
+
+  f = open("demo.txt", "r")
+  print(f.readlines())     # ['line1\n', 'line2\n', ...]
+
+4. WRITING TO A FILE
+write(text)         -> writes a string
+writelines(list)    -> writes a list of strings (does NOT add \n for you)
+
+Example:
+  f = open("demo.txt", "w")
+  f.write("Hello World\n")
+  f.write("Learning Python\n")
+  f.close()
+
+Example:
+  lines = ["Apple\n", "Banana\n", "Mango\n"]
+  f = open("fruits.txt", "w")
+  f.writelines(lines)
+  f.close()
+
+Note: "w" deletes old content. Use "a" if you want to keep it.
+
+5. APPENDING TO A FILE
+Example:
+  f = open("demo.txt", "a")
+  f.write("This line is added at the end\n")
+  f.close()
+
+6. FILE POINTER METHODS
+tell()        -> returns the current position of the pointer
+seek(n)       -> moves the pointer to position n
+
+Example:
+  with open("demo.txt", "r") as f:
+      print(f.read(5))     # first 5 characters
+      print(f.tell())      # 5
+      f.seek(0)            # go back to start
+      print(f.read())      # read everything again
+
+7. USEFUL FILE OBJECT ATTRIBUTES
+f.name      -> file name
+f.mode      -> mode it was opened in
+f.closed    -> True if file is closed
+
+Example:
+  f = open("demo.txt", "r")
+  print(f.name, f.mode, f.closed)   # demo.txt r False
+  f.close()
+  print(f.closed)                   # True
+
+8. HANDLING ERRORS
+Common errors:
+  FileNotFoundError   -> file does not exist (mode "r")
+  FileExistsError     -> file already exists (mode "x")
+  PermissionError     -> no permission to access file
+
+Example:
+  try:
+      with open("missing.txt", "r") as f:
+          print(f.read())
+  except FileNotFoundError:
+      print("File not found!")
+
+9. WORKING WITH BINARY FILES
+Use "rb" and "wb" for images, audio, PDFs, etc.
+
+Example:
+  with open("photo.jpg", "rb") as src:
+      data = src.read()
+  with open("copy.jpg", "wb") as dest:
+      dest.write(data)
+
+10. WORKING WITH CSV AND JSON
+CSV:
+  import csv
+  with open("data.csv", "r") as f:
+      reader = csv.reader(f)
+      for row in reader:
+          print(row)
+
+JSON:
+  import json
+  data = {"name": "Ravi", "age": 20}
+
+  with open("data.json", "w") as f:
+      json.dump(data, f)          # write dict to file
+
+  with open("data.json", "r") as f:
+      loaded = json.load(f)       # read file back to dict
+      print(loaded)
+
+SUMMARY TABLE
+
+open()          -> open a file
+close()         -> close a file
+read()          -> read whole file
+readline()      -> read one line
+readlines()     -> read all lines as list
+write()         -> write a string
+writelines()    -> write a list of strings
+with            -> auto-close the file
+tell()          -> current pointer position
+seek()          -> move the pointer
+os.path.exists  -> check if file exists
+os.remove()     -> delete a file
+os.rename()     -> rename a file
+
+Modes: r (read), w (write/overwrite), a (append), x (create new), r+ / w+ / a+ (read+write), b (binary), t (text)
