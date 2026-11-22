@@ -1,0 +1,82 @@
+DAY 16 - JAVASCRIPT: PRIMITIVE vs NON-PRIMITIVE DATA TYPES
+
+PART 1: PRIMITIVE DATA TYPES
+Primitive = a single, simple value. It is IMMUTABLE and is stored/copied BY VALUE.
+
+JavaScript has 7 primitive types:
+
+1. String: Text, written in '', "" or ``
+   let name = "Rahul";
+   let city = 'Bengaluru';
+   let msg = `Hello ${name}`;      // template literal -> Hello Rahul
+
+2. Number: Integers and decimals (both are "number")
+   let age = 25;
+   let price = 99.99;
+   let neg = -10;
+
+3. BigInt: For integers larger than Number can safely hold (add n at the end)
+   let big = 123456789012345678901234567890n;
+   console.log(typeof big);        // "bigint"
+
+4. Boolean: true or false
+   let isLoggedIn = true;
+   let isAdult = false;
+
+5. Undefined: A variable declared but not given a value
+   let x;
+   console.log(x);                 // undefined
+   console.log(typeof x);          // "undefined"
+
+6. Null: Intentional "empty / no value"
+   let user = null;
+   console.log(typeof null);       // "object"  <- famous JS bug/quirk!
+
+7. Symbol: Unique and unchangeable identifier
+   let id1 = Symbol("id");
+   let id2 = Symbol("id");
+   console.log(id1 === id2);       // false (always unique)
+
+PART 2: NON-PRIMITIVE DATA TYPES
+Non-primitive = can hold multiple values / complex structures.
+It is MUTABLE and stored/copied BY REFERENCE
+
+All of them are of type "object" underneath:
+
+1. Object: Collection of key-value pairs
+   let person = {
+     name: "Rahul",
+     age: 25,
+     isStudent: true
+   };
+   console.log(person.name);       // Rahul
+   console.log(person["age"]);     // 25
+   person.city = "Bengaluru";      // add new property
+
+2. Array: Ordered list of values.
+   let fruits = ["apple", "banana", "mango"];
+   console.log(fruits[0]);         // apple
+   fruits.push("orange");          // add at end
+   console.log(fruits.length);     // 4
+   console.log(typeof fruits);     // "object"
+   console.log(Array.isArray(fruits)); // true
+
+3. Function: A reusable block of code.
+   function greet(name) {
+     return "Hello " + name;
+   }
+   console.log(greet("Rahul"));    // Hello Rahul
+   console.log(typeof greet);      // "function"
+
+PART 3: THE typeof OPERATOR
+-----------------------------------------------------
+typeof "hello"        // "string"
+typeof 42             // "number"
+typeof 10n            // "bigint"
+typeof true           // "boolean"
+typeof undefined      // "undefined"
+typeof null           // "object"   (quirk!)
+typeof Symbol()       // "symbol"
+typeof {}             // "object"
+typeof []             // "object"
+typeof function(){}   // "function"
