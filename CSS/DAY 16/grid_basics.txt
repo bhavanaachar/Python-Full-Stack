@@ -1,0 +1,129 @@
+CSS GRID - PARENT PROPERTIES
+
+1. display:grid
+2. grid-template-columns
+3. grid-template-rows
+4. grid-template-areas
+5. grid template
+6. column-gap
+7. row-gap
+8. gap(shorthand)
+9. justify-items
+10. align-items
+11. place-items
+
+1. display:Turns an element into a grid container.
+
+Values:
+  grid         -> block-level grid container
+  inline-grid  -> inline-level grid container
+
+Explanation:
+  Once you set display: grid, all direct children become grid items.
+  Only direct children are affected, not deeper descendants.
+
+Example:
+  .container { display: grid; }
+
+2. grid-template-columns: Defines the number and width of columns in the grid.
+
+Values:
+  px, %, fr, auto, repeat(), minmax(), minmax with auto-fit/auto-fill
+
+Explanation:
+  Each value in the list creates one column. The "fr" unit means a fraction of the available free space.
+
+Example:
+  .container { grid-template-columns: 200px 1fr 2fr; }
+  .container { grid-template-columns: repeat(3, 1fr); }
+
+3. grid-template-rows: Defines the number and height of rows in the grid.
+
+Explanation:
+  Works just like grid-template-columns but for rows. If you don't define it, rows are created automatically as needed.
+
+Example:
+  .container { grid-template-rows: 100px auto 100px; }
+
+4. grid-template-areas: Defines the layout using named areas, written like a visual map.
+
+Explanation:
+  Each string is a row; each word in the string is a column cell.
+  Use a dot (.) for an empty cell. Items are placed using the grid-area property on the child.
+
+Example:
+  .container {
+    grid-template-areas:
+      "header header"
+      "sidebar main"
+      "footer footer";
+  }
+  .header { grid-area: header; }
+
+5. grid-template:Shorthand for grid-template-rows, grid-template-columns and  grid-template-areas.
+
+Example:
+  .container {
+    grid-template:
+      "header header" 80px
+      "sidebar main"  1fr
+      / 200px 1fr;
+  }
+
+6. column-gap:Sets the space between columns.
+
+Explanation:
+  The gap exists only between tracks, not on the outer edges.
+
+Example:
+  .container { column-gap: 20px; }
+
+7. row-gap : Sets the space between rows.
+
+Example:
+  .container { row-gap: 15px; }
+
+8. gap: Shorthand for row-gap and column-gap.
+
+Explanation:
+  One value sets both; two values set row-gap then column-gap.
+
+Example:
+  .container { gap: 15px 20px; }   /* row column */
+
+9. justify-items: Aligns grid items along the row axis inside their own cell.
+
+Values:
+  start | end | center | stretch (default)
+
+Example:
+  .container { justify-items: center; }
+
+10. align-items: Aligns grid items along the column axis inside their own cell.
+
+Values:
+  start | end | center | stretch (default) | baseline
+
+Example:
+  .container { align-items: center; }
+
+11. place-items: Shorthand for align-items and justify-items.
+
+Explanation:
+  First value = align-items, second = justify-items. One value applies to both.
+
+Example:
+  .container { place-items: center; }       /* center both axes */
+  .container { place-items: start end; }
+
+SUMMARY TABLE
+display               -> make grid container
+grid-template-columns -> define columns
+grid-template-rows    -> define rows
+grid-template-areas   -> named layout map
+grid-template         -> shorthand for the three above
+column-gap / row-gap  -> space between tracks
+gap                   -> shorthand for both gaps
+justify-items         -> align items horizontally in cells
+align-items           -> align items vertically in cells
+place-items           -> shorthand for both
