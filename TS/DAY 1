@@ -1,0 +1,185 @@
+INTRODUCTION, FEATURES & INSTALLATION
+
+1. WHAT IS TYPESCRIPT?
+
+TypeScript is a strongly typed programming language developed by Microsoft.
+
+It is a superset of JavaScript that adds static typing and additional features.
+
+TypeScript code is converted into JavaScript using the TypeScript compiler.
+
+File extension: .ts
+
+2. FEATURES OF TYPESCRIPT
+
+1. Static Typing: We can specify the data type of variables.
+
+   Example:
+   let age: number = 22;
+
+2. Type Inference:TypeScript automatically identifies the data type.
+
+   Example:
+   let name = "Bhavana";
+
+3. Object-Oriented Programming: Supports classes, objects, inheritance, polymorphism, abstraction and encapsulation.
+
+4. Error Detection: Identifies many errors during compilation.
+
+5. Code Readability: Type annotations make code easier to understand.
+
+6. ES6 Support:Supports modern JavaScript features.
+
+7. Interfaces:Allows us to define the structure of objects.
+
+8. Generics: Helps create reusable functions and classes.
+
+9. Better IDE Support: Provides autocomplete and code suggestions.
+
+10. JavaScript Compatibility: Existing JavaScript code can be used in TypeScript.
+
+3. DIFFERENCE BETWEEN JAVASCRIPT AND TYPESCRIPT
+
+JavaScript:
+- Dynamically typed.
+- Uses .js extension.
+- Runs directly in browsers.
+- Type checking happens mainly at runtime.
+
+TypeScript:
+- Supports static type checking.
+- Uses .ts extension.
+- Compiles into JavaScript.
+- Detects many errors during compilation.
+
+4. INSTALLATION OF TYPESCRIPT
+
+Prerequisites:
+- Node.js
+- NPM
+- VS Code
+
+Step 1: Install Node.js
+
+Visit:
+https://nodejs.org/
+
+Download and install the LTS version.
+
+Step 2: Check Node.js installation
+
+Open CMD and execute:
+
+node -v
+
+Step 3: Check NPM installation
+
+npm -v
+
+Step 4: Install TypeScript globally
+
+npm install -g typescript
+
+Step 5: Check TypeScript installation
+
+tsc -v
+
+Here, tsc means TypeScript Compiler.
+
+
+5. CREATE YOUR FIRST TYPESCRIPT FILE
+
+Step 1: Create a folder named TYPESCRIPT.
+
+Step 2:Open the folder in VS Code.
+
+Step 3: Create a file named: index.ts
+
+Step 4:
+Write the following code:
+
+let username: string = "Bhavana";
+let age: number = 22;
+let isStudent: boolean = true;
+
+console.log(username);
+console.log(age);
+console.log(isStudent);
+
+6. HOW TO EXECUTE TYPESCRIPT CODE
+
+Step 1: Compile TypeScript into JavaScript.
+
+tsc index.ts
+
+Step 2:
+A new JavaScript file will be generated:index.js
+
+Step 3: Execute JavaScript.
+
+node index.js
+
+OUTPUT:
+
+Bhavana
+22
+true
+
+7. TYPESCRIPT EXECUTION FLOW
+
+index.ts
+   |
+   v
+TypeScript Compiler (tsc)
+   |
+   v
+index.js
+   |
+   v
+JavaScript Runtime (Node.js)
+   |
+   v
+Output
+
+
+8. IMPORTANT COMMANDS
+
+node -v
+Check Node.js version.
+
+npm -v
+Check NPM version.
+
+npm install -g typescript
+Install TypeScript globally.
+
+tsc -v
+Check TypeScript compiler version.
+
+tsc index.ts
+Compile TypeScript file.
+
+node index.js
+Execute JavaScript file.
+
+tsc --init
+Create tsconfig.json configuration file.
+
+tsc --watch
+Watch TypeScript files for changes and compile automatically.
+
+9. WHAT IS TSCONFIG.JSON?
+
+tsconfig.json is a configuration file used to configure the TypeScript compiler.
+
+It controls settings such as:
+
+- Target JavaScript version.
+- Module system.
+- Strict type checking.
+- Output directory.
+- Root directory.
+
+Create it using:
+
+tsc --init
