@@ -1,0 +1,240 @@
+DAY 17 - OOPS: METACLASS, CLASS, OBJECT, PROPERTIES
+
+1. WHAT IS OOPS?
+
+DEFINITION:
+OOPS = Object Oriented Programming System.
+It is a way of writing programs by grouping data (attributes) and actions (methods) together inside objects. Objects are created from classes.
+
+Main ideas (4 pillars):
+  - Encapsulation  : keep data and methods together, hide details
+  - Inheritance    : one class gets features of another
+  - Polymorphism   : same method name, different behavior
+  - Abstraction    : show only what is needed
+
+EXAMPLE:
+  class Dog:
+      def __init__(self, name):
+          self.name = name
+      def bark(self):
+          print(self.name, "says Woof!")
+
+  d = Dog("Bruno")
+  d.bark()            # Bruno says Woof!
+
+Here data (name) and action (bark) live together in one object.
+
+2. WHAT IS A METACLASS?
+
+DEFINITION:
+A metaclass is the "class of a class". Just like an object is created from a class, a class itself is created from a metaclass.
+In Python the default metaclass is called "type".
+
+Chain:   metaclass  ->  class  ->  object
+         (type)         (Dog)      (d1)
+
+EXAMPLE:
+  class Dog:
+      pass
+
+  d1 = Dog()
+
+  print(type(d1))        # <class '__main__.Dog'>   (object's class)
+  print(type(Dog))       # <class 'type'>           (class's metaclass)
+  print(type(type))      # <class 'type'>           (type is its own metaclass)
+
+You can even create a class using type directly:
+
+  Cat = type("Cat", (), {"legs": 4})
+  c = Cat()
+  print(c.legs)          # 4
+
+Custom metaclass (advanced, rarely needed):
+
+  class MyMeta(type):
+      def __new__(mcs, name, bases, attrs):
+          print("Creating class:", name)
+          return super().__new__(mcs, name, bases, attrs)
+
+  class Bird(metaclass=MyMeta):
+      pass
+  # prints: Creating class: Bird
+
+3. WHAT IS A CLASS?
+
+DEFINITION:
+A class is a blueprint or template. It describes what data (attributes) and actions (methods) its objects will have.
+A class by itself does not do the work; objects do.
+
+SYNTAX:
+  class ClassName:
+      attribute = value
+      def method(self):
+          ...
+
+EXAMPLE:
+  class Car:
+      wheels = 4                      # class attribute
+
+      def __init__(self, brand):
+          self.brand = brand          # instance attribute
+
+      def show(self):
+          print(self.brand, self.wheels)
+
+4. WHAT IS AN OBJECT?
+
+DEFINITION:
+An object (also called an instance) is a real thing created from a class. It has its own copy of the instance data and can use the class's methods.
+
+SYNTAX:
+  object_name = ClassName(arguments)
+
+EXAMPLE:
+  c1 = Car("Honda")
+  c2 = Car("Tata")
+
+  c1.show()      # Honda 4
+  c2.show()      # Tata 4
+
+c1 and c2 are two different objects of the same class Car.
+
+5. TWO KINDS OF PROPERTIES (ATTRIBUTES)
+-----------------------------------------------------
+  CLASS PROPERTY                   OBJECT (INSTANCE) PROPERTY
+  -------------------------------  ---------------------------------
+  Defined in the class body        Defined with self.x (usually in __init__)
+  ONE copy, shared by all objects  Each object has its OWN copy
+  Example: wheels = 4              Example: self.brand = brand
+
+  class Car:
+      wheels = 4                   # class property
+      def __init__(self, brand):
+          self.brand = brand       # object property
+
+6. ACCESS AND MODIFY CLASS PROPERTIES
+SYNTAX:
+  ClassName.property                 # access
+  ClassName.property = new_value     # modify
+  ClassName.new_property = value     # add new
+  del ClassName.property             # delete
+
+EXAMPLE:
+  class Car:
+      wheels = 4
+
+  print(Car.wheels)        # 4       (access)
+
+  Car.wheels = 6           # modify
+  print(Car.wheels)        # 6
+
+  Car.company = "ABC"      # add new class property
+  print(Car.company)       # ABC
+
+  del Car.company          # delete
+
+Changing a class property changes it for ALL objects.
+
+7. ACCESS AND MODIFY OBJECT PROPERTIES
+
+SYNTAX:
+  object.property                    # access
+  object.property = new_value        # modify
+  object.new_property = value        # add new (only this object)
+  del object.property                # delete
+
+EXAMPLE:
+  class Car:
+      def __init__(self, brand, color):
+          self.brand = brand
+          self.color = color
+
+  c1 = Car("Honda", "red")
+  c2 = Car("Tata", "blue")
+
+  print(c1.brand)          # Honda   (access)
+
+  c1.color = "black"       # modify
+  print(c1.color)          # black
+  print(c2.color)          # blue    (c2 not affected)
+
+  c1.price = 500000        # add new property to c1 only
+  print(c1.price)          # 500000
+  # print(c2.price)        # ERROR: c2 has no price
+
+  del c1.price             # delete
+
+Helper functions (work on any object or class):
+  getattr(c1, "brand")           # get value
+  setattr(c1, "brand", "Kia")    # set value
+  hasattr(c1, "brand")           # True / False
+  delattr(c1, "brand")           # delete
+
+8. ACCESS CLASS PROPERTIES USING BOTH CLASS AND OBJECT
+
+A class property can be READ in two ways:
+  1 ClassName.property
+  2 object.property     
+
+EXAMPLE:
+  class Car:
+      wheels = 4
+
+  c1 = Car()
+  c2 = Car()
+
+  print(Car.wheels)        # 4   (using class)
+  print(c1.wheels)         # 4   (using object)
+  print(c2.wheels)         # 4   (using object)
+
+Modify through the CLASS -> everyone sees the change:
+
+  Car.wheels = 6
+  print(c1.wheels)         # 6
+  print(c2.wheels)         # 6
+
+9. IMPORTANT TRAP: MODIFYING A CLASS PROPERTY VIA AN OBJECT
+
+If you assign through an object, Python does NOT change the class property. It creates a NEW instance property on that object that hides (shadows) the class one.
+
+EXAMPLE:
+  class Car:
+      wheels = 4
+
+  c1 = Car()
+  c2 = Car()
+
+  c1.wheels = 10           # creates instance property on c1 only
+
+  print(c1.wheels)         # 10   (object's own copy)
+  print(c2.wheels)         # 4    (still class value)
+  print(Car.wheels)        # 4    (class unchanged)
+
+  print(c1.__dict__)       # {'wheels': 10}   <- lives in the object
+  print(Car.__dict__['wheels'])   # 4         <- lives in the class
+
+RULE TO REMEMBER:
+  - Read  class property: class OR object works.
+  - Change class property: use the CLASS name only.
+  - Assign via object = creates/changes the object's own copy.
+
+If you delete the shadow, the class value shows again:
+  del c1.wheels
+  print(c1.wheels)         # 4
+
+10. QUICK COMPARISON TABLE
+-----------------------------------------------------
+  Task                          Syntax
+  ----------------------------  --------------------------------
+  Create class                  class Car: ...
+  Create object                 c1 = Car()
+  Read class property           Car.wheels   or   c1.wheels
+  Modify class property         Car.wheels = 6
+  Read object property          c1.brand
+  Modify object property        c1.brand = "Kia"
+  Add object property           c1.price = 100
+  Delete object property        del c1.price
+  See object's own properties   c1.__dict__
+  See class of an object        type(c1)
+  See metaclass of a class      type(Car)
+
