@@ -1,0 +1,255 @@
+DATA ANNOTATIONS
+1. What is Data Annotation?
+
+Data annotation in TypeScript means explicitly specifying the data type of a variable, parameter, function return value, or object property.
+
+It tells TypeScript what type of value is expected.
+
+Syntax:
+let variableName: dataType = value;
+
+Example:
+let name: string = "Bhavana";
+let age: number = 22;
+let isStudent: boolean = true;
+
+2. Variable Type Annotation
+
+We can specify the type of a variable while declaring it.
+
+String:
+let username: string = "Somu";
+
+Number:
+let age: number = 25;
+
+Boolean:
+let isLoggedIn: boolean = true;
+
+Array:
+let marks: number[] = [80, 90, 95];
+
+let colors: string[] = ["Red", "Blue", "Green"];
+
+
+3. Type Inference vs Type Annotation
+
+Type Annotation: We manually specify the data type.
+
+let age: number = 22;
+
+Type Inference: TypeScript automatically identifies the data type based on the assigned value.
+
+let age = 22;
+
+Here, TypeScript automatically understands that age is a number.
+
+4. Special Data Types
+
+A. Any
+
+The `any` type allows a variable to store values of any data type.
+
+let data: any = 100;
+
+data = "Hello";
+data = true;
+data = [10, 20, 30];
+
+B. Unknown
+
+The `unknown` type can store any value, but we must check its type before performing type-specific operations.
+
+let value: unknown = "Hello";
+
+if (typeof value === "string") {
+    console.log(value.toUpperCase());
+}
+
+C. Void
+
+The `void` type is generally used for functions that do not return any value.
+
+function greet(): void {
+    console.log("Hello World");
+}
+
+greet();
+
+D. Never
+
+The `never` type represents a value that never occurs.
+
+It is commonly used for functions that always throw an error or never finish execution.
+
+function errorMessage(): never {
+    throw new Error("Something went wrong");
+}
+
+E. Null
+
+Null represents an intentional absence of a value.
+
+let username: null = null;
+
+F. Undefined
+
+Undefined represents a variable that has not been assigned a value.
+
+let value: undefined = undefined;
+
+5. Array Type Annotation
+
+Arrays can store multiple values of a particular data type.
+
+Number Array:
+let numbers: number[] = [10, 20, 30, 40];
+
+String Array:
+let names: string[] = ["Ram", "Sam", "Raj"];
+
+Using Array Generic Syntax:
+let numbers: Array<number> = [10, 20, 30];
+
+let names: Array<string> = ["Ram", "Sam"];
+
+6. Tuple Annotation
+
+A tuple is an array with a fixed number of elements and predefined types in a specific order.
+
+let employee: [number, string, boolean];
+
+employee = [101, "Somu", true];
+
+Here:
+- First element must be a number.
+- Second element must be a string.
+- Third element must be a boolean.
+
+7. Object Type Annotation
+
+We can specify the types of properties inside an object.
+
+let employee: {
+    name: string;
+    age: number;
+    salary: number;
+    isActive: boolean;
+};
+
+employee = {
+    name: "Somu",
+    age: 25,
+    salary: 50000,
+    isActive: true
+};
+
+8. Optional Property Annotation (?)
+
+The `?` symbol makes an object property optional.
+
+let student: {
+    name: string;
+    age: number;
+    email?: string;
+};
+
+student = {
+    name: "Ram",
+    age: 22
+};
+
+Here, email is optional.
+
+9. Readonly Property Annotation
+
+The `readonly` keyword prevents a property from being modified after initialization.
+
+let employee: {
+    readonly id: number;
+    name: string;
+};
+
+employee = {
+    id: 101,
+    name: "Somu"
+};
+
+employee.name = "Ram"; 
+
+// employee.id = 102; 
+// Error: Cannot assign to readonly property.
+
+10. Function Parameter Annotation
+
+We can specify the data types of function parameters.
+
+function add(a: number, b: number): number {
+    return a + b;
+}
+
+console.log(add(10, 20));
+
+Here:
+- a is a number.
+- b is a number.
+- The function returns a number.
+
+11. Function Return Type Annotation
+
+We can specify the return type of a function using a colon after the parameter list.
+
+function getName(): string {
+    return "Bhavana";
+}
+
+function getAge(): number {
+    return 22;
+}
+
+function isActive(): boolean {
+    return true;
+}
+
+12. Union Type Annotation
+
+A union type allows a variable to store more than one specified data type.
+
+We use the `|` symbol.
+
+let data: string | number;
+
+data = "Hello";
+data = 100;
+
+// data = true; // Error
+
+13. Literal Type Annotation
+
+Literal types allow only specific predefined values.
+
+let direction: "left" | "right" | "up" | "down";
+
+direction = "left";
+direction = "right";
+
+// direction = "center"; // Error
+
+14. Type Annotation with Multiple Data Types
+
+let userDetails: {
+    name: string;
+    age: number;
+    skills: string[];
+    isEmployee: boolean;
+    salary: number | null;
+};
+
+userDetails = {
+    name: "Bhavana",
+    age: 22,
+    skills: ["Python", "JavaScript", "TypeScript"],
+    isEmployee: true,
+    salary: 50000
+};
+
