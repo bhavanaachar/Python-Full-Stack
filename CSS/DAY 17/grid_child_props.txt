@@ -1,0 +1,88 @@
+DAY 17 - CSS GRID CHILD PROPERTIES
+
+Grid child PROPERTIES
+1. grid column start
+2. grid column end
+3. grid column
+4. grid row start
+5. grid row end
+6. grid row
+7. justify self
+8. align self
+9. place self
+
+
+1. grid-column-start: Line where the item STARTS horizontally.
+
+  .item { grid-column-start: 2; }
+
+Values: line number | line name | span N | auto
+
+2. grid-column-end: Line where the item ENDS horizontally.
+
+  .item {
+    grid-column-start: 1;
+    grid-column-end: 3;     /* covers column 1 and 2 */
+  }
+
+3. grid-column  (shorthand for grid column start and gri dcolumn end)
+
+Syntax: grid-column: start / end;
+
+  .item { grid-column: 1 / 3; }        /* line 1 to line 3 */
+  .item { grid-column: 2 / span 2; }   /* start at 2, cover 2 columns */
+  .item { grid-column: span 3; }       /* cover 3 columns, auto-placed */
+  .item { grid-column: 1 / -1; }       /* full width */
+
+4. grid-row-start: Line where the item STARTS vertically.
+
+  .item { grid-row-start: 2; }
+
+5. grid-row-end: Line where the item ENDS vertically.
+
+  .item {
+    grid-row-start: 2;
+    grid-row-end: 4;        /* covers row 2 and 3 */
+  }
+
+6. grid-row  (shorthand for grid row start and grid row end)
+Syntax: grid-row: start / end;
+
+  .item { grid-row: 1 / 3; }
+  .item { grid-row: 2 / span 2; }
+  .item { grid-row: span 2; }
+  .item { grid-row: 1 / -1; }          /* full height of explicit grid */
+
+
+7. justify-self  -> It controls HORIZONTAL alignment of one child inside its cell.
+    Values: start | end | center | stretch (default)
+
+      .item { justify-self: center; }
+
+8. align-self -> controls VERTICAL alignment of one child inside its cell.
+    Values: start | end | center | stretch (default)
+
+      .item { align-self: end; }
+
+9. place-self    -> shorthand for both justify self and align self.
+    Syntax: place-self: <align-self> <justify-self>;
+
+      .item { place-self: center; }        /* both center */
+      .item { place-self: end start; }     /* align: end, justify: start */
+
+    One value = applies to both.
+
+Note: stretch only works if the item has no fixed width/height.
+
+QUICK CHEAT SHEET
+-----------------------------------------------------
+  grid-column-start: 1       -> start line (horizontal)
+  grid-column-end: 3         -> end line (horizontal)
+  grid-column: 1 / 3         -> start / end together
+  grid-row-start: 1          -> start line (vertical)
+  grid-row-end: 3            -> end line (vertical)
+  grid-row: 1 / 3            -> start / end together
+  justify-self: center       -> horizontal inside cell
+  align-self: center         -> vertical inside cell
+  place-self: center         -> both inside cell
+
