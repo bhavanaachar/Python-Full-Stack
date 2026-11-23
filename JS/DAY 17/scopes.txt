@@ -1,0 +1,88 @@
+Scope of variables
+
+Scope decides where a variable can be accessed in your code. JavaScript has three main kinds: global, function, and block.
+
+
+1. GLOBAL SCOPE
+Definition: A variable declared outside any function or block. It can be accessed from anywhere in the program.
+
+Example:
+
+    let appName = "MyApp";   // global
+
+    function showName() {
+      console.log(appName);  // accessible here
+    }
+
+    showName();              // MyApp
+    console.log(appName);    // MyApp
+
+Note: "var" declared globally also becomes a property of window in browsers. "let" and "const" do not.
+
+
+2. FUNCTION SCOPE
+Definition: A variable declared inside a function exists only inside that function. This applies to var, let, and const.
+
+Example:
+
+    function greet() {
+      var message = "Hello";
+      let name = "Asha";
+      console.log(message, name);  // Hello Asha
+    }
+
+    greet();
+    console.log(message);  // ReferenceError: message is not defined
+
+
+3. BLOCK SCOPE
+Definition: A block is anything inside { }, such as an if, for, or while. Variables declared with let and const stay inside that block. "var" ignores block scope.
+
+Example:
+
+    if (true) {
+      let a = 10;
+      const b = 20;
+      var c = 30;
+    }
+
+    console.log(a);  // ReferenceError
+    console.log(b);  // ReferenceError
+    console.log(c);  // 30  (var leaks out of the block)
+
+Loop example:
+
+    for (let i = 0; i < 3; i++) {}
+    console.log(i);  // ReferenceError
+
+    for (var j = 0; j < 3; j++) {}
+    console.log(j);  // 3
+
+
+QUICK COMPARISON
+----------------
+Keyword | Global | Function scope | Block scope
+--------|--------|----------------|------------
+var     | yes    | yes            | no
+let     | yes    | yes            | yes
+const   | yes    | yes            | yes
+
+
+BONUS: SCOPE CHAIN AND SHADOWING
+--------------------------------
+JavaScript looks for a variable in the current scope first, then moves outward to the parent scopes, up to global. This is the scope chain.
+
+    let x = "global";
+
+    function outer() {
+      let x = "outer";       // shadows global x
+
+      function inner() {
+        console.log(x);      // "outer" (found in the nearest scope)
+      }
+      inner();
+    }
+
+    outer();
+    console.log(x);          // "global"
+
