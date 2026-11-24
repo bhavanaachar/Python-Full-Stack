@@ -1,0 +1,128 @@
+DAY 18 OF CSS - PSEUDO-CLASS SELECTORS
+
+A pseudo-class is a keyword added to a selector (using a single colon ":") that targets an element based on its STATE or POSITION, not its tag name or class name.
+
+Syntax:  selector:pseudo-class { property: value; }
+
+1ST TYPE: DYNAMIC PSEUDO-CLASS SELECTORS
+
+Apply styles based on user interaction or link state.
+
+:link
+    Selects links that have NOT been visited yet.
+
+:visited
+    Selects links that the user HAS ALREADY visited.
+
+:hover
+    Selects an element when the mouse pointer is over it.
+
+:active
+    Selects an element while it is being clicked
+    (mouse button is held down).
+
+:focus
+    Selects an element that currently has focus
+
+Example:
+
+HTML:
+    <a href="https://example.com">Visit Site</a>
+    <input type="text" placeholder="Type here">
+
+CSS:
+    a:link    { color: blue; }
+    a:visited { color: purple; }
+    a:hover   { color: green; text-decoration: underline; }
+    a:active  { color: red; }
+
+    input:focus { border: 2px solid orange; outline: none; }
+
+
+2ND TYPE: STRUCTURAL PSEUDO-CLASS SELECTORS
+
+Select elements based on their POSITION among siblings in the document tree.
+
+:first-child
+    Selects an element that is the first child of its parent.
+
+:last-child
+    Selects an element that is the last child of its parent.
+
+:nth-child(n)
+    Selects the element at position n among ALL siblings. Accepts a number, odd, even, or a formula like 2n+1.
+
+:first-of-type
+    Selects the first element of its TYPE (tag) among siblings.
+
+:last-of-type
+    Selects the last element of its TYPE (tag) among siblings.
+
+:nth-of-type(n)
+    Selects the nth element of its TYPE (tag) among siblings.
+
+Example:
+
+HTML:
+    <ul>
+      <li>Apple</li>
+      <li>Banana</li>
+      <li>Cherry</li>
+      <li>Date</li>
+    </ul>
+
+    <div>
+      <h3>Title</h3>
+      <p>Para 1</p>
+      <p>Para 2</p>
+      <p>Para 3</p>
+    </div>
+
+CSS:
+    li:first-child    { color: red; }        /* Apple */
+    li:last-child     { color: blue; }       /* Date */
+    li:nth-child(2)   { color: green; }      /* Banana */
+    li:nth-child(odd) { background: #eee; }  /* Apple, Cherry */
+
+    p:first-of-type   { font-weight: bold; } /* Para 1 */
+    p:last-of-type    { color: purple; }     /* Para 3 */
+    p:nth-of-type(2)  { color: orange; }     /* Para 2 */
+
+Difference:
+    nth-child counts ALL siblings.
+    nth-of-type counts only siblings with the SAME tag.
+    In the div above, p:nth-child(2) selects "Para 1" (because h3 is child number 1), but p:nth-of-type(2) selects "Para 2".
+
+
+3RD TYPE: UI ELEMENT STATE PSEUDO-CLASS SELECTORS
+
+Select form elements based on their STATE.
+
+:enabled
+    Selects form elements that are active and usable (default state).
+
+:disabled
+    Selects form elements that are disabled (cannot be clicked or typed in).
+
+:checked
+    Selects checkboxes, radio buttons, or options that are currently selected.
+
+Example:
+
+HTML:
+    <input type="text" placeholder="Enabled field">
+    <input type="text" placeholder="Disabled field" disabled>
+    <label><input type="checkbox" checked> I agree</label>
+
+CSS:
+    input:enabled  { background: lightgreen; }
+    input:disabled { background: lightgray; cursor: not-allowed; }
+    input[type="checkbox"]:checked { outline: 2px solid green; }
+
+
+-----------------------------------------------------------
+QUICK SUMMARY
+-----------------------------------------------------------
+Dynamic     -> user interaction (link, visited, hover, active, focus)
+Structural  -> position among siblings (first-child, last-child, nth-child, first-of-type, last-of-type, nth-of-type)
+UI element  -> form state (enabled, disabled, checked)
