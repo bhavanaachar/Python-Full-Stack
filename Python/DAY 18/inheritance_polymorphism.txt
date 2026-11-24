@@ -1,0 +1,240 @@
+DAY 18 OF PYTHON - INHERITANCE AND POLYMORPHISM
+
+INHERITANCE
+
+Inheritance is an OOP concept where a new class (child / derived /subclass) acquires the attributes and methods of an existing class (parent / base / superclass).
+
+Benefits: code reusability, easy maintenance, and a clear class hierarchy.
+
+Syntax:
+    class Parent:
+        ...
+
+    class Child(Parent):
+        ...
+
+super() is used inside the child class to call the parent's methods or constructor.
+
+TYPES OF INHERITANCE
+
+1. SINGLE INHERITANCE
+
+Definition: One child class inherits from only ONE parent class.
+
+    Parent -> Child
+
+Example:
+    class Animal:
+        def sound(self):
+            print("Animal makes a sound")
+
+    class Dog(Animal):
+        def bark(self):
+            print("Dog barks")
+
+    d = Dog()
+    d.sound()      # Animal makes a sound  (inherited)
+    d.bark()       # Dog barks
+
+
+2. MULTILEVEL INHERITANCE
+
+Definition: A class inherits from a child class, which itself inherits from another class. It forms a chain (grandparent -> parent -> child).
+
+    Grandfather -> Father -> Son
+
+Example:
+    class Grandfather:
+        def house(self):
+            print("Grandfather owns a house")
+
+    class Father(Grandfather):
+        def car(self):
+            print("Father owns a car")
+
+    class Son(Father):
+        def bike(self):
+            print("Son owns a bike")
+
+    s = Son()
+    s.house()      # Grandfather owns a house
+    s.car()        # Father owns a car
+    s.bike()       # Son owns a bike
+
+
+3. HIERARCHICAL INHERITANCE
+
+Definition: MULTIPLE child classes inherit from ONE single parent class.
+
+              Parent
+             /      \
+         Child1    Child2
+
+Example:
+    class Vehicle:
+        def start(self):
+            print("Vehicle started")
+
+    class Car(Vehicle):
+        def drive(self):
+            print("Car is driving")
+
+    class Bike(Vehicle):
+        def ride(self):
+            print("Bike is riding")
+
+    c = Car()
+    b = Bike()
+    c.start()      # Vehicle started
+    b.start()      # Vehicle started
+
+
+4. MULTIPLE INHERITANCE
+
+Definition: ONE child class inherits from TWO OR MORE parent classes.
+
+      Father    Mother
+          \      /
+           Child
+
+Example:
+    class Father:
+        def skill(self):
+            print("Father: Driving")
+
+    class Mother:
+        def talent(self):
+            print("Mother: Singing")
+
+    class Child(Father, Mother):
+        def hobby(self):
+            print("Child: Drawing")
+
+    c = Child()
+    c.skill()      # Father: Driving
+    c.talent()     # Mother: Singing
+    c.hobby()      # Child: Drawing
+
+Note: If both parents have the same method name, Python follows the MRO (Method Resolution Order), left to right. Check it with Child.mro().
+
+
+5. HYBRID INHERITANCE
+
+Definition: A COMBINATION of two or more types of inheritance
+
+            A
+           / \
+          B   C
+           \ /
+            D
+
+Example:
+    class A:
+        def show_a(self):
+            print("Class A")
+
+    class B(A):
+        def show_b(self):
+            print("Class B")
+
+    class C(A):
+        def show_c(self):
+            print("Class C")
+
+    class D(B, C):
+        def show_d(self):
+            print("Class D")
+
+    obj = D()
+    obj.show_a()   # Class A
+    obj.show_b()   # Class B
+    obj.show_c()   # Class C
+    obj.show_d()   # Class D
+
+POLYMORPHISM
+
+Polymorphism means "many forms". The same method name, function or operator can behave DIFFERENTLY depending on the object or data type it is used with.
+
+Main ways polymorphism is achieved in Python:
+
+1. METHOD OVERRIDING
+
+Definition: A child class provides its own version of a method that is already defined in the parent class.
+
+Example:
+    class Bird:
+        def fly(self):
+            print("Bird can fly")
+
+    class Penguin(Bird):
+        def fly(self):                      # overrides parent method
+            print("Penguin cannot fly")
+
+    class Eagle(Bird):
+        def fly(self):
+            print("Eagle flies high")
+
+    for b in (Bird(), Penguin(), Eagle()):
+        b.fly()
+
+    # Output:
+    # Bird can fly
+    # Penguin cannot fly
+    # Eagle flies high
+
+
+2. DUCK TYPING
+
+Definition: Python does not check the class of an object, only whether it has the required method. "If it walks like a duck and quacks like a duck, it is a duck." Unrelated classes can share a method name.
+
+Example:
+    class Dog:
+        def speak(self):
+            print("Woof")
+
+    class Cat:
+        def speak(self):
+            print("Meow")
+
+    def make_sound(animal):
+        animal.speak()
+
+    make_sound(Dog())    # Woof
+    make_sound(Cat())    # Meow
+
+
+3. OPERATOR OVERLOADING
+
+Definition: Giving special (magic / dunder) methods such as __add__ a custom meaning so that operators like + work with user-defined objects.
+
+Example:
+    class Point:
+        def __init__(self, x, y):
+            self.x = x
+            self.y = y
+
+        def __add__(self, other):
+            return Point(self.x + other.x, self.y + other.y)
+
+    p1 = Point(1, 2)
+    p2 = Point(3, 4)
+    p3 = p1 + p2
+    print(p3.x, p3.y)    # 4 6
+
+Built-in example: the + operator adds numbers (5 + 3 = 8) but joins
+strings ("Hi" + "There" = "HiThere").
+
+
+4. METHOD OVERLOADING 
+
+Python does NOT support traditional method overloading. If two methods have the same name in a class, the LAST one replaces the earlier ones.
+It is simulated using default arguments or *args.
+
+Example:
+    class Calc:
+        def add(self, a, b, c=0):
+            return a + b + c
+
+    c = Calc()
+    print(c.add(2, 3))       # 5
+    print(c.add(2, 3, 4))    # 9
