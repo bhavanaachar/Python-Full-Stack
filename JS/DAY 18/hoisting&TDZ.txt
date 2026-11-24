@@ -1,0 +1,52 @@
+HOISTING AND TEMPORAL DEAD ZONE (TDZ)
+
+HOISTING
+
+Definition:
+  Before running your code, JavaScript scans each scope and registers all declarations in memory. This means a variable or function can be referenced before the line where it is written. Only the declaration is hoisted, never the assignment.
+
+Examples:
+
+  console.log(a);   // undefined (var is hoisted and set to undefined)
+  var a = 10;
+
+  greet();          // "Hello" (function declarations are hoisted with their body)
+  function greet() { console.log("Hello"); }
+
+  sayHi();          // TypeError: sayHi is not a function
+  var sayHi = function () { console.log("Hi"); };
+
+
+TEMPORAL DEAD ZONE (TDZ)
+
+Definition:
+  let, const, and class are also hoisted, but they are not initialized. The TDZ is the time between entering the scope and the line where the variable is declared. Accessing it in that window throws a ReferenceError.
+
+Example:
+
+  {
+    // TDZ for x starts here
+    console.log(x); // ReferenceError: Cannot access 'x' before initialization
+    let x = 5;      // TDZ ends here
+    console.log(x); // 5
+  }
+
+
+PROOF THAT let IS HOISTED
+
+  let name = "outer";
+  {
+    console.log(name); // ReferenceError, not "outer"
+    let name = "inner";
+  }
+
+  If let were not hoisted, this would print "outer". The error shows the
+  inner name already exists in the block but is still in the TDZ.
+
+
+QUICK COMPARISON
+----------------
+                          var            let / const
+  Hoisted                 Yes            Yes
+  Initial value           undefined      uninitialized (TDZ)
+  Use before declaration  undefined      ReferenceError
