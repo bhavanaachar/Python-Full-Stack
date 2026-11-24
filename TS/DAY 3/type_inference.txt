@@ -1,0 +1,135 @@
+TYPE INFERENCE
+
+1.  WHAT IS TYPE INFERENCE?
+
+Type inference is a feature in TypeScript where TypeScript automatically identifies the data type of a variable based on the value assigned to it.
+
+In simple words: We do not always need to specify the data type. TypeScript can understand it automatically.
+
+Example:
+
+let username = “Bhavana”; let age = 22; let isStudent = true;
+
+TypeScript automatically infers: username -> string age -> number isStudent -> boolean
+
+2.  TYPE INFERENCE IN VARIABLES
+
+Example:
+
+let city = “Bengaluru”; let salary = 50000; let isLoggedIn = false;
+
+TypeScript understands the types from the initial values.
+
+The following assignments are valid:
+
+city = “Pune”; salary = 60000; isLoggedIn = true;
+
+But these assignments cause errors:
+
+city = 100; salary = “50000”; isLoggedIn = “yes”;
+
+Why? Because TypeScript has already inferred the original data types.
+
+3.  TYPE INFERENCE WITH CONST
+
+Example:
+
+const country = “India”; const age = 22;
+
+With const, the variable cannot be reassigned.
+
+TypeScript can infer a more specific literal type for const variables.
+
+For example: const country = “India”;
+
+The inferred type can be the literal type “India”, not just any string.
+
+4.  TYPE INFERENCE IN ARRAYS
+
+Example:
+
+let numbers = [10, 20, 30, 40];
+
+TypeScript infers: number[]
+
+Therefore, we can add another number:
+
+numbers.push(50);
+
+But adding a string causes an error:
+
+numbers.push(“Hello”);
+
+Another example:
+
+let colors = [“red”, “blue”, “green”];
+
+TypeScript infers: string[]
+
+5.  TYPE INFERENCE IN OBJECTS
+
+Example:
+
+let employee = { name: “Ravi”, age: 25, isActive: true };
+
+TypeScript infers the object structure:
+
+name -> string age -> number isActive -> boolean
+
+Valid:
+
+employee.name = “Rahul”; employee.age = 30;
+
+Invalid:
+
+employee.age = “Thirty”;
+
+6.  TYPE INFERENCE IN FUNCTIONS
+
+TypeScript can infer the return type of a function by examining its return statement.
+
+Example:
+
+function add(a: number, b: number) { return a + b; }
+
+TypeScript infers the return type as number.
+
+Another example:
+
+function getName() { return “Bhavana”; }
+
+TypeScript infers the return type as string.
+
+Note: TypeScript can infer return types, but parameter types generally need to be specified unless they can be inferred from context.
+
+7.  CONTEXTUAL TYPING
+
+Contextual typing means TypeScript infers a type from the location or context in which a value is used.
+
+Example:
+
+let names = [“Ravi”, “Priya”, “Bhavana”];
+
+names.forEach((name) => { console.log(name.toUpperCase()); });
+
+TypeScript understands that name is a string because names is a string array.
+
+8.  TYPE INFERENCE VS TYPE ANNOTATION
+
+A. Type inference:
+
+let marks = 90;
+
+TypeScript automatically identifies marks as number.
+
+B. Type annotation:
+
+let marks: number = 90;
+
+We explicitly specify that marks must be a number.
+
+Difference:
+
+Type inference: - TypeScript identifies the type automatically. - Less code is required.
+
+Type annotation: - The developer explicitly specifies the type. - Useful when the type cannot be clearly inferred or when we want to define a specific contract.
