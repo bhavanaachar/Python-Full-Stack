@@ -1,0 +1,169 @@
+DAY 19 OF CSS - PSEUDO-ELEMENT SELECTORS
+
+WHAT IS A PSEUDO-ELEMENT?
+
+A pseudo-element lets you style a specific PART of an element, or insert generated content, without adding extra HTML. It is written with double colons (::) in modern CSS.
+
+Syntax:
+    selector::pseudo-element {
+        property: value;
+    }
+
+(Note: single colon pseudo-CLASSES like :hover are different. Pseudo-elements use ::)
+
+
+1. ::first-letter
+
+Definition:
+    Selects the first letter of the first line of a block-level element. Commonly used for drop caps in articles.
+    Allowed properties: font, color, margin, padding, border, float, text-transform, line-height, etc.
+
+Example:
+    HTML:
+        <p>CSS makes the web beautiful.</p>
+
+    CSS:
+        p::first-letter {
+            font-size: 40px;
+            color: crimson;
+            font-weight: bold;
+            float: left;
+            margin-right: 6px;
+        }
+
+    Result: The letter "C" appears large, red and bold like a drop cap.
+
+
+2. ::first-line
+
+Definition:
+    Selects the first line of text in a block-level element. The portion selected changes automatically when the browser window is resized, because it depends on how the text wraps.
+    Allowed properties: font, color, background, text-transform, letter-spacing, word-spacing, line-height, etc.
+
+Example:
+    HTML:
+        <p>This is a long paragraph. Only its first line will be styled
+        differently from the rest of the text.</p>
+
+    CSS:
+        p::first-line {
+            color: blue;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+    Result: Only the first visible line is blue, bold and uppercase.
+
+
+3. ::before
+
+Definition:
+    Inserts generated content BEFORE the actual content of an element. It requires the "content" property to work (even content: "";).
+    It is an inline element by default.
+
+Example:
+    HTML:
+        <h2 class="title">Learn CSS</h2>
+
+    CSS:
+        .title::before {
+            content: "★ ";
+            color: gold;
+        }
+
+    Result: Displays "★ Learn CSS".
+
+
+4. ::after
+----------
+Definition:
+    Inserts generated content AFTER the actual content of an element. Also requires the "content" property. Often used for icons, clearfix, decorative lines and tooltips.
+
+Example:
+    HTML:
+        <a href="#" class="link">Read more</a>
+
+    CSS:
+        .link::after {
+            content: " →";
+            color: green;
+        }
+
+    Result: Displays "Read more →".
+
+
+5. ::selection
+--------------
+Definition:
+    Styles the portion of text that the user highlights/selects with the mouse or keyboard.
+    Only a few properties are allowed: color, background-color, text-decoration, text-shadow.
+
+Example:
+    HTML:
+        <p>Select this text with your mouse.</p>
+
+    CSS:
+        p::selection {
+            background-color: orange;
+            color: white;
+        }
+
+    Result: When you highlight the text, it shows white text on an orange background instead of the default blue.
+
+
+6. ::marker
+-----------
+Definition:
+    Styles the marker of a list item: the bullet (in <ul>) or the number (in <ol>). Also works on <summary> arrows.
+    Allowed properties: color, font-size, font-weight, content, etc.
+
+Example:
+    HTML:
+        <ul>
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JavaScript</li>
+        </ul>
+
+    CSS:
+        li::marker {
+            color: red;
+            font-size: 24px;
+            content: "✔ ";
+        }
+
+    Result: Each list item gets a big red tick instead of a plain bullet.
+
+
+7. ::placeholder
+
+Definition:
+    Styles the placeholder text inside <input> and <textarea> elements
+    Allowed properties: color, font-style, font-size, opacity, etc.
+
+Example:
+    HTML:
+        <input type="text" placeholder="Enter your name">
+
+    CSS:
+        input::placeholder {
+            color: gray;
+            font-style: italic;
+            font-size: 14px;
+        }
+
+    Result: The hint "Enter your name" appears in gray italic text.
+
+
+QUICK SUMMARY TABLE
+-------------------
+Pseudo-element   | Targets                          | Needs content?
+-----------------|----------------------------------|---------------
+::first-letter   | First letter of a block          | No
+::first-line     | First line of a block            | No
+::before         | Inserts content before element   | Yes
+::after          | Inserts content after element    | Yes
+::selection      | User-highlighted text            | No
+::marker         | List bullet / number             | No
+::placeholder    | Placeholder text in inputs       | No
+
