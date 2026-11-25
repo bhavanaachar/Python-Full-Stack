@@ -1,0 +1,37 @@
+DAY 18 OF JS - EXECUTION CONTEXT & CALL STACK
+
+1. EXECUTION CONTEXT (EC)
+   The environment where JS code runs. It holds variables, functions, the scope chain and "this".
+   - Global EC: created first, only one.
+   - Function EC: a new one is created on every function call.
+
+2. TWO PHASES OF EVERY EC
+   a) Memory creation:
+      - var       -> undefined
+      - function  -> stored whole
+      - let/const -> uninitialized (Temporal Dead Zone)
+   b) Code execution:
+      - runs line by line, assigns real values
+      - function calls create new ECs
+
+3. HOISTING
+   A side effect of the memory phase.
+   console.log(a) before "var a = 5"  -> undefined
+   console.log(b) before "let b = 5"  -> ReferenceError
+
+4. CALL STACK
+   Tracks which EC is running, in LIFO order (last in, first out).
+   - Global EC is pushed first.
+   - Each function call pushes a new EC.
+   - When a function returns, its EC is popped.
+
+5. SINGLE-THREADED
+   One call stack = one thing runs at a time.
+
+6. STACK OVERFLOW
+   Recursion with no base case fills the stack:
+   RangeError: Maximum call stack size exceeded
+
+7. SCOPE CHAIN
+   If a variable isn't found locally, JS looks in the outer lexical environment, up to global.
+   Scope depends on where code is WRITTEN, not where it is called.
