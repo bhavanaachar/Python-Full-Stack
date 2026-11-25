@@ -1,0 +1,245 @@
+DAY 4 OF TYPESCRIPT - DATA TYPES
+
+WHAT ARE DATA TYPES IN TYPESCRIPT?
+
+TypeScript is a statically typed superset of JavaScript. Every variable can be given a type, and the compiler checks types BEFORE the code runs, so many bugs are caught early.
+
+Syntax (type annotation):
+    let variableName: type = value;
+
+TypeScript can also infer the type automatically (type inference):
+    let city = "Bengaluru";     // inferred as string
+
+
+1. number: Represents all numeric values: integers, decimals, hex, binary, octal.
+
+Example:
+    let age: number = 25;
+    let price: number = 99.99;
+    let hex: number = 0xff;        // 255
+    let binary: number = 0b1010;   // 10
+    let octal: number = 0o744;     // 484
+
+    // age = "twenty";             // Error: string not assignable to number
+
+2. string:Represents text. Can use single quotes, double quotes or backticks
+
+Example:
+    let firstName: string = "Ravi";
+    let lastName: string = 'Kumar';
+    let greeting: string = `Hello, ${firstName} ${lastName}!`;
+    console.log(greeting);         // Hello, Ravi Kumar!
+
+3. boolean: Represents a logical value: true or false.
+
+Example:
+    let isLoggedIn: boolean = true;
+    let hasPaid: boolean = false;
+
+
+4. array: A collection of values of the same type. Two syntaxes:
+        type[]  or  Array<type>
+
+Example:
+    let marks: number[] = [90, 85, 70];
+    let names: string[] = ["Asha", "Ravi", "Meena"];
+    let flags: Array<boolean> = [true, false, true];
+
+    marks.push(95);                // OK
+    // marks.push("100");          // Error
+
+5. tuple: A fixed-length array where each position has a specific type. Order and types matter.
+
+Example:
+    let user: [string, number] = ["Asha", 22];
+    let point: [number, number, number] = [10, 20, 30];
+
+    console.log(user[0]);          // Asha
+    console.log(user[1]);          // 22
+    // user = [22, "Asha"];        // Error: wrong order of types
+
+    // Optional and readonly tuples
+    let info: [string, number?] = ["Ravi"];
+    let fixed: readonly [string, number] = ["Id", 101];
+
+6. enum: A set of named constants. Makes code more readable than raw numbers. Numeric enums start at 0 by default.
+
+Example (numeric):
+    enum Direction {
+        Up,        // 0
+        Down,      // 1
+        Left,      // 2
+        Right      // 3
+    }
+    let move: Direction = Direction.Left;
+    console.log(move);             // 2
+
+Example (custom values):
+    enum Status {
+        Pending = 1,
+        Approved = 5,
+        Rejected = 10
+    }
+    console.log(Status.Approved);  // 5
+
+Example (string enum):
+    enum Role {
+        Admin = "ADMIN",
+        User = "USER"
+    }
+    console.log(Role.Admin);       // ADMIN
+
+7. any: Turns OFF type checking for a variable. It can hold any value and be reassigned to any type. Use sparingly, since it removes TypeScript's safety.
+
+Example:
+    let data: any = 10;
+    data = "now a string";
+    data = true;
+    data.anything();               // No compile error (may crash at runtime)
+
+8. unknown: Like any, it can hold any value, but it is SAFER: you must check the type before using it.
+
+Example:
+    let value: unknown = "hello";
+
+    // value.toUpperCase();        // Error: type is unknown
+
+    if (typeof value === "string") {
+        console.log(value.toUpperCase());   // HELLO (allowed after check)
+    }
+
+any vs unknown:
+    any      -> no checks at all
+    unknown  -> must narrow the type before use (preferred)
+
+9. void: Used as the return type of functions that do not return a value.
+
+Example:
+    function sayHello(): void {
+        console.log("Hello!");
+    }
+
+    let nothing: void = undefined;
+
+10. null and undefined
+
+Definition:
+    null       : an intentional "no value"
+    undefined  : a variable that has been declared but not assigned
+
+Example:
+    let a: null = null;
+    let b: undefined = undefined;
+
+    let name: string | null = null;     // union type allows null
+    name = "Asha";
+
+Note: With "strictNullChecks" enabled (part of strict mode), null and
+undefined are NOT assignable to other types unless explicitly allowed.
+
+11. never: Represents values that NEVER occur. Used for functions that always throw an error or run forever.
+
+Example:
+    function throwError(message: string): never {
+        throw new Error(message);
+    }
+
+    function infiniteLoop(): never {
+        while (true) {}
+    }
+
+12. object: Represents any non-primitive value. You can also define the exact shape of an object.
+
+Example:
+    let person: { name: string; age: number } = {
+        name: "Ravi",
+        age: 21
+    };
+
+    // Optional and readonly properties
+    let car: { brand: string; year?: number; readonly id: number } = {
+        brand: "Tata",
+        id: 1
+    };
+    // car.id = 2;                 // Error: readonly
+
+13. union type: Allows a variable to hold more than one type, written with the pipe |.
+
+Example:
+    let id: number | string;
+    id = 101;
+    id = "A101";
+    // id = true;                  // Error
+
+    function printId(id: number | string) {
+        if (typeof id === "string") {
+            console.log(id.toUpperCase());
+        } else {
+            console.log(id);
+        }
+    }
+
+14. literal types: Restrict a variable to specific exact values.
+
+Example:
+    let direction: "up" | "down" | "left" | "right";
+    direction = "up";              // OK
+    // direction = "forward";      // Error
+
+    let diceRoll: 1 | 2 | 3 | 4 | 5 | 6 = 4;
+
+15. bigint and symbol
+
+bigint : For very large integers beyond the safe limit of number.
+    let big: bigint = 9007199254740993n;
+
+symbol : Creates unique, immutable identifiers.
+    let id1: symbol = Symbol("id");
+    let id2: symbol = Symbol("id");
+    console.log(id1 === id2);      // false (always unique)
+
+16. type alias: Gives a custom name to a type using the "type" keyword.
+
+Example:
+    type ID = number | string;
+    type User = { name: string; age: number };
+
+    let userId: ID = 101;
+    let u: User = { name: "Asha", age: 22 };
+
+
+TYPE INFERENCE AND TYPE ASSERTION
+
+Type inference:
+    let count = 10;                // TypeScript infers number
+    // count = "ten";              // Error
+
+Type assertion (tell the compiler you know the type):
+    let input: unknown = "Hello TypeScript";
+    let length1 = (input as string).length;     // using "as"
+    let length2 = (<string>input).length;       // angle-bracket syntax
+                                                // (not allowed in .tsx files)
+
+
+SUMMARY TABLE
+-------------
+Type       | Description                          | Example
+-----------|--------------------------------------|---------------------------
+number     | All numeric values                   | let n: number = 10
+string     | Text                                 | let s: string = "Hi"
+boolean    | true / false                         | let b: boolean = true
+array      | Same-type collection                 | let a: number[] = [1,2]
+tuple      | Fixed length, fixed types per index  | let t: [string, number]
+enum       | Named constants                      | enum Color { Red, Green }
+any        | Disables type checking               | let x: any
+unknown    | Safe version of any                  | let y: unknown
+void       | No return value                      | function f(): void
+null       | Intentional empty value              | let n: null = null
+undefined  | Not assigned                         | let u: undefined
+never      | Never returns                        | function f(): never
+object     | Non-primitive / object shape         | let o: {a: number}
+union      | One of several types                 | let v: number | string
+literal    | Exact value only                     | let d: "up" | "down"
+bigint     | Very large integers                  | let b: bigint = 10n
+symbol     | Unique identifier                    | let s: symbol = Symbol()
+
