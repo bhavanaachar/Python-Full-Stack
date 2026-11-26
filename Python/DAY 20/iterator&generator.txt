@@ -1,0 +1,77 @@
+DAY 20 OF PYTHON: ITERATORS & GENERATORS 
+
+PART 1: ITERATOR
+
+An iterator gives you values ONE BY ONE.
+
+Two things to remember:
+  iter()  -> makes an iterator
+  next()  -> gives the next value
+
+Example:
+
+  nums = [10, 20, 30]
+  it = iter(nums)
+
+  print(next(it))    # 10
+  print(next(it))    # 20
+  print(next(it))    # 30
+  print(next(it))    # Error: StopIteration (no more values)
+
+A for loop does this for you automatically:
+
+  for n in nums:
+      print(n)
+
+
+PART 2: GENERATOR
+
+A generator is an easy way to make an iterator.
+Use a normal function, but write `yield` instead of `return`.
+
+  yield  = give one value, then pause
+  return = give a value and end the function
+
+Example:
+
+  def count_up(n):
+      i = 1
+      while i <= n:
+          yield i
+          i += 1
+
+  for num in count_up(5):
+      print(num)
+
+Output:
+  1
+  2
+  3
+  4
+  5
+
+Using next():
+
+  g = count_up(3)
+  print(next(g))    # 1
+  print(next(g))    # 2
+  print(next(g))    # 3
+
+
+PART 3: WHY USE GENERATORS?
+
+A list stores ALL values in memory.
+A generator makes ONE value at a time, so it saves memory.
+
+  list      -> [1, 2, 3, 4, 5 ... 1000000]   (uses a lot of memory)
+  generator -> makes 1 value when needed     (uses very little)
+
+
+PART 4: GENERATOR EXPRESSION
+
+Like a list comprehension, but with ( ) instead of [ ].
+
+  squares_list = [x * x for x in range(5)]    # list
+  squares_gen  = (x * x for x in range(5))    # generator
+
+  print(list(squares_gen))    # [0, 1, 4, 9, 16]
