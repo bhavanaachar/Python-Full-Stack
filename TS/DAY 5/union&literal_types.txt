@@ -1,0 +1,145 @@
+
+1. TYPE ALIASES
+
+A type alias allows us to create a custom name for a particular data type.
+
+Syntax:
+
+type variableName = datatype;
+
+Example:
+
+type Username = string;
+
+let name: Username = "Bhavana";
+
+console.log(name);
+
+OUTPUT:
+Bhavana
+
+2. UNION TYPES
+
+Union types allow a variable to store more than one data type.
+
+We use the | (pipe) symbol.
+
+Example:
+
+let data: string | number;
+
+data = "Bhavana";
+console.log(data);
+
+data = 100;
+console.log(data);
+
+OUTPUT:
+Bhavana
+100
+
+3. UNION TYPE USING TYPE ALIAS
+
+type UserData = string | number;
+
+let id: UserData = 101;
+
+console.log(id);
+
+id = "USER101";
+
+console.log(id);
+
+
+4. LITERAL TYPES
+
+Literal types restrict a variable to specific values.
+
+Example:
+
+let status: "success" | "error" | "loading";
+
+status = "success";
+
+console.log(status);
+
+NOTE:
+status = "pending";  // ERROR
+
+5. TYPE ALIAS WITH OBJECTS
+
+We can use type aliases to define object structures.
+
+Example:
+
+type Student = {
+    name: string;
+    age: number;
+    isStudent: boolean;
+};
+
+let student1: Student = {
+    name: "Bhavana",
+    age: 22,
+    isStudent: true
+};
+
+console.log(student1);
+
+
+6. OPTIONAL PROPERTIES
+
+We use ? to make a property optional.
+
+Example:
+
+type Employee = {
+    name: string;
+    age: number;
+    email?: string;
+};
+
+let emp: Employee = {
+    name: "Rahul",
+    age: 25
+};
+
+console.log(emp);
+
+
+7. TYPE ALIAS WITH UNION
+
+type Result = number | string | boolean;
+
+let value: Result;
+
+value = 100;
+value = "Success";
+value = true;
+
+
+8. TYPE NARROWING
+
+Type narrowing means checking the actual type of a variable before performing operations.
+
+Example:
+
+function display(value: string | number) {
+
+    if (typeof value === "string") {
+        console.log(value.toUpperCase());
+    }
+    else {
+        console.log(value * 2);
+    }
+
+}
+
+display("hello");
+display(10);
+
+OUTPUT:
+
+HELLO
+20
+
