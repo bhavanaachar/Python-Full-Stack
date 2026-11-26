@@ -1,0 +1,95 @@
+DAY 20 OF JS: CLOSURES AND LEXICAL ENVIRONMENT
+
+1. LEXICAL ENVIRONMENT
+
+"Lexical" means "where something is written in the code".
+
+A lexical environment is created every time JS runs a scope (global, function, block).
+It has two parts:
+  a Environment Record  -> the variables/functions declared in that scope
+  b Outer reference     -> a pointer to the parent lexical environment
+
+Example:
+
+  let a = 10;                  // global lexical environment
+
+  function outer() {
+    let b = 20;                // outer's lexical environment
+    function inner() {
+      let c = 30;              // inner's lexical environment
+      console.log(a, b, c);    // 10 20 30
+    }
+    inner();
+  }
+  outer();
+
+inner() has no `a` or `b` of its own, so JS follows the outer reference:
+inner env -> outer env -> global env -> null
+
+This chain of lookups is called the SCOPE CHAIN.
+
+2. WHAT IS A CLOSURE?
+
+A closure is a function bundled together with a reference to its lexical environment.
+
+In simple words:
+  A function that remembers the variables from where it was born, even after the outer function has finished running.
+
+Example:
+
+  function outer() {
+    let count = 0;
+    return function inner() {
+      count++;
+      return count;
+    };
+  }
+
+  const counter = outer();
+  console.log(counter());   // 1
+  console.log(counter());   // 2
+  console.log(counter());   // 3
+
+outer() has already returned, yet `count` is still alive.
+inner() carries a reference to outer's environment, so `count` is not garbage collected.
+
+
+3. HOW IT WORKS (STEP BY STEP)
+
+1. outer() is called -> a new environment with count = 0 is created.
+2. inner is created inside it -> inner's hidden [[Environment]] points to that environment.
+3. outer() returns inner -> outer's execution context is popped off the call stack.
+4. BUT the environment object stays in memory, because inner still references it.
+5. Every call to counter() looks up `count` via that reference.
+
+Each call of outer() creates a NEW environment, so closures are independent:
+
+  const c1 = outer();
+  const c2 = outer();
+  c1(); c1();               // 2
+  c2();                     // 1  (separate count)
+
+
+4. IMPORTANT POINTS TO REMEMBER
+
+- Closures store a REFERENCE to variables, not a copy of their values. If the variable changes later, the closure sees the new value.
+- Every function in JS forms a closure (it just matters when it is used outside its original scope).
+- Inner functions can access outer variables, but not the reverse.
+- Closure = function + its lexical environment.
+- Closures are created at function CREATION time, not call time.
+
+
+7. DISADVANTAGES
+
+- Memory: variables captured by a closure are not freed while the closure is alive.
+- Overuse can make code harder to read and debug.
+- Fix: set references to null when no longer needed, remove event listeners you no longer use.
+
+
+8. QUICK DEFINITIONS 
+
+Lexical environment : scope's variables + reference to its parent scope.
+Scope chain         : the chain of lexical environments JS walks to find a variable.
+Lexical scoping     : scope is decided by where code is written, not where it is called.
+Closure             : a function that remembers its outer scope's variables even after the outer function has returned.
+
