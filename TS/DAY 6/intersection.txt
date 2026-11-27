@@ -1,0 +1,95 @@
+INTERSECTION TYPES
+
+1. DEFINITION
+
+Intersection types allow us to combine two or more types into a single type.
+
+We use the & (AND) operator.
+
+2. SYNTAX
+
+type NewType = Type1 & Type2;
+
+
+3. EXAMPLE 1
+
+type Person = {
+    name: string;
+};
+
+type Employee = {
+    salary: number;
+};
+
+type EmployeeDetails = Person & Employee;
+
+let emp: EmployeeDetails = {
+    name: "Bhavana",
+    salary: 30000
+};
+
+console.log(emp.name);
+console.log(emp.salary);
+
+
+OUTPUT:
+
+Bhavana
+30000
+
+
+4. EXAMPLE 2
+
+type Address = {
+    city: string;
+    pincode: number;
+};
+
+type Contact = {
+    mobile: number;
+    email: string;
+};
+
+type User = Address & Contact;
+
+let user: User = {
+    city: "Bangalore",
+    pincode: 560001,
+    mobile: 9876543210,
+    email: "bhavana@gmail.com"
+};
+
+console.log(user);
+
+
+5. IMPORTANT POINTS
+
+1. Intersection uses the & operator.
+2. It combines multiple types.
+3. The resulting type must satisfy all combined type requirements.
+4. It is useful when combining properties from different types.
+
+
+6. UNION VS INTERSECTION
+
+UNION ( | ):
+A variable can have one of the specified types.
+
+INTERSECTION ( & ):
+A value must satisfy all combined types.
+
+Example:
+
+type A = {
+    name: string;
+};
+
+type B = {
+    age: number;
+};
+
+// Union
+type C = A | B;
+
+// Intersection
+type D = A & B;
