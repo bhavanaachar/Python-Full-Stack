@@ -1,0 +1,107 @@
+CSS - DAY 21: ANIMATIONS & @KEYFRAMES
+
+1. WHAT IS A CSS ANIMATION?
+
+A CSS animation changes an element's style from one state to another over time, with no JavaScript. It has two parts:
+
+  1 @keyframes  -> defines WHAT changes (the steps)
+  2 animation-* -> defines HOW it plays (time, repeat, etc.)
+
+
+2. @KEYFRAMES BASICS
+
+Using from / to:
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+Using percentages (multiple steps):
+
+  @keyframes bounce {
+    0%   { transform: translateY(0); }
+    50%  { transform: translateY(-40px); }
+    100% { transform: translateY(0); }
+  }
+
+Notes:
+  - from = 0%, to = 100%
+  - You can list as many percentage steps as you need
+  - Several steps can share one rule: 0%, 100% { ... }
+
+3. APPLYING THE ANIMATION
+
+  .box {
+    animation-name: bounce;
+    animation-duration: 2s;
+  }
+
+Both animation-name and animation-duration are required for the animation to run.
+
+
+4. ANIMATION PROPERTIES
+
+animation-name: Name of the @keyframes to use.
+
+animation-duration: How long one cycle takes. Example: 2s, 500ms
+
+animation-timing-function: The speed curve.
+    ease                                    (default) slow-fast-slow
+    linear                                  constant speed
+    ease-in                                 slow start
+    ease-out                                slow end
+    ease-in-out                             slow start and end
+    cubic-bezier(0.68, -0.55, 0.27, 1.55)   custom curve
+    steps(4)                                jumps in 4 steps (sprite-style)
+
+animation-delay: Wait before starting. 
+
+animation-iteration-count: How many times it plays.
+
+animation-direction
+    normal             0% -> 100%
+    reverse            100% -> 0%
+    alternate          forward, then backward
+    alternate-reverse  backward, then forward
+
+animation-fill-mode
+    none       no styles applied before/after
+    forwards   keeps the final keyframe styles
+    backwards  applies first keyframe during the delay
+    both       forwards + backwards
+
+animation-play-state: running | paused
+  Often used with :hover to pause.
+
+
+5. SHORTHAND
+
+Order:
+  animation: name duration timing-function delay
+             iteration-count direction fill-mode play-state;
+
+Example:
+  .box {
+    animation: bounce 2s ease-in-out 0.5s infinite alternate both;
+  }
+
+Multiple animations:
+  .box {
+    animation:
+      fadeIn 1s ease forwards,
+      bounce 2s ease-in-out 1s infinite;
+  }
+
+6. ANIMATION vs TRANSITION
+
+Transition:
+  - Needs a trigger (hover, focus, class change)
+  - Only goes from state A to state B
+  - Simple and short
+
+Animation:
+  - Can run automatically on load
+  - Supports many steps with @keyframes
+  - Can loop, reverse, and pause
+
