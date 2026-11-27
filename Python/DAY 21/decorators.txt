@@ -1,0 +1,188 @@
+PYTHON - DAY 21: DECORATORS
+
+1. PREREQUISITES: FUNCTIONS ARE FIRST-CLASS OBJECTS
+
+In Python, functions can be:
+  - assigned to variables
+  - passed as arguments
+  - returned from other functions
+  - defined inside other functions
+
+  def greet(name):
+      return f"Hello, {name}"
+
+  say = greet              # assign
+  print(say("Ravi"))       # Hello, Ravi
+
+  def run(func, value):    # pass as argument
+      return func(value)
+
+  print(run(greet, "Asha"))
+
+
+Nested functions and closures:
+
+  def outer(msg):
+      def inner():
+          print(msg)       # inner remembers msg (closure)
+      return inner
+
+  f = outer("Hi")
+  f()                      # Hi
+
+
+2. WHAT IS A DECORATOR?
+
+A decorator is a function that takes another function, adds extra behavior to it, and returns the new function, without changing the original function's code.
+
+  def my_decorator(func):
+      def wrapper():
+          print("Before the function")
+          func()
+          print("After the function")
+      return wrapper
+
+  def say_hello():
+      print("Hello!")
+
+  say_hello = my_decorator(say_hello)
+  say_hello()
+
+Output:
+  Before the function
+  Hello!
+  After the function
+
+
+3. THE @ SYNTAX
+
+  @my_decorator
+  def say_hello():
+      print("Hello!")
+
+is exactly the same as:
+
+  def say_hello():
+      print("Hello!")
+  say_hello = my_decorator(say_hello)
+
+
+4. DECORATING FUNCTIONS WITH ARGUMENTS
+
+Use *args and **kwargs so the wrapper accepts anything.
+
+  def my_decorator(func):
+      def wrapper(*args, **kwargs):
+          print("Calling", func.__name__)
+          result = func(*args, **kwargs)
+          return result            # don't forget to return!
+      return wrapper
+
+  @my_decorator
+  def add(a, b):
+      return a + b
+
+  print(add(3, 4))
+  # Calling add
+  # 7
+
+
+5. PRESERVING METADATA WITH functools.wraps
+
+Without wraps, the decorated function loses its name and docstring (add.__name__ would be "wrapper").
+
+  from functools import wraps
+
+  def my_decorator(func):
+      @wraps(func)
+      def wrapper(*args, **kwargs):
+          return func(*args, **kwargs)
+      return wrapper
+
+Always use @wraps(func) in real decorators.
+
+
+6. DECORATORS WITH ARGUMENTS
+
+Add one more layer: a function that returns the decorator.
+
+  def repeat(times):
+      def decorator(func):
+          @wraps(func)
+          def wrapper(*args, **kwargs):
+              for _ in range(times):
+                  result = func(*args, **kwargs)
+              return result
+          return wrapper
+      return decorator
+
+  @repeat(3)
+  def hello():
+      print("Hello!")
+
+  hello()
+  # Hello!
+  # Hello!
+  # Hello!
+
+Structure:
+  repeat(3)  -> returns decorator
+  decorator(hello) -> returns wrapper
+
+8. STACKING MULTIPLE DECORATORS
+
+  @timer
+  @logger
+  def compute(x):
+      return x * x
+
+Equivalent to: compute = timer(logger(compute))
+The decorator closest to the function is applied first.
+
+
+9. CLASS-BASED DECORATORS
+
+A class with __init__ and __call__ can act as a decorator.
+
+  class CountCalls:
+      def __init__(self, func):
+          self.func = func
+          self.count = 0
+
+      def __call__(self, *args, **kwargs):
+          self.count += 1
+          print(f"Call number {self.count}")
+          return self.func(*args, **kwargs)
+
+  @CountCalls
+  def hi():
+      print("Hi!")
+
+  hi()
+  hi()
+  print(hi.count)    # 2
+
+
+10. DECORATING CLASS METHODS & BUILT-IN DECORATORS
+
+  class Circle:
+      def __init__(self, r):
+          self._r = r
+
+      @property                # access method like an attribute
+      def area(self):
+          return 3.14159 * self._r ** 2
+
+      @staticmethod            # no self needed
+      def info():
+          return "A circle"
+
+      @classmethod             # receives the class (cls)
+      def unit(cls):
+          return cls(1)
+
+Other useful built-ins:
+  @functools.lru_cache(maxsize=128)
+  @functools.wraps
+  @dataclasses.dataclass
+
