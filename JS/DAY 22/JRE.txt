@@ -1,0 +1,81 @@
+DAY 22 OF JS: JAVASCRIPT RUNTIME ENVIRONMENT
+
+1. WHAT IS A JAVASCRIPT RUNTIME ENVIRONMENT?
+
+A runtime environment is the complete place where JavaScript code actually runs. 
+It gives JS everything it needs beyond the language itself: the engine, APIs to talk to the outside world, and the machinery that schedules async work.
+
+Runtime = JS Engine + Web/Host APIs + Callback Queues + Event Loop
+
+JavaScript the language is single-threaded and has no built-in timers, network, file system or DOM. The runtime supplies those.
+
+2. ENGINE vs RUNTIME
+
+JS Engine  : parses and executes JS code (V8, SpiderMonkey, JavaScriptCore).
+Runtime    : the engine PLUS the extras around it.
+
+  Browser   -> Engine (V8) + DOM, fetch, setTimeout, localStorage...
+  Node.js   -> Engine (V8) + fs, http, path, process, timers...
+  
+Popular engines:
+  - V8 (Chrome)
+  - SpiderMonkey (Firefox)
+  - JavaScriptCore (Safari)
+
+
+3. PARTS OF THE JS ENGINE
+
+a Memory Heap
+   - Unstructured memory where objects, arrays, functions live.
+   - Garbage Collector frees memory that is no longer reachable.
+
+b Call Stack
+   - LIFO structure that tracks which function is currently executing.
+   - Each call pushes a stack frame; return pops it.
+   - Too many nested calls -> "Maximum call stack size exceeded"
+    
+How code is processed inside V8:
+   Source code -> Parser -> AST -> Ignition (interpreter, bytecode)
+   -> TurboFan (JIT optimizing compiler) -> machine code
+
+4. EXECUTION CONTEXT
+
+Every time code runs, an execution context is created:
+  - Global Execution Context (one per program)
+  - Function Execution Context (one per function call)
+
+Two phases:
+  1. Creation phase  : memory allocated (hoisting), `this` set, scope chain built.
+  2. Execution phase : code runs line by line.
+
+
+5. HOST / WEB APIs
+
+NOT part of the JS language. Provided by the environment.
+
+Browser:  setTimeout, setInterval, fetch, XMLHttpRequest, DOM, localStorage, console, addEventListener, geolocation
+Node.js:  fs, http, path, os, crypto, process, Buffer, timers,
+          setImmediate, process.nextTick
+
+6. THE QUEUES
+
+a Macrotask Queue (Callback / Task Queue)
+   - setTimeout, setInterval, DOM events, I/O callbacks, setImmediate (Node).
+
+b Microtask Queue
+   - Promise .then/.catch/.finally, async/await continuations, queueMicrotask, MutationObserver.
+   - HIGHER PRIORITY than macrotasks.
+
+7. THE EVENT LOOP
+
+Job: continuously check whether the call stack is empty, and if so, push the next callback from the queues onto the stack.
+
+Order of work:
+  1. Run all synchronous code (call stack empties).
+  2. Run ALL microtasks until the microtask queue is empty.
+  3. (Browser) render/paint if needed.
+  4. Take ONE macrotask, run it.
+  5. Run all microtasks again.
+  6. Repeat forever.
+
+This is how single-threaded JS appears to do many things at once without blocking.
