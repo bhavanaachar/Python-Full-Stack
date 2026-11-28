@@ -1,0 +1,150 @@
+DAY 22 OF CSS - MEDIA QUERIES
+
+1. WHAT ARE MEDIA QUERIES?
+
+Media queries let you apply CSS only when certain conditions are true They are the backbone of responsive design.
+
+Basic syntax:
+
+    @media media-type and (condition) {
+        selector {
+            property: value;
+        }
+    }
+
+Example:
+
+    @media (max-width: 768px) {
+        .menu {
+            display: none;
+        }
+    }
+
+
+2. PREREQUISITE: VIEWPORT META TAG
+
+Without this, mobile browsers pretend the screen is ~980px wide and your media queries won't behave properly. Put it in <head>:
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+3. MEDIA TYPES
+--------------
+    all      -> every device (default if omitted)
+    screen   -> screens (phones, laptops, monitors)
+    print    -> print preview / printed pages
+    speech   -> screen readers
+
+Example:
+
+    @media print {
+        nav, footer { display: none; }
+    }
+
+
+4. COMMON MEDIA FEATURES
+
+    width / min-width / max-width        -> viewport width
+    height / min-height / max-height     -> viewport height
+    orientation: portrait | landscape
+    aspect-ratio                         -> e.g. (min-aspect-ratio: 16/9)
+    resolution / min-resolution          -> e.g. (min-resolution: 2dppx)
+    prefers-color-scheme: dark | light
+    prefers-reduced-motion: reduce
+    hover: hover | none                  -> can the device hover?
+    pointer: fine | coarse               -> mouse vs touch
+
+
+5. LOGICAL OPERATORS
+
+AND  -> all conditions must be true
+    @media screen and (min-width: 600px) and (max-width: 900px) { ... }
+
+COMMA (acts as OR) -> any one can be true
+    @media (max-width: 480px), (orientation: portrait) { ... }
+
+NOT  -> negates the whole query
+    @media not print { ... }
+
+ONLY -> hides the query from very old browsers (rarely needed now)
+    @media only screen and (min-width: 600px) { ... }
+
+
+6. MOBILE-FIRST vs DESKTOP-FIRST
+
+MOBILE-FIRST (recommended): write base styles for small screens, then ADD complexity with min-width.
+
+    .container { padding: 10px; }
+
+    @media (min-width: 768px) {
+        .container { padding: 20px; }
+    }
+
+    @media (min-width: 1024px) {
+        .container { padding: 40px; max-width: 1200px; }
+    }
+
+DESKTOP-FIRST: base styles for large screens, then override with max-width as the screen shrinks.
+
+    @media (max-width: 1024px) { ... }
+    @media (max-width: 768px)  { ... }
+
+Tip: stick to ONE approach in a project. Mixing causes confusion.
+
+
+7. COMMON BREAKPOINTS
+---------------------------------------------
+    480px   -> small phones
+    576px   -> large phones
+    768px   -> tablets
+    992px   -> small laptops
+    1200px  -> desktops
+    1400px  -> large desktops
+
+Best practice: choose breakpoints based on where YOUR layout breaks, not specific devices.
+
+
+8. MODERN RANGE SYNTAX
+
+Newer, cleaner syntax:
+
+    @media (width >= 768px) { ... }
+    @media (width <= 600px) { ... }
+    @media (600px <= width <= 900px) { ... }
+
+
+9. PRACTICAL EXAMPLES
+
+(a) Responsive grid: 1 column -> 2 -> 3
+
+    .grid {
+        display: grid;
+        gap: 16px;
+        grid-template-columns: 1fr;
+    }
+    @media (min-width: 600px) {
+        .grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 992px) {
+        .grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+11. NESTING MEDIA QUERIES
+-------------------------
+You can nest one inside another:
+
+    @media screen {
+        @media (min-width: 768px) {
+            .box { width: 50%; }
+        }
+    }
+
+With native CSS nesting, you can place it inside a rule:
+
+    .card {
+        padding: 10px;
+        @media (min-width: 768px) {
+            padding: 24px;
+        }
+    }
+
