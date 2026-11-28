@@ -1,0 +1,201 @@
+DAY 22 OF PYTHON - REGULAR EXPRESSIONS (REGEX)
+
+1. WHAT IS A REGULAR EXPRESSION?
+
+A regex is a pattern used to search, match, extract or replace text. Python provides it through the built-in "re" module.
+
+    import re
+
+Always write patterns as RAW STRINGS (r"...") so backslashes are not treated as escape characters:
+
+    pattern = r"\d+"      # good
+    pattern = "\d+"       # works but gives a warning; avoid
+
+
+2. MAIN FUNCTIONS OF THE re MODULE
+----------------------------------
+re.search(pattern, text)     -> first match anywhere in the text (or None)
+re.match(pattern, text)      -> match only at the START of the text
+re.fullmatch(pattern, text)  -> the ENTIRE text must match
+re.findall(pattern, text)    -> list of all matches (strings)
+re.finditer(pattern, text)   -> iterator of match objects
+re.sub(pattern, repl, text)  -> replace matches
+re.split(pattern, text)      -> split text at matches
+re.compile(pattern)          -> precompile a pattern for reuse
+
+Examples:
+    import re
+
+    text = "My phone is 98765 43210 and my pin is 5601"
+
+    print(re.search(r"\d+", text).group())   # 98765
+    print(re.findall(r"\d+", text))          # ['98765', '43210', '5601']
+    print(re.sub(r"\d", "#", text))          # digits replaced with #
+    print(re.split(r"\s+", "a  b   c"))      # ['a', 'b', 'c']
+    print(re.match(r"My", text))             # match object
+    print(re.match(r"phone", text))          # None (not at start)
+    print(re.fullmatch(r"\d{4}", "5601"))    # match object
+
+
+3. MATCH OBJECT METHODS
+    m = re.search(r"(\d+)-(\d+)", "Call 123-4567 now")
+
+    m.group()    -> '123-4567'   (whole match)
+    m.group(1)   -> '123'        (first group)
+    m.group(2)   -> '4567'
+    m.groups()   -> ('123', '4567')
+    m.start()    -> 5            (start index)
+    m.end()      -> 13           (end index)
+    m.span()     -> (5, 13)
+
+Always check for None before using .group():
+
+    m = re.search(r"\d+", text)
+    if m:
+        print(m.group())
+
+
+4. BASIC PATTERN SYMBOLS
+    .      any character except newline
+    ^      start of string
+    $      end of string
+    *      0 or more
+    +      1 or more
+    ?      0 or 1 (optional)
+    {n}    exactly n times
+    {n,}   n or more times
+    {n,m}  between n and m times
+    |      OR
+    ()     group
+    []     character set
+    \      escape a special character
+
+
+5. CHARACTER CLASSES (SHORTCUTS)
+    \d   digit [0-9]
+    \D   non-digit
+    \w   word character [a-zA-Z0-9_]
+    \W   non-word character
+    \s   whitespace (space, tab, newline)
+    \S   non-whitespace
+    \b   word boundary
+    \B   not a word boundary
+
+Custom sets:
+
+    [abc]      a, b, or c
+    [a-z]      lowercase letters
+    [A-Za-z]   any letter
+    [0-9]      digits
+    [^abc]     anything EXCEPT a, b, c
+
+
+6. QUANTIFIERS IN DETAIL
+    r"a*"       zero or more a's
+    r"a+"       one or more a's
+    r"a?"       zero or one a
+    r"a{3}"     exactly 3 a's
+    r"a{2,4}"   2 to 4 a's
+
+7. ANCHORS AND BOUNDARIES
+    re.search(r"^Hello", "Hello world")     # match
+    re.search(r"world$", "Hello world")     # match
+    re.findall(r"\bcat\b", "cat concat cat") # ['cat', 'cat']  (whole word)
+
+
+8. GROUPS
+---------
+Capturing group ( ):
+
+    m = re.search(r"(\d{2})/(\d{2})/(\d{4})", "Date: 28/11/2026")
+    day, month, year = m.groups()
+
+Named group (?P<name>...):
+
+    m = re.search(r"(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})",
+                  "28/11/2026")
+    print(m.group("day"))       # 28
+    print(m.groupdict())        # {'day': '28', 'month': '11', 'year': '2026'}
+
+Non-capturing group (?: ... ):
+
+    re.findall(r"(?:Mr|Mrs|Ms)\. \w+", "Mr. Rao and Ms. Iyer")
+
+Backreference \1 (repeat what group 1 matched):
+
+    re.search(r"(\w+) \1", "this is is a test").group()   # 'is is'
+
+
+9. LOOKAHEAD AND LOOKBEHIND
+---------------------------
+Match something only if it is (or isn't) next to something else,
+WITHOUT including that part in the match.
+
+    (?=...)    positive lookahead
+    (?!...)    negative lookahead
+    (?<=...)   positive lookbehind
+    (?<!...)   negative lookbehind
+
+Examples:
+
+    re.findall(r"\d+(?= dollars)", "50 dollars, 20 euros")   # ['50']
+    re.findall(r"(?<=\$)\d+", "cost $100 and $250")          # ['100', '250']
+    re.findall(r"\b\w+(?!ing)\b", "run jumping")             # careful: tricky
+
+
+10. FLAGS
+---------
+    re.IGNORECASE (re.I)   case-insensitive
+    re.MULTILINE  (re.M)   ^ and $ match at each line
+    re.DOTALL     (re.S)   . also matches newline
+    re.VERBOSE    (re.X)   allow comments and whitespace in pattern
+
+    re.findall(r"python", "Python PYTHON python", re.I)
+    # ['Python', 'PYTHON', 'python']
+
+Combine flags with |:
+
+    re.findall(r"^\w+", text, re.I | re.M)
+
+Verbose example:
+
+    pattern = re.compile(r"""
+        \d{3}    # area code
+        [-\s]?   # optional separator
+        \d{7}    # number
+    """, re.VERBOSE)
+
+
+11. re.sub() IN DETAIL
+----------------------
+Basic:
+
+    re.sub(r"\s+", " ", "too    many   spaces")     # 'too many spaces'
+
+Using groups in replacement:
+
+    re.sub(r"(\d{2})/(\d{2})/(\d{4})", r"\3-\2-\1", "28/11/2026")
+    # '2026-11-28'
+
+Using a function as replacement:
+
+    def double(m):
+        return str(int(m.group()) * 2)
+
+    re.sub(r"\d+", double, "a1 b20 c300")           # 'a2 b40 c600'
+
+Limit replacements with count:
+
+    re.sub(r"a", "X", "banana", count=2)            # 'bXnXna'
+
+
+12. re.compile() - REUSE PATTERNS
+---------------------------------
+    pat = re.compile(r"\b\w+@\w+\.\w+\b")
+
+    pat.findall(text)
+    pat.search(text)
+    pat.sub("[hidden]", text)
+
+Good for performance when the same pattern is used many times.
+
