@@ -1,0 +1,147 @@
+DAY 7 - TYPESCRIPT FUNCTIONS
+
+1. FUNCTIONS IN TYPESCRIPT
+
+A function is a block of code used to perform a specific task.
+
+TypeScript allows us to specify types for:
+- Parameters
+- Return values
+
+2. FUNCTION WITH PARAMETERS
+
+We can specify the data type of parameters.
+
+Example:
+
+function add(a: number, b: number): number {
+    return a + b;
+}
+
+console.log(add(10, 20));
+
+Output:
+30
+
+3. FUNCTION RETURN TYPE
+
+We can specify the return type of a function.
+
+Example:
+
+function greet(name: string): string {
+    return "Hello " + name;
+}
+
+console.log(greet("Bhavana"));
+
+Output:
+Hello Bhavana
+
+Common return types:
+- number
+- string
+- boolean
+- void
+- never
+
+4. VOID RETURN TYPE
+
+void means the function does not return any value.
+
+Example:
+
+function display(): void {
+    console.log("Hello TypeScript");
+}
+
+display();
+
+5. OPTIONAL PARAMETERS
+
+Use ? to make a parameter optional.
+
+Example:
+
+function student(name: string, age?: number): void {
+    console.log(name);
+    console.log(age);
+}
+
+student("Rahul");
+student("Rahul", 22);
+
+6. DEFAULT PARAMETERS
+
+A default value is assigned to a parameter.
+
+Example:
+
+function welcome(name: string = "Guest"): void {
+    console.log("Welcome " + name);
+}
+
+welcome();
+welcome("Rahul");
+
+Output:
+Welcome Guest
+Welcome Rahul
+
+7. REST PARAMETERS
+
+Rest parameters allow a function to accept multiple arguments.
+
+Use ... before the parameter name.
+
+Example:
+
+function total(...numbers: number[]): number {
+    return numbers.reduce((a, b) => a + b, 0);
+}
+
+console.log(total(10, 20, 30, 40));
+
+Output:
+100
+
+8. ARROW FUNCTIONS
+
+Arrow functions provide a shorter syntax for writing functions.
+
+Example:
+
+let multiply = (a: number, b: number): number => {
+    return a * b;
+};
+
+console.log(multiply(5, 4));
+
+Output:
+20
+
+9. ANONYMOUS FUNCTIONS
+
+A function without a name is called an anonymous function.
+
+Example:
+
+let result = function(a: number, b: number): number {
+    return a + b;
+};
+
+console.log(result(10, 20));
+
+10. FUNCTION TYPE
+
+We can define the type of a function using a function type annotation.
+
+Example:
+
+let calculate: (a: number, b: number) => number;
+
+calculate = (a, b) => {
+    return a + b;
+};
+
+console.log(calculate(5, 10));
